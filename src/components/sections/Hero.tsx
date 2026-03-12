@@ -50,7 +50,7 @@ export default function Hero() {
           position: "relative",
           zIndex: 2,
           maxWidth: "100%",
-          paddingLeft: "var(--wp--preset--spacing--50)",
+          paddingLeft: "70px",
           paddingRight: "var(--wp--preset--spacing--50)",
           height: "100%",
         }}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CursorBubble from "@/components/ui/CursorBubble";
 
 export const metadata: Metadata = {
   title: "Ferg Flannery – Creative Consultant",
@@ -23,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>{children}<CursorBubble /></body>
     </html>
   );
 }

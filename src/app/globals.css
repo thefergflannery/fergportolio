@@ -112,6 +112,9 @@
 /* ─── CSS Custom Properties (referenced in inline styles) ────────────────── */
 
 :root {
+  --rail-w: 84px;
+  --lime: #39FF14;
+
   --wp--preset--color--base: #ffffff;
   --wp--preset--color--contrast: #111111;
   --wp--preset--color--accent-1: #51ff00;
@@ -120,6 +123,10 @@
   --wp--preset--color--accent-4: #686868;
   --wp--preset--color--accent-5: #fbfaf3;
   --wp--preset--color--accent-6: color-mix(in srgb, currentColor 20%, transparent);
+
+  --wp--preset--font-family--martian-mono: "Martian Mono", monospace;
+  --wp--preset--font-family--manrope: "Manrope", sans-serif;
+  --wp--preset--font-family--fira-code: "Fira Code", monospace;
 
   --wp--preset--spacing--20: 10px;
   --wp--preset--spacing--30: 20px;
@@ -135,8 +142,8 @@
   --wp--preset--font-size--x-large: clamp(1.75rem, 1.75rem + ((1vw - 0.2rem) * 0.392), 2rem);
   --wp--preset--font-size--xx-large: clamp(2.15rem, 2.15rem + ((1vw - 0.2rem) * 1.333), 3rem);
 
-  --wp--style--global--content-size: 1280px;
-  --wp--style--global--wide-size: 1440px;
+  --wp--style--global--content-size: 645px;
+  --wp--style--global--wide-size: 1340px;
 }
 
 /* ─── Base Styles ────────────────────────────────────────────────────────── */
@@ -152,41 +159,138 @@ html {
 }
 
 body {
-  font-family: "Manrope", sans-serif;
-  background-color: #ffffff;
+  font-family: var(--wp--preset--font-family--martian-mono);
+  background-color: var(--wp--preset--color--accent-1); /* #51ff00 */
   color: #111111;
+  font-size: var(--wp--preset--font-size--large);
+  font-weight: 300;
+  letter-spacing: -0.1px;
+  line-height: 1.4;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--wp--preset--font-family--martian-mono);
+  font-weight: 400;
+  line-height: 1.125;
+}
+
+/* ─── Left Rail ──────────────────────────────────────────────────────────── */
+
+.left-rail {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--rail-w) !important; /* 84px */
+  background: var(--lime) !important; /* #39FF14 */
+  z-index: 999999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 16px 0 !important;
+}
+
+.left-rail .rail-contact {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 42px !important;
+  transform: translateX(-50%) rotate(-90deg) !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 44px !important;
+  padding: 0 16px !important;
+  background: #fff !important;
+  color: #000 !important;
+  border: 2px solid #000 !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+}
+
+/* ─── Content offset for fixed left rail ─────────────────────────────────── */
+
+.site-content {
+  padding-left: var(--rail-w);
+  box-sizing: border-box;
+}
+
+/* ─── Top Nav ────────────────────────────────────────────────────────────── */
+
+.top-nav {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 999998 !important;
+  background: var(--lime) !important;
+  padding-left: var(--rail-w) !important;
+}
+
+/* ─── Nav hover: pill + italic ───────────────────────────────────────────── */
+
+.nav-item-link {
+  position: relative;
+  display: inline-block;
+  padding: 4px 10px;
+  text-decoration: none;
+  color: #111111;
+  transition: font-style 0.1s ease;
+}
+
+.nav-item-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.nav-item-link:hover {
+  font-style: italic;
+}
+
+.nav-item-link:hover::before {
+  opacity: 1;
+}
+
+.nav-item-link span {
+  position: relative;
+  z-index: 1;
+}
+
 /* ─── Wiggle Line Separator ──────────────────────────────────────────────── */
 
 .wiggle-line {
+  display: block;
+  height: 1px;
+  background: #fff;
   border: none;
-  height: 2px;
-  background-color: #111111;
   width: 100%;
-  position: relative;
-  overflow: visible;
+  margin: 0;
 }
 
-.wiggle-line::after {
-  content: "";
-  position: absolute;
-  inset: -3px 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 6px,
-    #111111 6px,
-    #111111 8px,
-    transparent 8px,
-    transparent 10px
-  );
-  height: 6px;
-  top: -2px;
+.top-nav:hover .wiggle-line {
+  animation: wiggle 400ms ease-in-out 1;
+}
+
+@keyframes wiggle {
+  0%   { transform: scaleX(1) rotateZ(0deg); }
+  15%  { transform: scaleX(0.75) rotateZ(-2deg); }
+  30%  { transform: scaleX(1.15) rotateZ(2deg); }
+  45%  { transform: scaleX(0.95) rotateZ(-1deg); }
+  60%  { transform: scaleX(1.05) rotateZ(1deg); }
+  75%  { transform: scaleX(0.98) rotateZ(-0.5deg); }
+  90%  { transform: scaleX(1.01) rotateZ(0.3deg); }
+  100% { transform: scaleX(1) rotateZ(0deg); }
 }
 
 /* ─── Animated Text (GSAP) ───────────────────────────────────────────────── */
@@ -204,6 +308,45 @@ body {
 
 .scroll-rotate {
   will-change: transform;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-rotate {
+    animation: rotateOnScroll linear forwards;
+    animation-timeline: scroll();
+  }
+
+  @keyframes rotateOnScroll {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+}
+
+/* ─── Custom Cursor Bubble ───────────────────────────────────────────────── */
+
+.cursor--fixed {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  border-radius: 999px;
+  background: #39FF14;
+  color: #000;
+  font-weight: 900;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 9999999;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform: translate(-50%, -50%);
+}
+
+.cursor--fixed.is-active {
+  opacity: 1;
 }
 
 /* ─── AOS overrides ──────────────────────────────────────────────────────── */

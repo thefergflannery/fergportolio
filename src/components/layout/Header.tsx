@@ -14,17 +14,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div
-      className="top-nav"
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-        borderBottom: "1px solid #111111",
-        minHeight: 0,
-        backgroundColor: "#ffffff",
-      }}
-    >
+    <div className="top-nav" style={{ borderBottom: "1px solid #111111" }}>
       <div
         style={{
           maxWidth: "var(--wp--style--global--wide-size)",
@@ -35,7 +25,6 @@ export default function Header() {
         }}
       >
         <div
-          className="header-row"
           style={{
             display: "flex",
             flexWrap: "nowrap",
@@ -45,9 +34,8 @@ export default function Header() {
             paddingBottom: 0,
           }}
         >
-          {/* Wiggle line separator - left side */}
+          {/* Wiggle line — left side */}
           <div
-            className="site-main-header"
             style={{
               flexBasis: "40%",
               flexShrink: 0,
@@ -56,7 +44,7 @@ export default function Header() {
               paddingBottom: "var(--wp--preset--spacing--20)",
             }}
           >
-            <hr className="wiggle-line" />
+            <span className="wiggle-line" aria-hidden="true" />
           </div>
 
           {/* Navigation */}
@@ -64,7 +52,6 @@ export default function Header() {
             aria-label="Navigation"
             style={{ flexBasis: "100%", display: "flex", justifyContent: "flex-end" }}
           >
-            {/* Desktop nav */}
             <ul
               style={{
                 display: "flex",
@@ -73,7 +60,6 @@ export default function Header() {
                 margin: 0,
                 padding: 0,
                 flexWrap: "nowrap",
-                fontStyle: "normal",
                 fontWeight: 300,
                 textTransform: "uppercase",
                 fontSize: "var(--wp--preset--font-size--small)",
@@ -87,23 +73,17 @@ export default function Header() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{
-                        textDecoration: "none",
-                        color: "#111111",
-                      }}
+                      className="nav-item-link"
                     >
-                      {item.label}
+                      <span>{item.label}</span>
                     </a>
                   ) : (
                     <Link
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
-                      style={{
-                        textDecoration: "none",
-                        color: "#111111",
-                      }}
+                      className="nav-item-link"
                     >
-                      {item.label}
+                      <span>{item.label}</span>
                     </Link>
                   )}
                 </li>
