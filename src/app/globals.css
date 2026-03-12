@@ -349,6 +349,19 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
+/* ─── Scroll Animate (IntersectionObserver class) ───────────────────────── */
+
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.scroll-animate--in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ─── AOS overrides ──────────────────────────────────────────────────────── */
 
 [data-aos] {

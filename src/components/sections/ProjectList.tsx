@@ -1,50 +1,100 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useCallback } from "react";
 import AnimatedText from "../ui/AnimatedText";
 import { projects } from "@/data/projects";
 
+interface ThumbState {
+  src: string;
+  x: number;
+  y: number;
+  visible: boolean;
+}
+
 export default function ProjectList() {
+  const [thumb, setThumb] = useState<ThumbState>({
+    src: "",
+    x: 0,
+    y: 0,
+    visible: false,
+  });
+
+  const handleEnter = useCallback(
+    (src: string) => () => setThumb((s) => ({ ...s, src, visible: true })),
+    []
+  );
+
+  const handleLeave = useCallback(
+    () => setThumb((s) => ({ ...s, visible: false })),
+    []
+  );
+
+  const handleMove = useCallback((e: React.MouseEvent) => {
+    setThumb((s) => ({ ...s, x: e.clientX, y: e.clientY }));
+  }, []);
+
   return (
-    <div
-      id="swork"
-      style={{ paddingRight: 0, paddingLeft: 0 }}
-    >
-      {/* "Selected Work" heading */}
-      <div
-        style={{
-          maxWidth: "var(--wp--style--global--wide-size)",
-          marginLeft: "auto",
-          marginRight: "auto",
-          paddingLeft: "var(--wp--preset--spacing--50)",
-          paddingRight: "var(--wp--preset--spacing--50)",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <AnimatedText
-          as="h2"
-          id="selected-work"
-          data-aos="slide-up"
+    <>
+      {/* Floating hover thumbnail */}
+      {thumb.visible && thumb.src && (
+        <div
+          aria-hidden="true"
           style={{
-            textTransform: "uppercase",
-            textAlign: "right",
-            margin: 0,
-            paddingTop: "var(--wp--preset--spacing--40)",
-            paddingBottom: "var(--wp--preset--spacing--40)",
+            position: "fixed",
+            left: thumb.x + 20,
+            top: thumb.y - 60,
+            width: 180,
+            height: 120,
+            pointerEvents: "none",
+            zIndex: 9999,
+            overflow: "hidden",
+            borderRadius: "4px",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
           }}
         >
-          Selected Work
-        </AnimatedText>
-      </div>
+          <Image
+            src={thumb.src}
+            alt=""
+            fill
+            style={{ objectFit: "cover" }}
+            sizes="180px"
+          />
+        </div>
+      )}
 
-      {/* Project rows */}
-      <div data-aos="slide-up" data-aos-duration="1650">
+      <div id="swork" style={{ paddingRight: 0, paddingLeft: 0 }}>
+        {/* "Selected Work" heading */}
         <div
-          data-aos="slide-up"
-          data-aos-duration="900"
-          data-aos-easing="ease-out"
-          data-aos-mirror="true"
+          style={{
+            maxWidth: "var(--wp--style--global--wide-size)",
+            marginLeft: "auto",
+            marginRight: "auto",
+            paddingLeft: "var(--wp--preset--spacing--50)",
+            paddingRight: "var(--wp--preset--spacing--50)",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
         >
+          <AnimatedText
+            as="h2"
+            id="selected-work"
+            data-aos="slide-up"
+            style={{
+              textTransform: "uppercase",
+              textAlign: "right",
+              margin: 0,
+              paddingTop: "var(--wp--preset--spacing--40)",
+              paddingBottom: "var(--wp--preset--spacing--40)",
+            }}
+          >
+            Selected Work
+          </AnimatedText>
+        </div>
+
+        {/* Project rows */}
+        <div data-aos="slide-up" data-aos-duration="900" data-aos-easing="ease-out" data-aos-mirror="true">
           <ul
             style={{
               listStyle: "none",
@@ -66,37 +116,22 @@ export default function ProjectList() {
                     paddingLeft: "var(--wp--preset--spacing--40)",
                     paddingRight: "var(--wp--preset--spacing--40)",
                     gap: "var(--wp--preset--spacing--40)",
+                    cursor: "pointer",
                   }}
-                  data-scroll-animation-enabled="true"
-                  data-scroll-animation-threshold="0.5"
-                  data-scroll-animation-duration="1000"
-                  data-scroll-animation-delay="0"
+                  onMouseEnter={handleEnter(project.thumbnailImage)}
+                  onMouseLeave={handleLeave}
+                  onMouseMove={handleMove}
                 >
-                  {/* Project title and thumbnail */}
+                  {/* Project title */}
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <h3 style={{ margin: 0 }}>
                       <Link
                         href={`/projects/${project.slug}`}
-                        style={{
-                          color: "#111111",
-                          textDecoration: "none",
-                        }}
+                        style={{ color: "#111111", textDecoration: "none" }}
                       >
                         {project.title}
                       </Link>
                     </h3>
-                    <div
-                      className="hover-thumb-source"
-                      style={{ width: 100, height: 100 }}
-                    >
-                      <Image
-                        src={project.thumbnailImage}
-                        alt={project.title}
-                        width={100}
-                        height={100}
-                        style={{ objectFit: "cover", height: "100px" }}
-                      />
-                    </div>
                   </div>
 
                   {/* Project type */}
@@ -118,6 +153,6 @@ export default function ProjectList() {
           </ul>
         </div>
       </div>
-    </div>
+    </>
   );
 }

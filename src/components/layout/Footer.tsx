@@ -55,7 +55,7 @@ export default function Footer() {
             >
               hello@fergflannery.com
               <br />
-              +353830216104
+              +353 83 021 6104
               <br />
               Cork. IE
             </p>

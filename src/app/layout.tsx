@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "aos/dist/aos.css";
 import CursorBubble from "@/components/ui/CursorBubble";
+import AOSInit from "@/components/ui/AOSInit";
 
 export const metadata: Metadata = {
   title: "Ferg Flannery – Creative Consultant",
@@ -24,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}<CursorBubble /></body>
+      <body>{children}<CursorBubble /><AOSInit /></body>
     </html>
   );
 }
