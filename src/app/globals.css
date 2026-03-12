@@ -349,6 +349,28 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
+/* ─── Logo Marquee ───────────────────────────────────────────────────────── */
+
+.marquee-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* ─── Scroll Animate (IntersectionObserver class) ───────────────────────── */
 
 .scroll-animate {

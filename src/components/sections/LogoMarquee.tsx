@@ -1,31 +1,23 @@
 import Image from "next/image";
 
-const REPEAT_COUNT = 9;
+// Duplicate items so the loop is seamless
+const ITEMS = Array.from({ length: 9 });
 
 export default function LogoMarquee() {
   return (
     <div
-      id="50"
       style={{
-        maxWidth: "var(--wp--style--global--wide-size)",
-        marginLeft: "auto",
-        marginRight: "auto",
-        paddingLeft: "var(--wp--preset--spacing--50)",
-        paddingRight: "var(--wp--preset--spacing--50)",
+        borderBottom: "1px solid #111111",
+        overflow: "hidden",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "nowrap",
-          borderBottom: "1px solid #111111",
-        }}
-      >
-        {Array.from({ length: REPEAT_COUNT }).map((_, i) => (
-          <div key={i} style={{ flex: 1 }}>
+      <div className="marquee-track">
+        {/* Render two sets so it loops seamlessly */}
+        {[...ITEMS, ...ITEMS].map((_, i) => (
+          <div key={i} className="marquee-item" aria-hidden={i >= 9 ? "true" : undefined}>
             <Image
               src="/images/Group-1597883091-1.svg"
-              alt=""
+              alt={i === 0 ? "Client logos" : ""}
               width={152}
               height={152}
             />
