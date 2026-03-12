@@ -122,7 +122,7 @@ export default function ProjectList() {
                   onMouseLeave={handleLeave}
                   onMouseMove={handleMove}
                 >
-                  {/* Project title */}
+                  {/* Col 1: Project title */}
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <h3 style={{ margin: 0 }}>
                       <Link
@@ -134,8 +134,8 @@ export default function ProjectList() {
                     </h3>
                   </div>
 
-                  {/* Project type */}
-                  <div>
+                  {/* Col 2: Project subtitle/tagline */}
+                  <div style={{ flexShrink: 0 }}>
                     <span
                       style={{
                         fontStyle: "italic",
@@ -144,8 +144,27 @@ export default function ProjectList() {
                         fontSize: "var(--wp--preset--font-size--small)",
                       }}
                     >
-                      {project.type}
+                      {project.subtitle}
                     </span>
+                  </div>
+
+                  {/* Col 3: Arrow icon */}
+                  <div
+                    style={{
+                      flexShrink: 0,
+                      marginTop: "var(--wp--preset--spacing--30)",
+                      marginBottom: "var(--wp--preset--spacing--30)",
+                    }}
+                  >
+                    <Link href={`/projects/${project.slug}`} tabIndex={-1} aria-hidden="true">
+                      <Image
+                        src="/images/arrow-circle-detour-row.svg"
+                        alt=""
+                        width={40}
+                        height={40}
+                        style={{ display: "block" }}
+                      />
+                    </Link>
                   </div>
                 </div>
               </li>

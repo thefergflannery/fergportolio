@@ -1,7 +1,8 @@
 export interface Project {
   slug: string;
   title: string;
-  type: string;
+  subtitle: string;  // shown in project list (ACF tagline)
+  type: string;      // shown on project detail page
   services: string;
   url?: string;
   featuredImage: string;
@@ -14,6 +15,7 @@ export const projects: Project[] = [
   {
     slug: "razorspire",
     title: "Digital That Delivers",
+    subtitle: "National Digital Transformation Programme",
     type: "Agency",
     services: "Brand Strategy, Visual Design, Digital",
     url: "https://razorspire.com",
@@ -25,6 +27,7 @@ export const projects: Project[] = [
   {
     slug: "dingle",
     title: "Dingle Oceanworld",
+    subtitle: "Deep Atlantic Immersive",
     type: "Brand & Digital",
     services: "Brand Identity, Web Design, Digital Marketing",
     featuredImage: "/images/1681215608222.jpeg",
@@ -35,6 +38,7 @@ export const projects: Project[] = [
   {
     slug: "collectiv",
     title: "Collectiv",
+    subtitle: "Website Design & Dev",
     type: "Brand Identity",
     services: "Brand Strategy, Identity Design, Digital",
     featuredImage: "/images/1574877469106.jpeg",
@@ -45,6 +49,7 @@ export const projects: Project[] = [
   {
     slug: "siar",
     title: "Siar",
+    subtitle: "Festival Identity",
     type: "Digital & Brand",
     services: "Brand Identity, Web Design, UX",
     featuredImage: "/images/645cee4f83c3c95c4e650caf_IMG_3867-p-1600.jpg",
@@ -55,6 +60,7 @@ export const projects: Project[] = [
   {
     slug: "a11yo",
     title: "A11YO",
+    subtitle: "Tool",
     type: "Tool",
     services: "UX, Visual Design, Frontend & Backend Development, Accessibility",
     url: "https://www.a11yo.com/",

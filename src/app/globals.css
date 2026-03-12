@@ -233,15 +233,17 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: var(--rail-w) !important;
 }
 
-/* ─── Nav hover: pill + italic ───────────────────────────────────────────── */
+/* ─── Nav hover: pill + italic (matches WP .wp-block-navigation-item__content) ── */
 
 .nav-item-link {
   position: relative;
   display: inline-block;
-  padding: 4px 10px;
-  text-decoration: none;
+  text-decoration: none !important;
+  font-style: normal;
   color: #111111;
-  transition: font-style 0.1s ease;
+  padding: 10px 14px;
+  line-height: 1;
+  border-radius: 999px;
 }
 
 .nav-item-link::before {
@@ -251,15 +253,20 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
   border-radius: 999px;
   opacity: 0;
-  transition: opacity 0.18s ease;
+  transform: scale(0.98);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: -1;
 }
 
-.nav-item-link:hover {
+.nav-item-link:hover,
+.nav-item-link:focus-visible {
   font-style: italic;
 }
 
-.nav-item-link:hover::before {
+.nav-item-link:hover::before,
+.nav-item-link:focus-visible::before {
   opacity: 1;
+  transform: scale(1);
 }
 
 .nav-item-link span {
@@ -302,6 +309,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .animated-text .char {
   display: inline-block;
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────────────── */
+
+.hero-inner {
+  max-width: 1200px;
+}
+
+.hero-title {
+  margin: 0 !important;
+  line-height: 0.95 !important;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 /* ─── Scroll Rotate ──────────────────────────────────────────────────────── */
@@ -347,28 +368,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .cursor--fixed.is-active {
   opacity: 1;
-}
-
-/* ─── Logo Marquee ───────────────────────────────────────────────────────── */
-
-.marquee-track {
-  display: flex;
-  flex-wrap: nowrap;
-  width: max-content;
-  animation: marquee 28s linear infinite;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-.marquee-item {
-  flex-shrink: 0;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
 }
 
 /* ─── Scroll Animate (IntersectionObserver class) ───────────────────────── */
