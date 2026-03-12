@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* ─── Font Faces ─────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: fallback;
+  src: url("/fonts/manrope/Manrope-VariableFont_wght.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fira Code";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: fallback;
+  src: url("/fonts/fira-code/FiraCode-VariableFont_wght.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 100;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY1qus6TD75kdpF2.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 200;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY3qu86TD75kdpF2.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 300;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY00u86TD75kdpF2.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY1qu86TD75kdpF2.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY1Yu86TD75kdpF2.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY20vM6TD75kdpF2.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY2NvM6TD75kdpF2.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 800;
+  font-display: fallback;
+  src: url("/fonts/martian-mono/2V08KIcADoYhV6w87xrTKjs4CYElh_VS9YA4TlTnQzaVMIE6j15dYY3qvM6TD75kdpF2.woff2") format("woff2");
+}
+
+/* ─── Tailwind v4 Theme ──────────────────────────────────────────────────── */
+
+@theme {
+  /* Colors */
+  --color-base: #ffffff;
+  --color-contrast: #111111;
+  --color-accent-1: #51ff00;
+  --color-accent-2: #a2a2a2;
+  --color-accent-3: #e0e0e0;
+  --color-accent-4: #686868;
+  --color-accent-5: #fbfaf3;
+
+  /* Fonts */
+  --font-manrope: "Manrope", sans-serif;
+  --font-fira-code: "Fira Code", monospace;
+  --font-martian-mono: "Martian Mono", monospace;
+
+  /* Font sizes matching WP presets */
+  --text-wp-small: 0.875rem;
+  --text-wp-medium: clamp(1rem, 1rem + ((1vw - 0.2rem) * 0.196), 1.125rem);
+  --text-wp-large: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.392), 1.375rem);
+  --text-wp-xl: clamp(1.75rem, 1.75rem + ((1vw - 0.2rem) * 0.392), 2rem);
+  --text-wp-2xl: clamp(2.15rem, 2.15rem + ((1vw - 0.2rem) * 1.333), 3rem);
+
+  /* Spacing matching WP presets */
+  --spacing-wp-20: 10px;
+  --spacing-wp-30: 20px;
+  --spacing-wp-40: 30px;
+  --spacing-wp-50: clamp(30px, 5vw, 50px);
+  --spacing-wp-60: clamp(30px, 7vw, 70px);
+  --spacing-wp-70: clamp(50px, 7vw, 90px);
+  --spacing-wp-80: clamp(70px, 10vw, 140px);
+}
+
+/* ─── CSS Custom Properties (referenced in inline styles) ────────────────── */
+
+:root {
+  --wp--preset--color--base: #ffffff;
+  --wp--preset--color--contrast: #111111;
+  --wp--preset--color--accent-1: #51ff00;
+  --wp--preset--color--accent-2: #a2a2a2;
+  --wp--preset--color--accent-3: #e0e0e0;
+  --wp--preset--color--accent-4: #686868;
+  --wp--preset--color--accent-5: #fbfaf3;
+  --wp--preset--color--accent-6: color-mix(in srgb, currentColor 20%, transparent);
+
+  --wp--preset--spacing--20: 10px;
+  --wp--preset--spacing--30: 20px;
+  --wp--preset--spacing--40: 30px;
+  --wp--preset--spacing--50: clamp(30px, 5vw, 50px);
+  --wp--preset--spacing--60: clamp(30px, 7vw, 70px);
+  --wp--preset--spacing--70: clamp(50px, 7vw, 90px);
+  --wp--preset--spacing--80: clamp(70px, 10vw, 140px);
+
+  --wp--preset--font-size--small: 0.875rem;
+  --wp--preset--font-size--medium: clamp(1rem, 1rem + ((1vw - 0.2rem) * 0.196), 1.125rem);
+  --wp--preset--font-size--large: clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.392), 1.375rem);
+  --wp--preset--font-size--x-large: clamp(1.75rem, 1.75rem + ((1vw - 0.2rem) * 0.392), 2rem);
+  --wp--preset--font-size--xx-large: clamp(2.15rem, 2.15rem + ((1vw - 0.2rem) * 1.333), 3rem);
+
+  --wp--style--global--content-size: 1280px;
+  --wp--style--global--wide-size: 1440px;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  background-color: #ffffff;
+  color: #111111;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Wiggle Line Separator ──────────────────────────────────────────────── */
+
+.wiggle-line {
+  border: none;
+  height: 2px;
+  background-color: #111111;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.wiggle-line::after {
+  content: "";
+  position: absolute;
+  inset: -3px 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 6px,
+    #111111 6px,
+    #111111 8px,
+    transparent 8px,
+    transparent 10px
+  );
+  height: 6px;
+  top: -2px;
+}
+
+/* ─── Animated Text (GSAP) ───────────────────────────────────────────────── */
+
+.animated-text .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.animated-text .char {
+  display: inline-block;
+}
+
+/* ─── Scroll Rotate ──────────────────────────────────────────────────────── */
+
+.scroll-rotate {
+  will-change: transform;
+}
+
+/* ─── AOS overrides ──────────────────────────────────────────────────────── */
+
+[data-aos] {
+  pointer-events: none;
+}
+
+[data-aos].aos-animate {
+  pointer-events: auto;
+}
+
+/* ─── Project Row hover thumbnail ────────────────────────────────────────── */
+
+.hover-thumb-source {
+  display: none;
+}
+
+/* ─── Screen reader text ─────────────────────────────────────────────────── */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
