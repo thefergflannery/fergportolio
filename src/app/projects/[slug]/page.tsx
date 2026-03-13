@@ -55,7 +55,7 @@ export default async function ProjectPage({
             gap: "var(--wp--preset--spacing--40)",
           }}
         >
-          {/* Title + type + back */}
+          {/* Title + subtitle + back */}
           <div style={{ flexBasis: "82%", flexShrink: 0 }}>
             <h1
               className="scroll-animate"
@@ -77,7 +77,7 @@ export default async function ProjectPage({
                 margin: "var(--wp--preset--spacing--20) 0 var(--wp--preset--spacing--30)",
               }}
             >
-              {project.type}
+              {project.subtitle}
             </p>
 
             {/* Back button */}
@@ -127,23 +127,14 @@ export default async function ProjectPage({
 
       {/* Featured image */}
       <main id="intro">
-        <figure
-          style={{
-            margin: 0,
-            aspectRatio: "16/9",
-          }}
-        >
+        <figure style={{ margin: 0, aspectRatio: "16/9" }}>
           <Image
             src={project.featuredImage}
             alt={project.title}
             width={project.featuredImageWidth}
             height={project.featuredImageHeight}
             priority
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </figure>
       </main>
@@ -169,7 +160,7 @@ export default async function ProjectPage({
             gap: "var(--wp--preset--spacing--40)",
           }}
         >
-          {/* Services + Visit */}
+          {/* Left: Services + Visit */}
           <div
             style={{
               flexBasis: "33.33%",
@@ -185,7 +176,7 @@ export default async function ProjectPage({
                 margin: "0 0 var(--wp--preset--spacing--20)",
               }}
             >
-              Services
+              <strong>Services</strong>
             </p>
             <p
               className="field-project-services"
@@ -207,14 +198,11 @@ export default async function ProjectPage({
                     margin: "0 0 var(--wp--preset--spacing--20)",
                   }}
                 >
-                  Visit
+                  <strong>Visit</strong>
                 </p>
                 <p
                   className="field-url"
-                  style={{
-                    fontSize: "var(--wp--preset--font-size--small)",
-                    margin: 0,
-                  }}
+                  style={{ fontSize: "var(--wp--preset--font-size--small)", margin: 0 }}
                 >
                   <a
                     href={project.url}
@@ -229,8 +217,27 @@ export default async function ProjectPage({
             )}
           </div>
 
-          {/* Right spacer */}
-          <div style={{ flexBasis: "53%" }} />
+          {/* Right: intro + extended text */}
+          <div
+            style={{
+              flexBasis: "53%",
+              fontSize: "var(--wp--preset--font-size--small)",
+              lineHeight: 1.6,
+              paddingRight: "var(--wp--preset--spacing--80)",
+              paddingLeft: "var(--wp--preset--spacing--40)",
+            }}
+          >
+            {project.intro && (
+              <div className="field-intro" style={{ marginBottom: "var(--wp--preset--spacing--40)" }}>
+                {project.intro}
+              </div>
+            )}
+            {project.extended && (
+              <div className="field-extended">
+                {project.extended}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </SiteLayout>
