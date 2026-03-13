@@ -72,7 +72,7 @@ export default function Hero() {
               style={{
                 color: "var(--wp--preset--color--accent-1)",
                 fontStyle: "normal",
-                fontWeight: 800,
+                fontWeight: 1000,
                 margin: 0,
                 fontSize: "var(--wp--preset--font-size--xx-large)",
                 lineHeight: 1,
@@ -87,7 +87,7 @@ export default function Hero() {
               style={{
                 color: "var(--wp--preset--color--base)",
                 fontStyle: "normal",
-                fontWeight: 800,
+                fontWeight: 1000,
                 margin: 0,
                 fontSize: "var(--wp--preset--font-size--xx-large)",
                 lineHeight: 1,
@@ -105,7 +105,7 @@ export default function Hero() {
             </h1>
 
             {/* Down arrow linking to #work */}
-            <figure style={{ marginTop: "-58px", marginBottom: "-10px" }}>
+            <figure style={{ marginTop: "24px", marginBottom: "-10px" }}>
               <Link href="#work" aria-label="Scroll to selected work">
                 <Image
                   src="/images/Group-1597883031.svg"

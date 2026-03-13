@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/layout/SiteLayout";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import ProjectList from "@/components/sections/ProjectList";
+import ClientLogos from "@/components/sections/ClientLogos";
 import Testimonials from "@/components/sections/Testimonials";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export default function WorkPage() {
     <SiteLayout>
       <LogoMarquee />
       <ProjectList />
+      <ClientLogos />
       <Testimonials />
     </SiteLayout>
   );

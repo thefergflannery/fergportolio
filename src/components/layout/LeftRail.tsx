@@ -31,8 +31,8 @@ export default function LeftRail() {
           <Image
             src="/images/logo.png"
             alt="Ferg Flannery – Creative Consultant"
-            width={52}
-            height={52}
+            width={77}
+            height={77}
             priority
           />
         </Link>

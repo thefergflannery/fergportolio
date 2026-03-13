@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import SiteLayout from "@/components/layout/SiteLayout";
 import Hero from "@/components/sections/Hero";
-import LogoMarquee from "@/components/sections/LogoMarquee";
 import DesignIntent from "@/components/sections/DesignIntent";
 import ProjectList from "@/components/sections/ProjectList";
+import ClientLogos from "@/components/sections/ClientLogos";
 import Testimonials from "@/components/sections/Testimonials";
 
 export const metadata: Metadata = {
@@ -16,9 +16,9 @@ export default function HomePage() {
   return (
     <SiteLayout>
       <Hero />
-      <LogoMarquee />
       <DesignIntent />
       <ProjectList />
+      <ClientLogos />
       <Testimonials />
     </SiteLayout>
   );

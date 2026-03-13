@@ -187,6 +187,7 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   width: var(--rail-w) !important; /* 84px */
   background: var(--lime) !important; /* #39FF14 */
+  border-right: 1px solid #111111 !important;
   z-index: 999999 !important;
   display: flex !important;
   flex-direction: column !important;
@@ -210,7 +211,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid #000 !important;
   border-radius: 999px !important;
   font-size: 12px !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   text-decoration: none !important;

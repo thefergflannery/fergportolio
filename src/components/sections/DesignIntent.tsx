@@ -9,7 +9,7 @@ export default function DesignIntent() {
       style={{
         backgroundColor: "var(--wp--preset--color--accent-1)",
         borderBottom: "1px solid #111111",
-        minHeight: "33vh",
+        minHeight: "100px",
         marginTop: 0,
         marginBottom: 0,
       }}
@@ -37,7 +37,7 @@ export default function DesignIntent() {
               flexDirection: "column",
               alignItems: "flex-start",
               justifyContent: "flex-start",
-              minHeight: "33vh",
+              minHeight: "100px",
               paddingTop: "var(--wp--preset--spacing--50)",
               paddingRight: "155px",
               paddingBottom: "var(--wp--preset--spacing--50)",
