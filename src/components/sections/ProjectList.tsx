@@ -68,9 +68,6 @@ export default function ProjectList() {
         {/* "Selected Work" heading */}
         <div
           style={{
-            maxWidth: "var(--wp--style--global--wide-size)",
-            marginLeft: "auto",
-            marginRight: "auto",
             paddingLeft: "var(--wp--preset--spacing--50)",
             paddingRight: "var(--wp--preset--spacing--50)",
             display: "flex",
@@ -113,8 +110,8 @@ export default function ProjectList() {
                     borderBottom: "1px solid #111111",
                     marginTop: "var(--wp--preset--spacing--20)",
                     marginBottom: "var(--wp--preset--spacing--20)",
-                    paddingLeft: "var(--wp--preset--spacing--40)",
-                    paddingRight: "var(--wp--preset--spacing--40)",
+                    paddingLeft: "var(--wp--preset--spacing--50)",
+                    paddingRight: "var(--wp--preset--spacing--50)",
                     gap: "var(--wp--preset--spacing--40)",
                     cursor: "pointer",
                   }}
