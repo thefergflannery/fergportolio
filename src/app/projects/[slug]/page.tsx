@@ -88,7 +88,7 @@ export default async function ProjectPage({
                 alignItems: "center",
                 gap: "13px",
                 backgroundColor: "color-mix(in srgb, currentColor 20%, transparent)",
-                color: "#ffffff",
+                color: "#111111",
                 borderRadius: "9999px",
                 padding: "10px 16px",
                 fontSize: "12px",

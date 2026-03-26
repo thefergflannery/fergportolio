@@ -12,38 +12,43 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/images/mainimage.png"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 0,
-        }}
-      >
-        <source src="/videos/shadergradient.mp4" type="video/mp4" />
-      </video>
-
-      {/* Overlay (dim-0 = transparent) */}
-      <span
+      {/* Video background — clipped to hero bounds via its own absolute container */}
+      <div
         aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor: "#FFF",
-          opacity: 0,
-          zIndex: 1,
+          overflow: "hidden",
+          zIndex: 0,
         }}
-      />
+      >
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/mainimage.png"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        >
+          <source src="/videos/shadergradient.mp4" type="video/mp4" />
+        </video>
 
-      {/* Inner content */}
+        {/* Overlay (dim-0 = transparent) */}
+        <span
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "#FFF",
+            opacity: 0,
+          }}
+        />
+      </div>
+
+      {/* Inner content — z-index 2, overflows below hero into LogoMarquee */}
       <div
         className="hero-inner"
         style={{
@@ -60,9 +65,9 @@ export default function Hero() {
             display: "flex",
             flexWrap: "nowrap",
             alignItems: "flex-end",
-            marginBottom: "-450px",
             paddingLeft: 0,
             minHeight: "90vh",
+            marginBottom: "-450px",
           }}
         >
           <div style={{ flexBasis: "66.66%", flexShrink: 0 }}>
@@ -105,7 +110,7 @@ export default function Hero() {
             </h1>
 
             {/* Down arrow linking to #work */}
-            <figure style={{ marginTop: "24px", marginBottom: "-10px" }}>
+            <figure style={{ marginTop: "-58px", marginBottom: "-10px" }}>
               <Link href="#work" aria-label="Scroll to selected work">
                 <Image
                   src="/images/Group-1597883031.svg"

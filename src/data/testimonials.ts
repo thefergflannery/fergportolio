@@ -14,9 +14,9 @@ export const testimonials: Testimonial[] = [
     company: "SIAR",
   },
   {
-    id: "mary",
-    quote: "Working with Ferg was an absolute pleasure. His creative vision and attention to detail brought our brand to life in ways we hadn't imagined.",
-    author: "Mary",
-    company: "",
+    id: "dave",
+    quote: "Good design isn't decoration. It's clarity, restraint, and purpose working together.",
+    author: "Dave Bernie",
+    company: "Collectiv",
   },
 ];

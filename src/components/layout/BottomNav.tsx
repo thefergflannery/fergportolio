@@ -8,8 +8,6 @@ export default function BottomNav() {
   const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (CSS.supports("animation-timeline", "scroll()")) return;
-
     function update() {
       if (!logoRef.current) return;
       const y = window.scrollY || window.pageYOffset || 0;
@@ -25,7 +23,6 @@ export default function BottomNav() {
   return (
     <div
       style={{
-        borderTop: "1px solid #111111",
         backgroundColor: "var(--wp--preset--color--accent-1)",
       }}
     >
@@ -40,7 +37,7 @@ export default function BottomNav() {
           paddingBottom: "var(--wp--preset--spacing--50)",
           display: "flex",
           justifyContent: "flex-end",
-          alignItems: "center",
+          alignItems: "flex-start",
           gap: "var(--wp--preset--spacing--50)",
         }}
       >
@@ -70,23 +67,41 @@ export default function BottomNav() {
             }}
           >
             {[
-              { label: "Selected Work", href: "/work" },
-              { label: "About Me", href: "/about" },
-              { label: "Contact", href: "/contact" },
+              { label: "Selected Work", href: "/work", external: false },
+              { label: "About Me", href: "/about", external: false },
+              { label: "Contact", href: "/contact", external: false },
+              { label: "photography", href: "https://www.fergflanneryphoto.com/", external: true },
             ].map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  style={{
-                    color: "inherit",
-                    textDecoration: "none",
-                    fontSize: "var(--wp--preset--font-size--small)",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {item.label}
-                </Link>
+                {item.external ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: "inherit",
+                      textDecoration: "none",
+                      fontSize: "var(--wp--preset--font-size--small)",
+                      fontWeight: 300,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    style={{
+                      color: "inherit",
+                      textDecoration: "none",
+                      fontSize: "var(--wp--preset--font-size--small)",
+                      fontWeight: 300,
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

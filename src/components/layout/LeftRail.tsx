@@ -8,9 +8,6 @@ export default function LeftRail() {
   const logoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // CSS scroll-timeline handles rotation when supported; JS fallback for others
-    if (CSS.supports("animation-timeline", "scroll()")) return;
-
     function update() {
       if (!logoRef.current) return;
       const y = window.scrollY || window.pageYOffset || 0;

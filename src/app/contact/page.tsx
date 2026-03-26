@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SiteLayout from "@/components/layout/SiteLayout";
 import LogoMarquee from "@/components/sections/LogoMarquee";
+import IntroStrip from "@/components/sections/IntroStrip";
 
 export const metadata: Metadata = {
   title: "Contact – Ferg Flannery",
@@ -46,8 +47,17 @@ export default function ContactPage() {
 
       <LogoMarquee />
 
-      {/* Contact info */}
+      {/* CTA intro strip */}
+      <IntroStrip
+        text="Got a Project in mind? Let's Chat"
+        align="right"
+        arrowHref="#contact-details"
+        split={false}
+      />
+
+      {/* Contact details */}
       <div
+        id="contact-details"
         style={{
           maxWidth: "var(--wp--style--global--wide-size)",
           marginLeft: "auto",
@@ -58,17 +68,6 @@ export default function ContactPage() {
           paddingBottom: "var(--wp--preset--spacing--70)",
         }}
       >
-        <h1
-          style={{
-            fontSize: "var(--wp--preset--font-size--xx-large)",
-            fontWeight: 800,
-            textTransform: "uppercase",
-            marginBottom: "var(--wp--preset--spacing--50)",
-          }}
-        >
-          Get In Touch
-        </h1>
-
         <p style={{ marginBottom: "var(--wp--preset--spacing--30)" }}>
           <a
             href="mailto:hello@fergflannery.com"

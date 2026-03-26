@@ -113,7 +113,7 @@
 
 :root {
   --rail-w: 84px;
-  --lime: #39FF14;
+  --lime: #39FF14; /* WP custom CSS --lime (left rail / top nav bg) — differs from accent-1 #51ff00 */
 
   --wp--preset--color--base: #ffffff;
   --wp--preset--color--contrast: #111111;
@@ -330,18 +330,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .scroll-rotate {
   will-change: transform;
-}
-
-@supports (animation-timeline: scroll()) {
-  .scroll-rotate {
-    animation: rotateOnScroll linear forwards;
-    animation-timeline: scroll();
-  }
-
-  @keyframes rotateOnScroll {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+  /* Rotation handled by JS (0.2deg × scrollY) matching WP source — see LeftRail.tsx / BottomNav.tsx */
 }
 
 /* ─── Custom Cursor Bubble ───────────────────────────────────────────────── */
@@ -351,7 +340,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 140px;
   height: 140px;
   border-radius: 999px;
-  background: #39FF14;
+  background: var(--lime);
   color: #000;
   font-weight: 900;
   text-transform: uppercase;

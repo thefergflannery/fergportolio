@@ -46,10 +46,12 @@ export default function Testimonials() {
           />
         </div>
 
-        {/* Right: quote (50% flex-basis) */}
+        {/* Right: quote (30% flex-basis) */}
         <div
+          data-aos="slide-up"
+          data-aos-duration="1250"
           style={{
-            flexBasis: "50%",
+            flexBasis: "30%",
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-end",
