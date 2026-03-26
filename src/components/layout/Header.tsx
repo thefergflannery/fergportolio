@@ -30,7 +30,6 @@ export default function Header() {
             flexWrap: "nowrap",
             alignItems: "center",
             paddingTop: "var(--wp--preset--spacing--30)",
-            paddingRight: "26px",
             paddingBottom: "var(--wp--preset--spacing--30)",
           }}
         >
@@ -49,7 +48,7 @@ export default function Header() {
           {/* Navigation */}
           <nav
             aria-label="Navigation"
-            style={{ flexBasis: "100%", display: "flex", justifyContent: "flex-end" }}
+            style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}
           >
             <ul
               style={{
