@@ -3,7 +3,7 @@ const logos = [
   { src: "/images/dingle-logo-horizontal-bw-1024x347-1.webp", alt: "Sacred Heart University | Dingle", width: 142, height: 48  },
   { src: "/images/Murphys_Logo_260x.avif",                alt: "Murphy's Ice Cream",               width: 121, height: 79  },
   { src: "/images/fi.png",                                alt: "Fáilte Ireland",                   width: 133, height: 45  },
-  { src: "/images/oceanworld.svg",                        alt: "Oceanworld Dingle",                width: 120, height: 82  },
+  { src: "/images/oceanworld.png",                        alt: "Oceanworld Dingle",                width: 120, height: 82  },
   { src: "/images/siar.png",                              alt: "Siar Music Festival",              width: 125, height: 38  },
 ];
 
