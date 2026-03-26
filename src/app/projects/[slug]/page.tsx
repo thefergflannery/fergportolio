@@ -58,7 +58,6 @@ export default async function ProjectPage({
           {/* Title + subtitle + back */}
           <div style={{ flexBasis: "82%", flexShrink: 0 }}>
             <h1
-              className="scroll-animate"
               style={{
                 textTransform: "uppercase",
                 fontSize: "var(--wp--preset--font-size--xx-large)",

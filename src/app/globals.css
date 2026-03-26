@@ -280,7 +280,7 @@ h1, h2, h3, h4, h5, h6 {
 .wiggle-line {
   display: block;
   height: 1px;
-  background: #fff;
+  background: #111111;
   border: none;
   width: 100%;
   margin: 0;
@@ -401,4 +401,50 @@ h1, h2, h3, h4, h5, h6 {
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /* Stack all horizontal flex rows */
+  [style*="flexWrap: nowrap"],
+  [style*="flex-wrap: nowrap"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* Hero: full width heading, remove negative bottom margin */
+  .hero-inner {
+    padding-left: var(--wp--preset--spacing--30) !important;
+    padding-right: var(--wp--preset--spacing--30) !important;
+  }
+
+  /* Images fill their column */
+  img,
+  .next-image-wrapper img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Nav: stack on mobile */
+  .top-nav nav ul {
+    flex-wrap: wrap !important;
+    gap: var(--wp--preset--spacing--10) !important;
+  }
+
+  /* Project rows: allow wrapping */
+  #swork li > div {
+    flex-wrap: wrap !important;
+  }
+
+  /* About / work photo+text columns: stack */
+  #ferg {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+  }
+
+  #ferg > div {
+    flex-basis: 100% !important;
+    padding-left: var(--wp--preset--spacing--30) !important;
+    padding-right: var(--wp--preset--spacing--30) !important;
+  }
 }

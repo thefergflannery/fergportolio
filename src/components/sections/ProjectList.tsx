@@ -45,8 +45,8 @@ export default function ProjectList() {
             position: "fixed",
             left: thumb.x + 20,
             top: thumb.y - 60,
-            width: 180,
-            height: 120,
+            width: 300,
+            height: 200,
             pointerEvents: "none",
             zIndex: 9999,
             overflow: "hidden",
@@ -59,7 +59,7 @@ export default function ProjectList() {
             alt=""
             fill
             style={{ objectFit: "cover" }}
-            sizes="180px"
+            sizes="300px"
           />
         </div>
       )}
@@ -74,7 +74,7 @@ export default function ProjectList() {
             paddingLeft: "var(--wp--preset--spacing--50)",
             paddingRight: "var(--wp--preset--spacing--50)",
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "flex-start",
           }}
         >
           <AnimatedText
@@ -83,7 +83,7 @@ export default function ProjectList() {
             data-aos="slide-up"
             style={{
               textTransform: "uppercase",
-              textAlign: "right",
+              textAlign: "left",
               margin: 0,
               paddingTop: "var(--wp--preset--spacing--40)",
               paddingBottom: "var(--wp--preset--spacing--40)",

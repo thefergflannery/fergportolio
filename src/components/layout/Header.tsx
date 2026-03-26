@@ -31,14 +31,13 @@ export default function Header() {
             alignItems: "center",
             paddingTop: "var(--wp--preset--spacing--30)",
             paddingRight: "26px",
-            paddingBottom: 0,
+            paddingBottom: "var(--wp--preset--spacing--30)",
           }}
         >
           {/* Wiggle line — left side */}
           <div
             style={{
-              flexBasis: "40%",
-              flexShrink: 0,
+              flex: 1,
               paddingTop: "var(--wp--preset--spacing--20)",
               paddingRight: "var(--wp--preset--spacing--40)",
               paddingBottom: "var(--wp--preset--spacing--20)",
