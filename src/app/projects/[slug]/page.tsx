@@ -180,7 +180,6 @@ export default async function ProjectPage({
               }}
             >
               <p
-                className="scroll-animate"
                 style={{
                   textTransform: "uppercase",
                   fontWeight: 700,
@@ -202,7 +201,6 @@ export default async function ProjectPage({
               {project.url && (
                 <>
                   <p
-                    className="scroll-animate"
                     style={{
                       textTransform: "uppercase",
                       fontWeight: 700,
