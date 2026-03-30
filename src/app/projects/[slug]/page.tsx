@@ -23,6 +23,14 @@ export async function generateMetadata({
   };
 }
 
+function renderParagraphs(text: string) {
+  return text.split("\n\n").map((para, i) => (
+    <p key={i} style={{ margin: i === 0 ? 0 : "1em 0 0" }}>
+      {para}
+    </p>
+  ));
+}
+
 export default async function ProjectPage({
   params,
 }: {
@@ -125,7 +133,7 @@ export default async function ProjectPage({
       </main>
 
       {/* Featured image */}
-      <main id="intro">
+      <div id="intro">
         <figure style={{ margin: 0, aspectRatio: "16/9" }}>
           <Image
             src={project.featuredImage}
@@ -136,7 +144,7 @@ export default async function ProjectPage({
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </figure>
-      </main>
+      </div>
 
       {/* Project info */}
       <div
@@ -154,96 +162,121 @@ export default async function ProjectPage({
             paddingRight: "var(--wp--preset--spacing--50)",
           }}
         >
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "nowrap",
-            paddingTop: "var(--wp--preset--spacing--40)",
-            paddingBottom: "var(--wp--preset--spacing--40)",
-            gap: "var(--wp--preset--spacing--40)",
-          }}
-        >
-          {/* Left: Services + Visit */}
           <div
             style={{
-              flexBasis: "33.33%",
-              flexShrink: 0,
-              borderRight: "1px solid var(--wp--preset--color--accent-1)",
+              display: "flex",
+              flexWrap: "nowrap",
+              paddingTop: "var(--wp--preset--spacing--40)",
+              paddingBottom: "var(--wp--preset--spacing--40)",
+              gap: "var(--wp--preset--spacing--40)",
             }}
           >
-            <p
-              className="scroll-animate"
+            {/* Left: Services + Visit */}
+            <div
               style={{
-                textTransform: "uppercase",
-                fontWeight: 700,
-                margin: "0 0 var(--wp--preset--spacing--20)",
+                flexBasis: "33.33%",
+                flexShrink: 0,
+                borderRight: "1px solid var(--wp--preset--color--accent-1)",
               }}
             >
-              <strong>Services</strong>
-            </p>
-            <p
-              className="field-project-services"
-              style={{
-                fontSize: "var(--wp--preset--font-size--small)",
-                margin: "0 0 var(--wp--preset--spacing--40)",
-              }}
-            >
-              {project.services}
-            </p>
+              <p
+                className="scroll-animate"
+                style={{
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                  margin: "0 0 var(--wp--preset--spacing--20)",
+                }}
+              >
+                <strong>Services</strong>
+              </p>
+              <p
+                className="field-project-services"
+                style={{
+                  fontSize: "var(--wp--preset--font-size--small)",
+                  margin: "0 0 var(--wp--preset--spacing--40)",
+                }}
+              >
+                {project.services}
+              </p>
 
-            {project.url && (
-              <>
-                <p
-                  className="scroll-animate"
-                  style={{
-                    textTransform: "uppercase",
-                    fontWeight: 700,
-                    margin: "0 0 var(--wp--preset--spacing--20)",
-                  }}
-                >
-                  <strong>Visit</strong>
-                </p>
-                <p
-                  className="field-url"
-                  style={{ fontSize: "var(--wp--preset--font-size--small)", margin: 0 }}
-                >
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "inherit" }}
+              {project.url && (
+                <>
+                  <p
+                    className="scroll-animate"
+                    style={{
+                      textTransform: "uppercase",
+                      fontWeight: 700,
+                      margin: "0 0 var(--wp--preset--spacing--20)",
+                    }}
                   >
-                    {project.url}
-                  </a>
-                </p>
-              </>
-            )}
-          </div>
+                    <strong>Visit</strong>
+                  </p>
+                  <p
+                    className="field-url"
+                    style={{ fontSize: "var(--wp--preset--font-size--small)", margin: 0 }}
+                  >
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "inherit" }}
+                    >
+                      {project.urlLabel || project.url}
+                    </a>
+                  </p>
+                </>
+              )}
+            </div>
 
-          {/* Right: intro + extended text */}
-          <div
-            style={{
-              flexBasis: "53%",
-              fontSize: "var(--wp--preset--font-size--small)",
-              lineHeight: 1.6,
-              paddingRight: "var(--wp--preset--spacing--80)",
-              paddingLeft: "var(--wp--preset--spacing--40)",
-            }}
-          >
-            {project.intro && (
-              <div className="field-intro" style={{ marginBottom: "var(--wp--preset--spacing--40)" }}>
-                {project.intro}
-              </div>
-            )}
-            {project.extended && (
-              <div className="field-extended">
-                {project.extended}
-              </div>
-            )}
+            {/* Right: intro + extended text */}
+            <div
+              style={{
+                flexBasis: "53%",
+                fontSize: "var(--wp--preset--font-size--small)",
+                lineHeight: 1.6,
+                paddingRight: "var(--wp--preset--spacing--80)",
+                paddingLeft: "var(--wp--preset--spacing--40)",
+              }}
+            >
+              {project.intro && (
+                <div className="field-intro" style={{ marginBottom: "var(--wp--preset--spacing--40)" }}>
+                  {renderParagraphs(project.intro)}
+                </div>
+              )}
+              {project.extended && (
+                <div className="field-extended">
+                  {renderParagraphs(project.extended)}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
         </div>
       </div>
+
+      {/* Gallery */}
+      {project.galleryImages && project.galleryImages.length > 0 && (
+        <div style={{ display: "flex", width: "100%" }}>
+          {project.galleryImages.map((src, i) => (
+            <div
+              key={i}
+              style={{
+                flex: 1,
+                aspectRatio: "4/3",
+                overflow: "hidden",
+                position: "relative",
+              }}
+            >
+              <Image
+                src={src}
+                alt={`${project.title} – image ${i + 1}`}
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="33vw"
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </SiteLayout>
   );
 }

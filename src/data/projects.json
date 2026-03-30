@@ -4,10 +4,11 @@
     "title": "Digital That Delivers",
     "subtitle": "National Digital Transformation Programme",
     "type": "Agency",
-    "services": "Creative Consultancy, Project Managament",
-    "url": "https://www.youtube.com/watch?v=jnJiWQp-G1A",
-    "intro": "Digital that Delivers is an initiative by Fáilte Ireland designed to support Irish tourism businesses in improving their digital capability. The programme helps visitor attractions, activity providers and tour operators strengthen their websites, booking systems and overall online presence. It combines expert support with grant funding to enable meaningful digital upgrades.",
-    "extended": "I worked as Lead Digital Consultant and Technical Diagnostic Expert, leading the Website workstream and overseeing delivery under the Website Accessibility Grant Scheme. I conducted structured digital audits across participant websites, with a strong focus on WCAG 2.2 AA accessibility compliance, user experience and booking journeys. I translated findings into clear, prioritised roadmaps and procurement-ready briefs aligned with grant requirements. I also worked between businesses and delivery agencies to review proposals, monitor scope and ensure completed projects met technical and accessibility standards before sign-off.",
+    "services": "Project Management, Creative Consulting, Visual Design",
+    "url": "https://www.failteireland.ie/supports/digital-that-delivers/",
+    "urlLabel": "Digital That Delivers",
+    "intro": "Digital That Delivers is a Fáilte Ireland initiative designed to strengthen the digital capability of Irish tourism businesses – visitor attractions, activity providers, and tour operators. The programme combines expert consultancy with grant funding to deliver meaningful upgrades across websites, booking systems, and overall online presence.",
+    "extended": "I worked as Lead Digital Consultant and Technical Diagnostic Expert, embedded across the programme to lead the website workstream from diagnostic through to delivery. I conducted structured digital audits across participant businesses, assessing website performance, user experience, booking journeys, and technical health – translating findings into clear, prioritised roadmaps and procurement-ready briefs aligned with grant requirements.\n\nWebsite Accessibility Grant Scheme\nThe Website Accessibility Grant Scheme (WAGS) is a dedicated strand of the Digital That Delivers programme, focused on bringing Irish tourism websites into compliance with WCAG 2.2 AA – the standard required under the European Accessibility Act 2025.\n\nI played a central role in shaping how the scheme operated in practice: helping to build the programme guidelines, documentation, and delivery workstream that underpinned the website projects across 100+ businesses. This included defining audit methodology, creating accessibility briefs and reporting frameworks, and establishing the standards that delivery agencies were required to meet.\n\nOn the ground, I worked directly between businesses and their appointed agencies – reviewing proposals, monitoring scope, and ensuring completed websites met both technical and accessibility requirements before sign-off.",
     "featuredImage": "/images/maxresdefault.jpg",
     "featuredImageWidth": 1280,
     "featuredImageHeight": 720,
@@ -18,44 +19,79 @@
     "title": "Dingle Oceanworld",
     "subtitle": "Deep Atlantic Immersive",
     "type": "Brand & Digital",
-    "services": "Visual Design, Creative Consulting, Project Management, Storyboarding",
+    "services": "Project Management, Creative Consulting, Visual Design",
+    "url": "https://www.dingle-oceanworld.ie",
+    "urlLabel": "DINGLE-OCEANWORLD.ie",
+    "intro": "Dingle Oceanworld commissioned this project with a clear ambition: create Ireland's first fully immersive marine experience. I came on board as creative consultant and project manager, working on behalf of Oceanworld to brief, direct, and deliver the experience alongside Dublin-based immersive studio Algorithm.",
+    "extended": "Deep Atlantic takes visitors 200 metres beneath the Atlantic, following a humpback whale along the Porcupine Ridge off the Kerry coast. Projected 360° across every surface of the auditorium using Algorithm's patent-pending Orbit technology, it's a six-minute journey through bioluminescent deep sea – interactive, cinematic, and conservation-led.\n\nI shaped the creative vision, managed the client-agency relationship, and ensured the experience aligned with Oceanworld's education and conservation mission. The experience premiered at the Dingle Animation Festival in March 2023 and remains a permanent exhibit.",
     "featuredImage": "/images/66159bc1ad17fbcc95723c6a_ezgif.com-optimize-2.gif",
     "featuredImageWidth": 600,
     "featuredImageHeight": 338,
-    "thumbnailImage": "/images/66159bc1ad17fbcc95723c6a_ezgif.com-optimize-2.gif"
+    "thumbnailImage": "/images/66159bc1ad17fbcc95723c6a_ezgif.com-optimize-2.gif",
+    "galleryImages": [
+      "/images/Rectangle 40136.png",
+      "/images/Rectangle 40136-1.png",
+      "/images/Rectangle 40136-2.png"
+    ]
   },
   {
     "slug": "collectiv",
     "title": "Collectiv",
-    "subtitle": "Website Design & Dev",
+    "subtitle": "Website Development",
     "type": "Brand Identity",
-    "services": "Brand Strategy, Identity Design, Digital",
+    "services": "Web Design & Development, Project Management, Visual Design",
+    "url": "https://collectiv.ie/",
+    "urlLabel": "Collectiv.ie",
+    "intro": "Collectiv are a Dublin-based experiential and OOH marketing agency – bold brand activations, murals, special builds, and campaigns for global clients. Their work lives in the real world, at scale, in public space. The website needed to match that ambition.",
+    "extended": "I designed and built a new WordPress site to showcase their portfolio, using GSAP animations to bring the work to life through considered motion and transitions. The goal was to create a digital presence that felt as impactful as the activations themselves – giving each campaign the space to land without the site getting in the way.\n\nThe result is clean, confident, and built around the work. Prospective clients get an immediate sense of scale, quality, and range – from street-level murals to full brand takeovers – without having to dig for it.",
     "featuredImage": "/images/collec-1024x768.png",
     "featuredImageWidth": 1024,
     "featuredImageHeight": 768,
-    "thumbnailImage": "/images/collec-1024x768.png"
+    "thumbnailImage": "/images/collec-1024x768.png",
+    "galleryImages": [
+      "/images/Rectangle 40136-3.png",
+      "/images/Rectangle 40136-4.png",
+      "/images/Rectangle 40164.png"
+    ]
   },
   {
     "slug": "siar",
-    "title": "Siar",
-    "subtitle": "Festival Identity",
+    "title": "Subterranean Soul",
+    "subtitle": "Visual Design & Graphics",
     "type": "Digital & Brand",
-    "services": "Visual Design, Graphics, Social",
+    "services": "Visual Design",
+    "url": "https://www.instagram.com/",
+    "urlLabel": "Instagram",
+    "intro": "Subterranean Soul is a DJ residency and events collective based in Dingle, running regular club nights and an annual weekender, Siar. I work as their primary designer on an ongoing basis, creating all visual output across print and digital – event posters, social assets, and promotional materials for each night and festival.",
+    "extended": "The work references the visual language of European underground club culture while staying rooted in the west of Ireland. Bold, graphic, and consistent – built to hold its own in a feed and on a wall.",
     "featuredImage": "/images/Edition-1024x717.png",
     "featuredImageWidth": 1024,
     "featuredImageHeight": 717,
-    "thumbnailImage": "/images/Edition-1024x717.png"
+    "thumbnailImage": "/images/Edition-1024x717.png",
+    "galleryImages": [
+      "/images/1574877469106.jpeg",
+      "/images/1681215608222.jpeg",
+      "/images/siar.png"
+    ]
   },
   {
     "slug": "a11yo",
     "title": "A11YO",
-    "subtitle": "Tool",
+    "subtitle": "Accessibility Tool",
     "type": "Tool",
-    "services": "UX, Visual Design, Frontend & Backend Development, Accessibility",
+    "services": "Project Management, Creative Consulting, Visual Design",
     "url": "https://www.a11yo.com/",
+    "urlLabel": "A11YO.com",
+    "intro": "A11YO is an accessibility and digital readiness checker built for small businesses and agencies who need to know where their website stands – without the overhead of a full manual audit.",
+    "extended": "I took the product from concept to live MVP: owning the idea, the UX, the design, and the build. The brief came directly from my own experience leading accessibility programmes across 100+ Irish tourism websites. I kept seeing the same problem – businesses who needed clear, actionable guidance but couldn't access or afford specialist support. A11YO is the answer to that gap.\n\nDesigning and building a product solo is a different discipline to client work. Every decision lands on you – what to build, what to cut, how to frame it, how to make it useful to someone who doesn't speak your language. That process sharpened everything: the thinking, the design, the ability to move fast without losing quality.",
     "featuredImage": "/images/Document2.png",
     "featuredImageWidth": 2560,
     "featuredImageHeight": 2240,
-    "thumbnailImage": "/images/Document2.png"
+    "thumbnailImage": "/images/Document2.png",
+    "galleryImages": [
+      "/images/Rectangle 40162.png",
+      "/images/Rectangle 40162-1.png",
+      "/images/Rectangle 40162-2.png"
+    ]
   }
 ]

@@ -7,12 +7,14 @@ export interface Project {
   type: string;      // category label (unused in UI, kept for metadata)
   services: string;  // ACF field-project-services
   url?: string;
-  intro?: string;    // ACF field-intro
-  extended?: string; // ACF field-extended
+  urlLabel?: string; // display label for the URL link
+  intro?: string;    // ACF field-intro (supports \n\n paragraph breaks)
+  extended?: string; // ACF field-extended (supports \n\n paragraph breaks)
   featuredImage: string;
   featuredImageWidth: number;
   featuredImageHeight: number;
   thumbnailImage: string;
+  galleryImages?: string[]; // optional bottom gallery image paths
 }
 
 export const projects: Project[] = projectsData as Project[];
