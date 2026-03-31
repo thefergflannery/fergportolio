@@ -27,6 +27,7 @@ export default function Hero() {
           muted
           loop
           playsInline
+          aria-hidden="true"
           poster="/images/mainimage.png"
           style={{
             width: "100%",
@@ -86,7 +87,7 @@ export default function Hero() {
               FERG.
             </h1>
 
-            <h1
+            <p
               id="creativeconsultant-art-director-visualdesigner"
               className="hero-stagger-out hero-title"
               style={{
@@ -107,7 +108,7 @@ export default function Hero() {
               VISUAL
               <br />
               DESIGNER.
-            </h1>
+            </p>
 
             {/* Down arrow linking to #work */}
             <figure style={{ marginTop: "-58px", marginBottom: "-10px" }}>

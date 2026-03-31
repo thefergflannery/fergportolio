@@ -25,8 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}<CursorBubble /><AOSInit /></body>
+    <html lang="en" dir="ltr">
+      <body>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
+        {children}
+        <CursorBubble />
+        <AOSInit />
+      </body>
     </html>
   );
 }

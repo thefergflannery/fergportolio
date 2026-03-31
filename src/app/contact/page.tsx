@@ -24,6 +24,7 @@ export default function ContactPage() {
           muted
           loop
           playsInline
+          aria-hidden="true"
           style={{
             position: "absolute",
             inset: 0,

@@ -6,10 +6,12 @@ export default function LogoMarquee() {
   return (
     <div
       id="50"
+      aria-hidden="true"
       style={{
         display: "flex",
-        flexWrap: "nowrap",
+        flexWrap: "wrap",
         borderBottom: "1px solid #111111",
+        overflow: "hidden",
       }}
     >
       {Array.from({ length: REPEAT_COUNT }).map((_, i) => (

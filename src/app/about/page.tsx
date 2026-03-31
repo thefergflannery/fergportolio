@@ -313,7 +313,7 @@ export default function AboutPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/ferg.jpg"
-              alt=""
+              alt="Portrait of Ferg Flannery"
               style={{
                 width: "100%",
                 aspectRatio: "1",

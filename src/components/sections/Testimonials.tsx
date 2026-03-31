@@ -70,6 +70,8 @@ export default function Testimonials() {
         {/* Right: quote */}
         <div
           className="testimonial-quote"
+          aria-live="polite"
+          aria-atomic="true"
           style={{
             flexBasis: "30%",
             display: "flex",
@@ -108,6 +110,7 @@ export default function Testimonials() {
           {testimonials.length > 1 && (
             <div style={{ display: "flex", gap: "12px", marginTop: "var(--wp--preset--spacing--30)" }}>
               <button
+                type="button"
                 onClick={prev}
                 aria-label="Previous testimonial"
                 style={{
@@ -127,6 +130,7 @@ export default function Testimonials() {
                 </svg>
               </button>
               <button
+                type="button"
                 onClick={next}
                 aria-label="Next testimonial"
                 style={{

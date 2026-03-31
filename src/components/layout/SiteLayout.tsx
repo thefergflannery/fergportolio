@@ -9,7 +9,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <LeftRail />
       <div className="site-content">
         <Header />
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
         <BottomNav />
         <Footer />
       </div>

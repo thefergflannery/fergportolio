@@ -375,13 +375,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── AOS overrides ──────────────────────────────────────────────────────── */
+/* Note: do NOT set pointer-events:none on [data-aos] — it blocks keyboard
+   and screen reader access to links/buttons inside animated elements (WCAG 2.1.1) */
 
-[data-aos] {
-  pointer-events: none;
+/* ─── Focus visible — global ─────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 3px solid #111111;
+  outline-offset: 3px;
 }
 
-[data-aos].aos-animate {
-  pointer-events: auto;
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--rail-w);
+  z-index: 9999999;
+  background: #111111;
+  color: #ffffff;
+  padding: 12px 20px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 0;
 }
 
 /* ─── Project Row hover thumbnail ────────────────────────────────────────── */
