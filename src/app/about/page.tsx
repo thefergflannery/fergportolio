@@ -76,7 +76,7 @@ export default function AboutPage() {
         {/* Left: photo */}
         <div style={{ flexBasis: "40%", flexShrink: 0 }}>
           <Image
-            src="/images/Document.jpg"
+            src="/images/ferg2.jpg"
             alt="Ferg Flannery"
             width={1024}
             height={904}
