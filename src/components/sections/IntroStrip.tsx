@@ -45,7 +45,7 @@ export default function IntroStrip({
         marginTop: split ? 0 : "var(--wp--preset--spacing--60)",
         marginBottom: split ? 0 : "var(--wp--preset--spacing--60)",
         paddingTop: "var(--wp--preset--spacing--50)",
-        paddingRight: "155px",
+        paddingRight: "clamp(var(--wp--preset--spacing--50), 10vw, 155px)",
         paddingBottom: "var(--wp--preset--spacing--50)",
         paddingLeft: "var(--wp--preset--spacing--50)",
       }}

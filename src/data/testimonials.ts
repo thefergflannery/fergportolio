@@ -16,7 +16,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "dave",
     quote:
-      "Worked with Ferg on the design and development of our new website. It was a pleasure to work with him—he showed great patience throughout the process, a willingness to go the extra mile, and always went above and beyond. The training and post-launch support were extremely helpful. Highly recommend! We are thrilled with our new website.",
+      "Worked with Ferg on the design and development of our new website. It was a pleasure to work with him—he showed great patience throughout the process, a willingness to go the extra mile, and always went above and beyond. Highly recommend!",
     author: "Dave Beirne",
     company: "CEO & Co-Founder, Collectiv",
   },

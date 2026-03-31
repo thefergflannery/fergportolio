@@ -128,7 +128,7 @@ export default async function ProjectPage({
           </div>
 
           {/* Down arrow */}
-          <div style={{ flexBasis: "66.66%", display: "flex", justifyContent: "flex-end" }}>
+          <div className="project-title-arrow" style={{ flexBasis: "66.66%", display: "flex", justifyContent: "flex-end" }}>
             <Link href="#intro" aria-label="Scroll to project">
               <Image
                 src="/images/arrow-circle-detour-down.svg"
@@ -182,6 +182,7 @@ export default async function ProjectPage({
           >
             {/* Left: Services + Visit */}
             <div
+              className="project-info-col-left"
               style={{
                 flexBasis: "33.33%",
                 flexShrink: 0,
@@ -237,6 +238,7 @@ export default async function ProjectPage({
 
             {/* Right: intro + extended text */}
             <div
+              className="project-info-col-right"
               style={{
                 flexBasis: "90%",
                 fontSize: "var(--wp--preset--font-size--small)",
@@ -262,7 +264,7 @@ export default async function ProjectPage({
 
       {/* Gallery */}
       {project.galleryImages && project.galleryImages.length > 0 && (
-        <div style={{ display: "flex", width: "100%" }}>
+        <div className="project-gallery" style={{ display: "flex", width: "100%" }}>
           {project.galleryImages.map((src, i) => (
             <div
               key={i}

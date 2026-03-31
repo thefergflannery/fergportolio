@@ -1,15 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { testimonials } from "@/data/testimonials";
+
+const INTERVAL = 5000;
 
 export default function Testimonials() {
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const next = () => setIndex((i) => (i + 1) % testimonials.length);
+  const prev = () => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+
+  useEffect(() => {
+    if (paused) return;
+    timerRef.current = setInterval(next, INTERVAL);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [paused, index]);
+
   const t = testimonials[index];
   if (!t) return null;
-
-  const prev = () => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
-  const next = () => setIndex((i) => (i + 1) % testimonials.length);
 
   return (
     <div
@@ -18,8 +29,11 @@ export default function Testimonials() {
         borderTop: "1px solid #111111",
         borderBottom: "1px solid #111111",
       }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
       <div
+        className="testimonial-layout"
         style={{
           maxWidth: "var(--wp--style--global--wide-size)",
           marginLeft: "auto",
@@ -31,6 +45,7 @@ export default function Testimonials() {
       >
         {/* Left: photo */}
         <div
+          className="testimonial-photo"
           style={{
             flexBasis: "70%",
             flexShrink: 0,
@@ -54,6 +69,7 @@ export default function Testimonials() {
 
         {/* Right: quote */}
         <div
+          className="testimonial-quote"
           style={{
             flexBasis: "30%",
             display: "flex",
