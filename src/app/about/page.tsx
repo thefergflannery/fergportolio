@@ -142,6 +142,7 @@ export default function AboutPage() {
         }}
       >
         <div
+          className="photographer-row"
           style={{
             display: "flex",
             flexWrap: "nowrap",
@@ -152,7 +153,7 @@ export default function AboutPage() {
           }}
         >
           {/* Left: heading */}
-          <div style={{ flexBasis: "50%", flexShrink: 0 }}>
+          <div className="photographer-heading" style={{ flexBasis: "50%", flexShrink: 0 }}>
             <AnimatedText
               as="h2"
               id="award-winning-photographer"
@@ -163,7 +164,7 @@ export default function AboutPage() {
           </div>
 
           {/* Right: text + CTA */}
-          <div style={{ flexBasis: "40%" }}>
+          <div className="photographer-text" style={{ flexBasis: "40%" }}>
             <p
               style={{
                 fontSize: "var(--wp--preset--font-size--small)",
@@ -237,6 +238,7 @@ export default function AboutPage() {
         }}
       >
         <div
+          className="about-testimonial-row"
           style={{
             maxWidth: "var(--wp--style--global--wide-size)",
             marginLeft: "auto",
@@ -251,6 +253,7 @@ export default function AboutPage() {
         >
           {/* Left: blockquote */}
           <div
+            className="about-testimonial-quote"
             style={{
               flexBasis: "50%",
               flexShrink: 0,
@@ -302,6 +305,7 @@ export default function AboutPage() {
 
           {/* Right: project image */}
           <div
+            className="about-testimonial-image"
             style={{ flexBasis: "50%", overflow: "hidden" }}
             data-aos="fade"
             data-aos-duration="1300"

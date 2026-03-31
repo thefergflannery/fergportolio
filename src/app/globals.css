@@ -404,47 +404,57 @@ h1, h2, h3, h4, h5, h6 {
   border: 0;
 }
 
+/* ─── Mobile logo: hidden on desktop ────────────────────────────────────── */
+
+.mobile-logo {
+  display: none;
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
-  /* Stack all horizontal flex rows */
-  [style*="flex-wrap: nowrap"] {
-    flex-wrap: wrap !important;
-  }
 
-  /* ── Left rail: hide on mobile, content fills full width ── */
+  /* ── Left rail: hide, content fills full width ── */
   .left-rail {
     display: none !important;
   }
-
   .site-content {
     padding-left: 0 !important;
   }
-
   .top-nav {
     padding-left: 0 !important;
   }
 
-  /* ── Hero ── */
-  .hero-inner {
-    padding-left: var(--wp--preset--spacing--30) !important;
-    padding-right: var(--wp--preset--spacing--30) !important;
+  /* ── Mobile logo: show in header ── */
+  .mobile-logo {
+    display: block;
+    margin-right: var(--wp--preset--spacing--30);
+    flex-shrink: 0;
+  }
+  /* Hide wiggle line on mobile */
+  .wiggle-line-wrap {
+    display: none !important;
   }
 
-  /* Remove the large negative bottom margin that overlaps LogoMarquee */
-  .hero-inner > div {
-    margin-bottom: -80px !important;
+  /* ── Nav: right-align, allow wrapping ── */
+  .top-nav nav {
+    flex: 1 !important;
+    justify-content: flex-end !important;
+  }
+  .top-nav nav ul {
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    gap: var(--wp--preset--spacing--10) !important;
   }
 
-  /* Hero text columns: full width */
-  .hero-inner > div > div:first-child {
-    flex-basis: 100% !important;
+  /* ── Footer: centre-align ── */
+  footer > div > div {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
   }
-
-  /* ── IntroStrip: remove hardcoded right padding ── */
-  #work .intro-strip-inner,
-  [id="work"] > div > div > div {
-    padding-right: var(--wp--preset--spacing--50) !important;
+  footer > div > div > div {
+    text-align: center !important;
   }
 
   /* ── Images fill their column ── */
@@ -453,73 +463,124 @@ h1, h2, h3, h4, h5, h6 {
     height: auto !important;
   }
 
-  /* ── Nav: wrap items ── */
-  .top-nav nav ul {
-    flex-wrap: wrap !important;
-    gap: var(--wp--preset--spacing--10) !important;
+  /* ── Hero: pin text to bottom, remove overflow margin ── */
+  .hero-inner {
+    padding-left: var(--wp--preset--spacing--30) !important;
+    padding-right: var(--wp--preset--spacing--30) !important;
+  }
+  .hero-inner > div {
+    align-items: flex-end !important;
+    margin-bottom: 0 !important;
+    padding-bottom: var(--wp--preset--spacing--50) !important;
+  }
+  .hero-inner > div > div:first-child {
+    flex-basis: 100% !important;
   }
 
-  /* ── Project rows: subtitle hidden on mobile to avoid overflow ── */
+  /* ── Project list: hide subtitle to prevent overflow ── */
   #swork li > div > div:nth-child(2) {
     display: none !important;
   }
 
-  /* ── About / project photo+text columns: stack and full width ── */
+  /* ── About bio columns: stack ── */
   #ferg {
     flex-direction: column !important;
     flex-wrap: wrap !important;
   }
-
   #ferg > div {
     flex-basis: 100% !important;
     padding-left: var(--wp--preset--spacing--30) !important;
     padding-right: var(--wp--preset--spacing--30) !important;
   }
 
-  /* ── Project page: info section columns stack to full width ── */
-  .project-info-col-left,
-  .project-info-col-right {
+  /* ── About: photographer section stacks ── */
+  .photographer-row {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+  }
+  .photographer-heading,
+  .photographer-text {
     flex-basis: 100% !important;
-    border-right: none !important;
-    padding-left: 0 !important;
-    padding-right: var(--wp--preset--spacing--30) !important;
   }
 
-  /* ── Project page: title row — hide down arrow on mobile ── */
-  .project-title-arrow {
+  /* ── About: testimonial row stacks, image hidden ── */
+  .about-testimonial-row {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+    width: 90% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .about-testimonial-quote {
+    flex-basis: 100% !important;
+  }
+  .about-testimonial-image {
     display: none !important;
   }
 
-  /* ── Project page: gallery stacks to single column ── */
-  .project-gallery > div {
-    flex: none !important;
-    width: 100% !important;
+  /* ── Homepage testimonial: stack photo then quote ── */
+  .testimonial-layout {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
   }
-
-  /* ── Testimonial: photo shorter on mobile, quote full width ── */
   .testimonial-photo {
     flex-basis: 100% !important;
-    min-height: 220px !important;
+    width: 100% !important;
+    min-height: 240px !important;
+    max-height: 300px !important;
   }
-
   .testimonial-quote {
     flex-basis: 100% !important;
+    width: 100% !important;
     align-items: flex-start !important;
-    text-align: left !important;
+    padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--30) !important;
   }
-
   .testimonial-quote > div {
     text-align: left !important;
   }
 
-  /* ── BottomNav: reduce padding ── */
-  .bottom-nav-inner {
-    padding-left: var(--wp--preset--spacing--30) !important;
+  /* ── Project page: title row ── */
+  .project-title-arrow {
+    display: none !important;
+  }
+
+  /* ── Project page: featured image no gap ── */
+  #intro {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+  #intro figure {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  /* ── Project page: info columns stack ── */
+  .project-info-col-left {
+    flex-basis: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--wp--preset--color--accent-1) !important;
+    padding-left: 0 !important;
+    padding-right: var(--wp--preset--spacing--30) !important;
+    padding-bottom: var(--wp--preset--spacing--30) !important;
+  }
+  .project-info-col-right {
+    flex-basis: 100% !important;
+    padding-left: 0 !important;
     padding-right: var(--wp--preset--spacing--30) !important;
   }
 
-  /* ── Client logos: centre and allow wrapping (already wraps) ── */
-  .client-logos-inner {
-    justify-content: center !important;
+  /* ── Project page: gallery stacks vertically ── */
+  .project-gallery {
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+  .project-gallery > div {
+    flex: none !important;
+    width: 100% !important;
+    aspect-ratio: 4/3 !important;
   }
 }

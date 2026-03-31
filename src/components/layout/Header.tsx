@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const navItems = [
@@ -33,8 +34,16 @@ export default function Header() {
             paddingBottom: "var(--wp--preset--spacing--30)",
           }}
         >
-          {/* Wiggle line — left side */}
+          {/* Mobile logo — hidden on desktop via CSS */}
+          <div className="mobile-logo">
+            <Link href="/" aria-label="Ferg Flannery – Home">
+              <Image src="/images/logo.png" alt="Ferg Flannery" width={44} height={44} priority />
+            </Link>
+          </div>
+
+          {/* Wiggle line — left side, hidden on mobile */}
           <div
+            className="wiggle-line-wrap"
             style={{
               flex: 1,
               paddingTop: "var(--wp--preset--spacing--20)",
