@@ -308,7 +308,7 @@ export default function AboutPage() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/ferg2.png"
+              src="/images/ferg.jpg"
               alt=""
               style={{
                 width: "100%",
