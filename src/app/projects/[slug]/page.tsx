@@ -134,7 +134,7 @@ export default async function ProjectPage({
 
       {/* Featured image */}
       <div id="intro">
-        <figure style={{ margin: 0, aspectRatio: "16/9" }}>
+        <figure style={{ margin: 0, height: "50vh", overflow: "hidden" }}>
           <Image
             src={project.featuredImage}
             alt={project.title}
