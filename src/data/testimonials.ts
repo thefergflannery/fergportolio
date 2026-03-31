@@ -11,12 +11,13 @@ export const testimonials: Testimonial[] = [
     quote:
       "The design work that ferg produces is always of the highest quality & super creative. What he delivers from our brief exceeds our expectations",
     author: "John Fitzgerald",
-    company: "SIAR",
+    company: "Siar & Subterranean Soul",
   },
   {
     id: "dave",
-    quote: "Good design isn't decoration. It's clarity, restraint, and purpose working together.",
-    author: "Dave Bernie",
-    company: "Collectiv",
+    quote:
+      "Worked with Ferg on the design and development of our new website. It was a pleasure to work with him—he showed great patience throughout the process, a willingness to go the extra mile, and always went above and beyond. The training and post-launch support were extremely helpful. Highly recommend! We are thrilled with our new website.",
+    author: "Dave Beirne",
+    company: "CEO & Co-Founder, Collectiv",
   },
 ];

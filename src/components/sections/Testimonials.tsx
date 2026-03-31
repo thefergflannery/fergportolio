@@ -1,8 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import { testimonials } from "@/data/testimonials";
 
 export default function Testimonials() {
-  const t = testimonials[0];
+  const [index, setIndex] = useState(0);
+  const t = testimonials[index];
   if (!t) return null;
+
+  const prev = () => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+  const next = () => setIndex((i) => (i + 1) % testimonials.length);
 
   return (
     <div
@@ -22,9 +29,8 @@ export default function Testimonials() {
           alignItems: "stretch",
         }}
       >
-        {/* Left: photo (70% flex-basis) */}
+        {/* Left: photo */}
         <div
-          data-aos="fade-up-right"
           style={{
             flexBasis: "70%",
             flexShrink: 0,
@@ -46,10 +52,8 @@ export default function Testimonials() {
           />
         </div>
 
-        {/* Right: quote (30% flex-basis) */}
+        {/* Right: quote */}
         <div
-          data-aos="slide-up"
-          data-aos-duration="1250"
           style={{
             flexBasis: "30%",
             display: "flex",
@@ -61,6 +65,7 @@ export default function Testimonials() {
           }}
         >
           <div
+            key={t.id}
             style={{
               fontSize: "clamp(0.984rem, 0.984rem + ((1vw - 0.2rem) * 0.809), 1.5rem)",
               fontStyle: "italic",
@@ -73,24 +78,57 @@ export default function Testimonials() {
             &ldquo;{t.quote}&rdquo;
           </div>
 
-          <div
-            style={{
-              fontStyle: "normal",
-              fontWeight: 1000,
-              textAlign: "right",
-            }}
-          >
+          <div style={{ fontStyle: "normal", fontWeight: 1000, textAlign: "right" }}>
             {t.author}
           </div>
 
           {t.company && (
-            <div
-              style={{
-                textTransform: "uppercase",
-                textAlign: "right",
-              }}
-            >
+            <div style={{ textTransform: "uppercase", textAlign: "right", marginBottom: "var(--wp--preset--spacing--40)" }}>
               {t.company}
+            </div>
+          )}
+
+          {/* Nav controls */}
+          {testimonials.length > 1 && (
+            <div style={{ display: "flex", gap: "12px", marginTop: "var(--wp--preset--spacing--30)" }}>
+              <button
+                onClick={prev}
+                aria-label="Previous testimonial"
+                style={{
+                  background: "none",
+                  border: "1px solid #111111",
+                  borderRadius: "9999px",
+                  width: "36px",
+                  height: "36px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <svg width="12" height="12" viewBox="0 0 896 1024" aria-hidden="true">
+                  <path fill="currentColor" d="M463.072 951.070l14.142-14.14c9.372-9.372 9.372-24.568 0-33.942l-356.988-356.988h751.774c13.254 0 24-10.746 24-24v-20c0-13.254-10.746-24-24-24h-751.774l356.988-356.988c9.372-9.372 9.372-24.568 0-33.942l-14.142-14.14c-9.372-9.372-24.568-9.372-33.94 0l-422.102 422.1c-9.372 9.372-9.372 24.568 0 33.942l422.102 422.1c9.372 9.372 24.568 9.372 33.94-0.002z" />
+                </svg>
+              </button>
+              <button
+                onClick={next}
+                aria-label="Next testimonial"
+                style={{
+                  background: "none",
+                  border: "1px solid #111111",
+                  borderRadius: "9999px",
+                  width: "36px",
+                  height: "36px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <svg width="12" height="12" viewBox="0 0 896 1024" aria-hidden="true" style={{ transform: "rotate(180deg)" }}>
+                  <path fill="currentColor" d="M463.072 951.070l14.142-14.14c9.372-9.372 9.372-24.568 0-33.942l-356.988-356.988h751.774c13.254 0 24-10.746 24-24v-20c0-13.254-10.746-24-24-24h-751.774l356.988-356.988c9.372-9.372 9.372-24.568 0-33.942l-14.142-14.14c-9.372-9.372-24.568-9.372-33.94 0l-422.102 422.1c-9.372 9.372-9.372 24.568 0 33.942l422.102 422.1c9.372 9.372 24.568 9.372 33.94-0.002z" />
+                </svg>
+              </button>
             </div>
           )}
         </div>
