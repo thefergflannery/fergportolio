@@ -238,7 +238,7 @@ export default async function ProjectPage({
             {/* Right: intro + extended text */}
             <div
               style={{
-                flexBasis: "53%",
+                flexBasis: "90%",
                 fontSize: "var(--wp--preset--font-size--small)",
                 lineHeight: 1.6,
                 paddingRight: "var(--wp--preset--spacing--80)",
