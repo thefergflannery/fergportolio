@@ -24,11 +24,20 @@ export async function generateMetadata({
 }
 
 function renderParagraphs(text: string) {
-  return text.split("\n\n").map((para, i) => (
-    <p key={i} style={{ margin: i === 0 ? 0 : "1em 0 0" }}>
-      {para}
-    </p>
-  ));
+  return text.split("\n\n").map((para, i) => {
+    if (para.startsWith("## ")) {
+      return (
+        <p key={i} style={{ margin: i === 0 ? 0 : "1.5em 0 0.25em", fontWeight: 700 }}>
+          {para.slice(3)}
+        </p>
+      );
+    }
+    return (
+      <p key={i} style={{ margin: i === 0 ? 0 : "1em 0 0" }}>
+        {para}
+      </p>
+    );
+  });
 }
 
 export default async function ProjectPage({
