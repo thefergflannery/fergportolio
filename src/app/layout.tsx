@@ -3,6 +3,7 @@ import "./globals.css";
 import "aos/dist/aos.css";
 import CursorBubble from "@/components/ui/CursorBubble";
 import AOSInit from "@/components/ui/AOSInit";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Ferg Flannery – Creative Consultant",
@@ -31,6 +32,7 @@ export default function RootLayout({
         {children}
         <CursorBubble />
         <AOSInit />
+        <Analytics />
       </body>
     </html>
   );
