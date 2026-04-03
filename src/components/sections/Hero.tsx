@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
 import HeroCursor from "@/components/ui/HeroCursor";
 
@@ -112,17 +110,6 @@ export default function Hero() {
               DESIGNER.
             </p>
 
-            {/* Down arrow linking to #work */}
-            <figure style={{ marginTop: "-58px", marginBottom: "-10px" }}>
-              <Link href="#work" aria-label="Scroll to selected work">
-                <Image
-                  src="/images/Group-1597883031.svg"
-                  alt=""
-                  width={144}
-                  height={144}
-                />
-              </Link>
-            </figure>
           </div>
 
           <div style={{ flexBasis: "33.33%" }} />
