@@ -368,6 +368,10 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
+.hero-cursor.is-active {
+  opacity: 1;
+}
+
 /* ─── Scroll Animate (IntersectionObserver class) ───────────────────────── */
 
 .scroll-animate {

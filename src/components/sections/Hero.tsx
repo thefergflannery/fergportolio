@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
+import HeroCursor from "@/components/ui/HeroCursor";
 
 export default function Hero() {
   return (
@@ -128,6 +129,7 @@ export default function Hero() {
         </div>
       </div>
       <HeroScrollOut />
+      <HeroCursor />
     </div>
   );
 }

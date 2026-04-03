@@ -13,35 +13,14 @@ export default function CursorBubble() {
       if (!el) return;
       el.style.left = e.clientX + "px";
       el.style.top = e.clientY + "px";
-    }
 
-    function onEnterZone() {
-      el?.classList.add("is-active");
-    }
-
-    function onLeaveZone() {
-      el?.classList.remove("is-active");
+      // Check on every move — no bind/unbind needed, works across navigations
+      const inZone = !!(e.target as Element | null)?.closest?.(".cursor-hello-zone");
+      el.classList.toggle("is-active", inZone);
     }
 
     document.addEventListener("mousemove", onMove);
-
-    // Show cursor bubble only within .cursor-hello-zone elements
-    function bindZones() {
-      document.querySelectorAll(".cursor-hello-zone").forEach((zone) => {
-        zone.addEventListener("mouseenter", onEnterZone);
-        zone.addEventListener("mouseleave", onLeaveZone);
-      });
-    }
-
-    bindZones();
-
-    return () => {
-      document.removeEventListener("mousemove", onMove);
-      document.querySelectorAll(".cursor-hello-zone").forEach((zone) => {
-        zone.removeEventListener("mouseenter", onEnterZone);
-        zone.removeEventListener("mouseleave", onLeaveZone);
-      });
-    };
+    return () => { document.removeEventListener("mousemove", onMove); };
   }, []);
 
   return (
