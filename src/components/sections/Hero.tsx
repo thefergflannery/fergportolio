@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import HeroScrollOut from "@/components/ui/HeroScrollOut";
 
 export default function Hero() {
   return (
@@ -126,6 +127,7 @@ export default function Hero() {
           <div style={{ flexBasis: "33.33%" }} />
         </div>
       </div>
+      <HeroScrollOut />
     </div>
   );
 }
