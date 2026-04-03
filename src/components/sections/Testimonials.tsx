@@ -115,7 +115,7 @@ export default function Testimonials() {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "flex-end",
+              alignItems: "stretch",
               transition: `opacity ${FADE_MS}ms ease`,
               opacity: fading ? 0 : 1,
             }}
