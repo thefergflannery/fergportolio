@@ -175,8 +175,15 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--wp--preset--font-family--martian-mono);
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1.125;
+}
+
+/* ─── Selected Work heading ─────────────────────────────────────────────── */
+
+#selected-work {
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 800;
 }
 
 /* ─── Left Rail ──────────────────────────────────────────────────────────── */
@@ -456,15 +463,19 @@ h1, h2, h3, h4, h5, h6 {
     display: none !important;
   }
 
-  /* ── Nav: right-align, allow wrapping ── */
+  /* ── Nav: stack vertically with tight spacing ── */
   .top-nav nav {
     flex: 1 !important;
     justify-content: flex-end !important;
   }
   .top-nav nav ul {
-    flex-wrap: wrap !important;
-    justify-content: flex-end !important;
-    gap: var(--wp--preset--spacing--10) !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 0 !important;
+  }
+  .top-nav nav ul li .nav-item-link {
+    padding: 4px 10px !important;
+    line-height: 1.3 !important;
   }
 
   /* ── Footer: centre-align ── */
@@ -477,10 +488,15 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center !important;
   }
 
-  /* ── Images fill their column ── */
-  img {
+  /* ── Images fill their column (exclude cover images that need height: 100%) ── */
+  img:not(.project-featured-img) {
     max-width: 100% !important;
     height: auto !important;
+  }
+  .project-featured-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
 
   /* ── Hero: pin text to bottom, remove overflow margin ── */
@@ -578,7 +594,10 @@ h1, h2, h3, h4, h5, h6 {
     display: block !important;
   }
 
-  /* ── Project page: info columns stack ── */
+  /* ── Project page: info row wraps, columns stack ── */
+  .project-info-row {
+    flex-wrap: wrap !important;
+  }
   .project-info-col-left {
     flex-basis: 100% !important;
     border-right: none !important;

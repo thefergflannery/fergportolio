@@ -118,11 +118,11 @@ export default function IntroStrip({
         {split ? (
           <>
             {/* Left column with content */}
-            <div style={{ flexBasis: "50%", flexShrink: 0 }}>
+            <div style={{ flexBasis: "66.66%", flexShrink: 0 }}>
               {inner}
             </div>
             {/* Right column empty */}
-            <div style={{ flexBasis: "50%" }} />
+            <div style={{ flexBasis: "33.33%" }} />
           </>
         ) : (
           /* Full-width column */

@@ -143,13 +143,14 @@ export default async function ProjectPage({
 
       {/* Featured image */}
       <div id="intro">
-        <figure style={{ margin: 0, height: "50vh", overflow: "hidden" }}>
+        <figure style={{ margin: 0, height: "50vh", overflow: "hidden", display: "block" }}>
           <Image
             src={project.featuredImage}
             alt={project.title}
             width={project.featuredImageWidth}
             height={project.featuredImageHeight}
             priority
+            className="project-featured-img"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </figure>
@@ -172,6 +173,7 @@ export default async function ProjectPage({
           }}
         >
           <div
+            className="project-info-row"
             style={{
               display: "flex",
               flexWrap: "nowrap",
