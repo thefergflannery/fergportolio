@@ -69,6 +69,7 @@ export default function Hero() {
             paddingLeft: 0,
             minHeight: "90vh",
             marginBottom: "-450px",
+            paddingBottom: "8vh",
           }}
         >
           <div style={{ flexBasis: "66.66%", flexShrink: 0 }}>
