@@ -20,7 +20,7 @@ export default function HeroCursor() {
       el.style.top = e.clientY + "px";
 
       const inHero = !!(e.target as Element | null)?.closest?.(".hero-cover");
-      el.classList.toggle("is-active", inHero);
+      el.style.opacity = inHero ? "1" : "0";
     }
 
     document.addEventListener("mousemove", onMove);
