@@ -15,18 +15,39 @@ export default function HeroCursor() {
     const el = cursorRef.current;
     if (!el) return;
 
-    function onMove(e: MouseEvent) {
-      if (!el) return;
-      el.style.left = e.clientX + "px";
-      el.style.top = e.clientY + "px";
+    let lastX = -9999;
+    let lastY = -9999;
 
-      const inHero = !!(e.target as Element | null)?.closest?.(".hero-cover");
+    function setVisibility(inHero: boolean) {
+      if (!el) return;
       el.style.opacity = inHero ? "1" : "0";
       el.style.pointerEvents = inHero ? "auto" : "none";
     }
 
+    function onMove(e: MouseEvent) {
+      if (!el) return;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      el.style.left = lastX + "px";
+      el.style.top = lastY + "px";
+
+      const inHero = !!(e.target as Element | null)?.closest?.(".hero-cover");
+      setVisibility(inHero);
+    }
+
+    function onScroll() {
+      // Re-check what's under the last known mouse position after scroll
+      const el2 = document.elementFromPoint(lastX, lastY);
+      const inHero = !!el2?.closest?.(".hero-cover");
+      setVisibility(inHero);
+    }
+
     document.addEventListener("mousemove", onMove);
-    return () => { document.removeEventListener("mousemove", onMove); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      document.removeEventListener("mousemove", onMove);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
