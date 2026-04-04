@@ -17,6 +17,21 @@ export const metadata: Metadata = {
     siteName: "Ferg Flannery",
     locale: "en_IE",
     type: "website",
+    images: [
+      {
+        url: "https://fergflannery.com/images/social.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ferg Flannery – Creative Consultant, Art Director, Visual Designer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ferg Flannery – Creative Consultant",
+    description:
+      "Creative Consultant, Art Director, Visual Designer. 25+ years across the creative landscape.",
+    images: ["https://fergflannery.com/images/social.jpg"],
   },
 };
 
