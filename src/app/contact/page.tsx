@@ -56,7 +56,7 @@ export default function ContactPage() {
         split={false}
       />
 
-      {/* Contact details */}
+      {/* Contact details — right-aligned */}
       <div
         id="contact-details"
         style={{
@@ -67,6 +67,7 @@ export default function ContactPage() {
           paddingRight: "var(--wp--preset--spacing--50)",
           paddingTop: "var(--wp--preset--spacing--70)",
           paddingBottom: "var(--wp--preset--spacing--70)",
+          textAlign: "right",
         }}
       >
         <p style={{ marginBottom: "var(--wp--preset--spacing--30)" }}>
@@ -99,13 +100,81 @@ export default function ContactPage() {
 
         <p
           style={{
-            marginTop: "var(--wp--preset--spacing--40)",
+            marginTop: "var(--wp--preset--spacing--20)",
             fontSize: "var(--wp--preset--font-size--medium)",
             color: "var(--wp--preset--color--accent-4)",
+            marginBottom: "var(--wp--preset--spacing--50)",
           }}
         >
           Cork. IE
         </p>
+
+        {/* Social links */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: "var(--wp--preset--spacing--30)",
+          }}
+        >
+          <a
+            href="https://www.instagram.com/thefergflannery/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              color: "#111111",
+              textDecoration: "none",
+              fontSize: "var(--wp--preset--font-size--small)",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              border: "1.5px solid #111111",
+              borderRadius: "999px",
+              padding: "10px 20px",
+            }}
+          >
+            {/* Instagram icon */}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="2"/>
+              <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+            </svg>
+            Instagram
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/ferg-flannery/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              color: "#111111",
+              textDecoration: "none",
+              fontSize: "var(--wp--preset--font-size--small)",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              border: "1.5px solid #111111",
+              borderRadius: "999px",
+              padding: "10px 20px",
+            }}
+          >
+            {/* LinkedIn icon */}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" strokeWidth="2"/>
+              <path d="M7 10v7M7 7v.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M11 17v-4c0-1.5 1-2 2-2s2 .5 2 2v4M11 10v7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
       </div>
     </SiteLayout>
   );
