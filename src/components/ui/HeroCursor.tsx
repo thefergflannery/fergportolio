@@ -24,22 +24,24 @@ export default function HeroCursor() {
       el.style.pointerEvents = inHero ? "auto" : "none";
     }
 
+    function isMouseOverHero(): boolean {
+      const hero = document.querySelector(".hero-cover");
+      if (!hero) return false;
+      const r = hero.getBoundingClientRect();
+      return lastX >= r.left && lastX <= r.right && lastY >= r.top && lastY <= r.bottom;
+    }
+
     function onMove(e: MouseEvent) {
       if (!el) return;
       lastX = e.clientX;
       lastY = e.clientY;
       el.style.left = lastX + "px";
       el.style.top = lastY + "px";
-
-      const inHero = !!(e.target as Element | null)?.closest?.(".hero-cover");
-      setVisibility(inHero);
+      setVisibility(isMouseOverHero());
     }
 
     function onScroll() {
-      // Re-check what's under the last known mouse position after scroll
-      const el2 = document.elementFromPoint(lastX, lastY);
-      const inHero = !!el2?.closest?.(".hero-cover");
-      setVisibility(inHero);
+      setVisibility(isMouseOverHero());
     }
 
     document.addEventListener("mousemove", onMove);
