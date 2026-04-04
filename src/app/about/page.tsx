@@ -231,24 +231,14 @@ export default function AboutPage() {
           backgroundColor: "var(--wp--preset--color--base)",
           borderTop: "1px solid #111111",
           borderBottom: "1px solid #111111",
-          marginTop: "var(--wp--preset--spacing--50)",
-          marginBottom: "var(--wp--preset--spacing--50)",
-          paddingTop: "var(--wp--preset--spacing--30)",
-          paddingBottom: "var(--wp--preset--spacing--30)",
         }}
       >
         <div
           className="about-testimonial-row"
           style={{
-            maxWidth: "var(--wp--style--global--wide-size)",
-            marginLeft: "auto",
-            marginRight: "auto",
-            paddingLeft: "var(--wp--preset--spacing--50)",
-            paddingRight: "var(--wp--preset--spacing--50)",
             display: "flex",
             flexWrap: "nowrap",
             alignItems: "stretch",
-            gap: "var(--wp--preset--spacing--50)",
           }}
         >
           {/* Left: blockquote */}
@@ -260,6 +250,8 @@ export default function AboutPage() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              padding: "var(--wp--preset--spacing--60) var(--wp--preset--spacing--50)",
+              minHeight: "380px",
             }}
           >
             <p
@@ -287,12 +279,7 @@ export default function AboutPage() {
                 &ldquo;Ferg is not only a great creative but a tremendous leader. He advocates
                 for design and is innovative within it.&rdquo;
               </AnimatedText>
-              <cite
-                style={{
-                  fontStyle: "normal",
-                  display: "block",
-                }}
-              >
+              <cite style={{ fontStyle: "normal", display: "block" }}>
                 <br />
                 Dr. Marc O Riain
                 <sub>
@@ -303,10 +290,14 @@ export default function AboutPage() {
             </blockquote>
           </div>
 
-          {/* Right: project image */}
+          {/* Right: full-bleed image */}
           <div
             className="about-testimonial-image"
-            style={{ flexBasis: "50%", overflow: "hidden" }}
+            style={{
+              flexBasis: "50%",
+              overflow: "hidden",
+              minHeight: "380px",
+            }}
             data-aos="fade"
             data-aos-duration="1300"
           >
@@ -316,8 +307,9 @@ export default function AboutPage() {
               alt="Portrait of Ferg Flannery"
               style={{
                 width: "100%",
-                aspectRatio: "1",
+                height: "100%",
                 objectFit: "cover",
+                objectPosition: "center top",
                 display: "block",
               }}
             />
