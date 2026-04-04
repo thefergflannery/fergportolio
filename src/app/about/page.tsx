@@ -51,7 +51,7 @@ export default function AboutPage() {
 
       {/* Design intent strip — zoom-in AOS, right-aligned, full width */}
       <IntroStrip
-        text=">25 years experience across design from concept to creation"
+        text="Over 25 years experience across design from concept to creation"
         ornamentSrc="/images/Ornament-17.png"
         ornamentWidth={222}
         ornamentHeight={145}
