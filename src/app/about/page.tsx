@@ -297,7 +297,7 @@ export default function AboutPage() {
                 Dr. Marc O Riain
                 <sub>
                   <br />
-                  Director RUA Architects
+                  Director RUA Architects / Former President of the Institute of Designers in Ireland (IDI)
                 </sub>
               </cite>
             </blockquote>
