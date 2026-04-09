@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://fergflannery.com/images/social2.jpg",
+        secureUrl: "https://fergflannery.com/images/social2.jpg",
+        type: "image/jpeg",
         width: 1200,
         height: 630,
         alt: "Ferg Flannery – Creative Consultant, Art Director, Visual Designer",

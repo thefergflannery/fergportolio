@@ -1,5 +1,6 @@
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
 import HeroCursor from "@/components/ui/HeroCursor";
+import HeroGradient from "@/components/ui/HeroGradient";
 
 export default function Hero() {
   return (
@@ -12,42 +13,7 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Video background — clipped to hero bounds via its own absolute container */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          overflow: "hidden",
-          zIndex: 0,
-        }}
-      >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-          poster="/images/mainimage.png"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        >
-          <source src="/videos/shadergradient.mp4" type="video/mp4" />
-        </video>
-
-        {/* Overlay (dim-0 = transparent) */}
-        <span
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "#FFF",
-            opacity: 0,
-          }}
-        />
-      </div>
+      <HeroGradient />
 
       {/* Inner content — z-index 2, overflows below hero into LogoMarquee */}
       <div
