@@ -7,8 +7,6 @@ export default function HeroGradient() {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let rafId: number;
-
     function onScroll() {
       if (!wrapperRef.current) return;
       // Parallax: move at 40% of scroll rate so it stays mostly in place
@@ -17,10 +15,7 @@ export default function HeroGradient() {
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(rafId);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -35,12 +30,12 @@ export default function HeroGradient() {
       }}
     >
       <ShaderGradientCanvas
-        style={{ width: "100%", height: "100%" }}
-        pointerEvents="none"
+        style={{ width: "100%", height: "100%", pointerEvents: "none" }}
+        pixelDensity={2.3}
+        fov={40}
       >
         <ShaderGradient
           animate="on"
-          axesHelper="off"
           brightness={1.3}
           cAzimuthAngle={180}
           cDistance={5.41}
@@ -49,22 +44,12 @@ export default function HeroGradient() {
           color1="#11ff00"
           color2="#009f00"
           color3="#44a308"
-          destination="onCanvas"
-          embedMode="off"
           envPreset="city"
-          format="gif"
-          fov={40}
-          frameRate={10}
-          gizmoHelper="hide"
           grain="on"
           lightType="3d"
-          pixelDensity={2.3}
           positionX={-0.4}
           positionY={0}
           positionZ={0}
-          range="disabled"
-          rangeEnd={40}
-          rangeStart={0}
           reflection={0.1}
           rotationX={0}
           rotationY={10}
