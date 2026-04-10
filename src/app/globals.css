@@ -441,6 +441,11 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+/* ── Hero mobile canvas: hidden on desktop ── */
+.hero-model-mobile {
+  display: none;
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
@@ -615,6 +620,10 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 0 !important;
     padding-right: var(--wp--preset--spacing--30) !important;
   }
+
+  /* ── Hero: swap model columns ── */
+  .hero-model-desktop { display: none !important; }
+  .hero-model-mobile  { display: block !important; }
 
   /* ── Project page: gallery stacks vertically ── */
   .project-gallery {

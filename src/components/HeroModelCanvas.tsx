@@ -5,22 +5,13 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
-// Shared input — written by mouse or accelerometer, read by useFrame
 const input = { x: 0, y: 0 };
 
-export function trackMouse(e: MouseEvent) {
+function trackMouse(e: MouseEvent) {
   input.x = (e.clientX / window.innerWidth) * 2 - 1;
-  // Corrected: positive y = mouse up = tilt back (no negation)
   input.y = (e.clientY / window.innerHeight) * 2 - 1;
 }
 
-export function trackGyro(beta: number, gamma: number) {
-  // beta  = front/back tilt  (-180 → 180), gamma = left/right (-90 → 90)
-  input.x = THREE.MathUtils.clamp(gamma / 45, -1, 1);   // left/right → x
-  input.y = THREE.MathUtils.clamp(beta / 60, -1, 1);    // forward/back → y
-}
-
-// Fix renderer colour space so GLB PBR materials display correctly
 function RendererSetup() {
   const { gl } = useThree();
   useEffect(() => {
@@ -56,13 +47,11 @@ function Model({ centred = false }: { centred?: boolean }) {
 
   useFrame(() => {
     if (!groupRef.current) return;
-    // Y axis: mouse up (input.y < 0) → tilt forward (negative x rotation) — corrected
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
       groupRef.current.rotation.x,
       input.y * 0.35,
       0.05
     );
-    // X axis: mouse right → rotate right
     groupRef.current.rotation.y = THREE.MathUtils.lerp(
       groupRef.current.rotation.y,
       input.x * 0.45,
@@ -88,7 +77,7 @@ function SceneContents({ centred }: { centred: boolean }) {
   );
 }
 
-// Desktop: fills right column, bottom-aligned, mouse follow
+// Desktop — fills right hero column, bottom-aligned, mouse follow
 export function HeroModelDesktop() {
   useEffect(() => {
     window.addEventListener("mousemove", trackMouse, { passive: true });
@@ -106,56 +95,24 @@ export function HeroModelDesktop() {
   );
 }
 
-// Mobile: centred in viewport, gyroscope follow
+// Mobile — centred, no movement, placed below hero text via CSS
 export function HeroModelMobile() {
-  useEffect(() => {
-    let listening = false;
-
-    function startGyro() {
-      window.addEventListener(
-        "deviceorientation",
-        (e: DeviceOrientationEvent) => {
-          if (e.beta !== null && e.gamma !== null) {
-            trackGyro(e.beta, e.gamma);
-          }
-        },
-        { passive: true }
-      );
-      listening = true;
-    }
-
-    // iOS 13+ requires permission
-    if (
-      typeof DeviceOrientationEvent !== "undefined" &&
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      typeof (DeviceOrientationEvent as any).requestPermission === "function"
-    ) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (DeviceOrientationEvent as any)
-        .requestPermission()
-        .then((state: string) => {
-          if (state === "granted") startGyro();
-        })
-        .catch(() => {});
-    } else {
-      startGyro();
-    }
-
-    return () => {
-      if (listening) {
-        window.removeEventListener("deviceorientation", startGyro as never);
-      }
-    };
-  }, []);
-
   return (
-    <Canvas
-      camera={{ position: [0, 0, CAM_Z], fov: CAM_FOV }}
-      style={{ width: "100vw", height: "60vh" }}
-      gl={{ antialias: true, alpha: true }}
+    <div
+      style={{
+        width: "100vw",
+        height: "50vh",
+        marginLeft: "calc(-70px)",  // escape hero-inner left padding
+      }}
     >
-      <SceneContents centred={true} />
-    </Canvas>
+      <Canvas
+        camera={{ position: [0, 0, CAM_Z], fov: CAM_FOV }}
+        style={{ width: "100%", height: "100%" }}
+        gl={{ antialias: true, alpha: true }}
+      >
+        <SceneContents centred={true} />
+      </Canvas>
+    </div>
   );
 }
 

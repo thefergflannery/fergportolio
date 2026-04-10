@@ -25,22 +25,6 @@ export default function HeroModel() {
   }, []);
 
   if (isMobile === null) return null;
-
-  if (isMobile) {
-    return (
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <HeroModelMobile />
-      </div>
-    );
-  }
-
+  if (isMobile) return <HeroModelMobile />;
   return <HeroModelDesktop />;
 }

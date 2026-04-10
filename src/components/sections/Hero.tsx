@@ -1,5 +1,6 @@
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
-import HeroModel from "@/components/HeroModel";
+import HeroModelDesktopWrapper from "@/components/HeroModelDesktopWrapper";
+import HeroModelMobileWrapper from "@/components/HeroModelMobileWrapper";
 
 export default function Hero() {
   return (
@@ -13,7 +14,6 @@ export default function Hero() {
         backgroundColor: "var(--wp--preset--color--accent-1)",
       }}
     >
-      {/* Inner content — z-index 2, overflows below hero into LogoMarquee */}
       <div
         className="hero-inner"
         style={{
@@ -25,6 +25,7 @@ export default function Hero() {
           height: "100%",
         }}
       >
+        {/* Desktop: text left, model right */}
         <div
           style={{
             display: "flex",
@@ -35,7 +36,7 @@ export default function Hero() {
             marginBottom: "-450px",
           }}
         >
-          {/* Left: hero text */}
+          {/* Hero text */}
           <div style={{ flexBasis: "66.66%", flexShrink: 0 }}>
             <h1
               id="ferg"
@@ -78,8 +79,9 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Right: 3D model — fills the right third of the hero */}
+          {/* Desktop 3D model — hidden on mobile via CSS */}
           <div
+            className="hero-model-desktop"
             style={{
               flexBasis: "33.33%",
               flexShrink: 0,
@@ -87,10 +89,16 @@ export default function Hero() {
               position: "relative",
             }}
           >
-            <HeroModel />
+            <HeroModelDesktopWrapper />
           </div>
         </div>
+
+        {/* Mobile 3D model — shown below text on small screens */}
+        <div className="hero-model-mobile">
+          <HeroModelMobileWrapper />
+        </div>
       </div>
+
       <HeroScrollOut />
     </div>
   );
