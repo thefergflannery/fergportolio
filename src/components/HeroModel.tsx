@@ -1,77 +1,16 @@
 "use client";
 
-import { Suspense, useRef, useEffect, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
-import * as THREE from "three";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
-// ── Mouse tracking shared state ─────────────────────────────────────────────
-// Stored outside the component so the canvas doesn't re-render on every move
-const mouse = { x: 0, y: 0 };
+// Load the Canvas/R3F component only on the client — WebGL doesn't exist on the server
+const HeroModelCanvas = dynamic(() => import("./HeroModelCanvas"), {
+  ssr: false,
+  loading: () => null,
+});
 
-function trackMouse(e: MouseEvent) {
-  // Normalise to ±1 across the viewport
-  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
-}
-
-// ── 3D model inner component ────────────────────────────────────────────────
-function Model() {
-  const { scene } = useGLTF("/models/ferg.glb");
-  const groupRef = useRef<THREE.Group>(null);
-
-  // Target rotation accumulator
-  const target = useRef({ x: 0, y: 0 });
-
-  useFrame(() => {
-    if (!groupRef.current) return;
-
-    // Map normalised mouse to rotation range
-    target.current.x = mouse.y * 0.2;  // tilt up/down ±0.2 rad
-    target.current.y = mouse.x * 0.3;  // pan left/right ±0.3 rad
-
-    // Lerp current rotation toward target — 0.05 = smooth, lazy follow
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(
-      groupRef.current.rotation.x,
-      target.current.x,
-      0.05
-    );
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(
-      groupRef.current.rotation.y,
-      target.current.y,
-      0.05
-    );
-  });
-
-  return <primitive object={scene} ref={groupRef} />;
-}
-
-// ── Canvas wrapper ───────────────────────────────────────────────────────────
-function ModelCanvas() {
-  useEffect(() => {
-    window.addEventListener("mousemove", trackMouse, { passive: true });
-    return () => window.removeEventListener("mousemove", trackMouse);
-  }, []);
-
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 3], fov: 45 }}
-      style={{ width: "100%", height: "100%" }}
-      gl={{ antialias: true, alpha: true }}
-    >
-      <ambientLight intensity={1.2} />
-      <directionalLight position={[3, 4, 5]} intensity={1.5} />
-      <directionalLight position={[-3, -2, -3]} intensity={0.4} />
-      <Suspense fallback={null}>
-        <Model />
-      </Suspense>
-    </Canvas>
-  );
-}
-
-// ── Public component — handles mobile/desktop split ─────────────────────────
 export default function HeroModel() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -80,6 +19,9 @@ export default function HeroModel() {
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
+
+  // Render nothing until we know viewport size (avoids hydration flash)
+  if (isMobile === null) return null;
 
   if (isMobile) {
     return (
@@ -93,8 +35,5 @@ export default function HeroModel() {
     );
   }
 
-  return <ModelCanvas />;
+  return <HeroModelCanvas />;
 }
-
-// Preload so the GLB starts fetching before Suspense mounts
-useGLTF.preload("/models/ferg.glb");
