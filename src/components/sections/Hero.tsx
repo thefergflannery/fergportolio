@@ -1,6 +1,5 @@
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
 import HeroModelDesktopWrapper from "@/components/HeroModelDesktopWrapper";
-import HeroModelMobileWrapper from "@/components/HeroModelMobileWrapper";
 
 export default function Hero() {
   return (
@@ -25,8 +24,8 @@ export default function Hero() {
           height: "100%",
         }}
       >
-        {/* Desktop: text left, model right */}
         <div
+          className="hero-row"
           style={{
             display: "flex",
             flexWrap: "nowrap",
@@ -37,7 +36,7 @@ export default function Hero() {
           }}
         >
           {/* Hero text */}
-          <div style={{ flexBasis: "66.66%", flexShrink: 0 }}>
+          <div className="hero-text-col" style={{ flexBasis: "66.66%", flexShrink: 0 }}>
             <h1
               id="ferg"
               className="hero-title hero-stagger-out"
@@ -91,11 +90,6 @@ export default function Hero() {
           >
             <HeroModelDesktopWrapper />
           </div>
-        </div>
-
-        {/* Mobile 3D model — shown below text on small screens */}
-        <div className="hero-model-mobile">
-          <HeroModelMobileWrapper />
         </div>
       </div>
 

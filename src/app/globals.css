@@ -441,10 +441,7 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-/* ── Hero mobile canvas: hidden on desktop ── */
-.hero-model-mobile {
-  display: none;
-}
+/* ── Hero mobile canvas: unused placeholder removed ── */
 
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
 
@@ -621,9 +618,27 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: var(--wp--preset--spacing--30) !important;
   }
 
-  /* ── Hero: swap model columns ── */
+  /* ── Hero: hide desktop model column ── */
   .hero-model-desktop { display: none !important; }
-  .hero-model-mobile  { display: block !important; }
+
+  /* ── Hero: mobile background image + vertically centred text ── */
+  .hero-cover {
+    background-image: url('/images/mobilefallback.png') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+  }
+  .hero-row {
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 90vh !important;
+    margin-bottom: 0 !important;
+  }
+  .hero-text-col {
+    flex-basis: 100% !important;
+    flex-shrink: 1 !important;
+  }
 
   /* ── Project page: gallery stacks vertically ── */
   .project-gallery {
