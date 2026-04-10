@@ -322,6 +322,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Hero ───────────────────────────────────────────────────────────────── */
 
+.hero-cover {
+  background-color: var(--wp--preset--color--accent-1);
+}
+
 .hero-inner {
   max-width: 1200px;
 }
@@ -621,19 +625,20 @@ h1, h2, h3, h4, h5, h6 {
   /* ── Hero: hide desktop model column ── */
   .hero-model-desktop { display: none !important; }
 
-  /* ── Hero: mobile background image + vertically centred text ── */
+  /* ── Hero: mobile background image ── */
+  /* background shorthand overrides the inline backgroundColor style */
   .hero-cover {
-    background-image: url('/images/mobilefallback.png') !important;
-    background-size: cover !important;
-    background-position: center center !important;
-    background-repeat: no-repeat !important;
-    background-color: transparent !important;
+    background: url('/images/mobilefallback.png') center center / cover no-repeat !important;
   }
-  .hero-row {
+
+  /* ── Hero: vertically centre text ── */
+  /* Override the old .hero-inner > div rule that pinned align-items: flex-end */
+  .hero-inner > div.hero-row {
     align-items: center !important;
     justify-content: center !important;
     min-height: 90vh !important;
     margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
   .hero-text-col {
     flex-basis: 100% !important;

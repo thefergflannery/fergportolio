@@ -10,7 +10,6 @@ export default function Hero() {
         minHeight: "90vh",
         paddingTop: 0,
         overflow: "hidden",
-        backgroundColor: "var(--wp--preset--color--accent-1)",
       }}
     >
       <div
