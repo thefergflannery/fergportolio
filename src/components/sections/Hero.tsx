@@ -1,5 +1,4 @@
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
-import HeroMouseTrail from "@/components/ui/HeroMouseTrail";
 import HeroModel from "@/components/HeroModel";
 
 export default function Hero() {
@@ -95,7 +94,6 @@ export default function Hero() {
         </div>
       </div>
       <HeroScrollOut />
-      <HeroMouseTrail />
     </div>
   );
 }

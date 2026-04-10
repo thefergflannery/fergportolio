@@ -1,8 +1,8 @@
 "use client";
 
 import { Suspense, useRef, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
 const mouse = { x: 0, y: 0 };
@@ -12,11 +12,22 @@ function trackMouse(e: MouseEvent) {
   mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
 }
 
+// Fix renderer colour space so GLB PBR materials display correctly
+function RendererSetup() {
+  const { gl } = useThree();
+  useEffect(() => {
+    gl.outputColorSpace = THREE.SRGBColorSpace;
+    gl.toneMapping = THREE.ACESFilmicToneMapping;
+    gl.toneMappingExposure = 1.2;
+  }, [gl]);
+  return null;
+}
+
 function Model() {
   const { scene } = useGLTF("/models/ferg.glb");
   const groupRef = useRef<THREE.Group>(null);
 
-  // Centre the model on its own bounding box so it sits at world origin
+  // Centre on bounding box so model sits at world origin
   useEffect(() => {
     const box = new THREE.Box3().setFromObject(scene);
     const centre = new THREE.Vector3();
@@ -53,7 +64,10 @@ export default function HeroModelCanvas() {
       style={{ width: "100%", height: "100%" }}
       gl={{ antialias: true, alpha: true }}
     >
-      <ambientLight intensity={1.2} />
+      <RendererSetup />
+      {/* Environment preset provides image-based lighting so GLB materials render correctly */}
+      <Environment preset="studio" />
+      <ambientLight intensity={0.5} />
       <directionalLight position={[3, 4, 5]} intensity={1.5} />
       <directionalLight position={[-3, -2, -3]} intensity={0.4} />
       <Suspense fallback={null}>
