@@ -16,6 +16,14 @@ function Model() {
   const { scene } = useGLTF("/models/ferg.glb");
   const groupRef = useRef<THREE.Group>(null);
 
+  // Centre the model on its own bounding box so it sits at world origin
+  useEffect(() => {
+    const box = new THREE.Box3().setFromObject(scene);
+    const centre = new THREE.Vector3();
+    box.getCenter(centre);
+    scene.position.sub(centre);
+  }, [scene]);
+
   useFrame(() => {
     if (!groupRef.current) return;
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
