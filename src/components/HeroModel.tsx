@@ -3,11 +3,15 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-// Load the Canvas/R3F component only on the client — WebGL doesn't exist on the server
-const HeroModelCanvas = dynamic(() => import("./HeroModelCanvas"), {
-  ssr: false,
-  loading: () => null,
-});
+const HeroModelDesktop = dynamic(
+  () => import("./HeroModelCanvas").then((m) => ({ default: m.HeroModelDesktop })),
+  { ssr: false, loading: () => null }
+);
+
+const HeroModelMobile = dynamic(
+  () => import("./HeroModelCanvas").then((m) => ({ default: m.HeroModelMobile })),
+  { ssr: false, loading: () => null }
+);
 
 export default function HeroModel() {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
@@ -20,20 +24,23 @@ export default function HeroModel() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Render nothing until we know viewport size (avoids hydration flash)
   if (isMobile === null) return null;
 
   if (isMobile) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src="/images/ferg-hero-fallback.jpg"
-        alt=""
-        aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-      />
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <HeroModelMobile />
+      </div>
     );
   }
 
-  return <HeroModelCanvas />;
+  return <HeroModelDesktop />;
 }
