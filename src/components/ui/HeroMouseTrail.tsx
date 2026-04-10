@@ -2,46 +2,69 @@
 
 import { useEffect, useRef } from "react";
 
-const TRAIL_LENGTH = 20;
-const DOT_SIZE = 18; // px diameter
+// Lead blob + trail chain
+const LEAD_SIZE = 90;   // px diameter of the front circle
+const TRAIL_COUNT = 12; // number of trailing circles
+const TRAIL_MIN = 14;   // smallest tail circle diameter
 
 export default function HeroMouseTrail() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    // ── Build DOM elements ───────────────────────────────────────────────────
+    const all: HTMLDivElement[] = [];
 
-    // Create trail dot elements
-    const dots: HTMLDivElement[] = [];
-    for (let i = 0; i < TRAIL_LENGTH; i++) {
+    // Lead blob
+    const lead = document.createElement("div");
+    lead.style.cssText = `
+      position: fixed;
+      width: ${LEAD_SIZE}px;
+      height: ${LEAD_SIZE}px;
+      border-radius: 50%;
+      background: #fff;
+      mix-blend-mode: difference;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      will-change: left, top;
+      transition: width 0.3s ease, height 0.3s ease;
+    `;
+    document.body.appendChild(lead);
+    all.push(lead);
+
+    // Trail circles — shrink from LEAD_SIZE toward TRAIL_MIN
+    const trail: HTMLDivElement[] = [];
+    for (let i = 0; i < TRAIL_COUNT; i++) {
+      const t = i / (TRAIL_COUNT - 1); // 0 → 1
+      const size = LEAD_SIZE - (LEAD_SIZE - TRAIL_MIN) * t;
       const dot = document.createElement("div");
-      const scale = 1 - i / TRAIL_LENGTH; // shrink toward tail
-      const size = DOT_SIZE * scale;
       dot.style.cssText = `
         position: fixed;
         width: ${size}px;
         height: ${size}px;
         border-radius: 50%;
-        background: #1a1a1a;
+        background: #fff;
         mix-blend-mode: difference;
         pointer-events: none;
-        z-index: 999;
+        z-index: 9998;
         transform: translate(-50%, -50%);
         opacity: 0;
         will-change: left, top;
       `;
       document.body.appendChild(dot);
-      dots.push(dot);
+      all.push(dot);
+      trail.push(dot);
     }
 
-    // Spring positions for each dot
-    const positions: { x: number; y: number }[] = dots.map(() => ({ x: -200, y: -200 }));
-    let mouse = { x: -200, y: -200 };
+    // ── State ────────────────────────────────────────────────────────────────
+    // positions[0] = lead, positions[1..N] = trail
+    const positions = all.map(() => ({ x: -300, y: -300 }));
+    let mouse = { x: -300, y: -300 };
     let isInHero = false;
     let rafId: number;
 
-    function isMouseInHero(x: number, y: number): boolean {
+    function checkHero(x: number, y: number): boolean {
       const hero = document.querySelector(".hero-cover");
       if (!hero) return false;
       const r = hero.getBoundingClientRect();
@@ -51,39 +74,42 @@ export default function HeroMouseTrail() {
     function onMouseMove(e: MouseEvent) {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-      isInHero = isMouseInHero(mouse.x, mouse.y);
+      isInHero = checkHero(mouse.x, mouse.y);
     }
 
     function onScroll() {
-      isInHero = isMouseInHero(mouse.x, mouse.y);
+      isInHero = checkHero(mouse.x, mouse.y);
     }
 
     function animate() {
       rafId = requestAnimationFrame(animate);
 
       if (!isInHero) {
-        // Fade out all dots when outside hero
-        dots.forEach((dot) => {
-          dot.style.opacity = "0";
-        });
+        all.forEach((el) => { el.style.opacity = "0"; });
         return;
       }
 
-      // Lead dot follows mouse directly
-      positions[0].x += (mouse.x - positions[0].x) * 0.35;
-      positions[0].y += (mouse.y - positions[0].y) * 0.35;
+      // Lead: fast spring toward mouse
+      positions[0].x += (mouse.x - positions[0].x) * 0.18;
+      positions[0].y += (mouse.y - positions[0].y) * 0.18;
 
-      // Each subsequent dot follows the one before it
-      for (let i = 1; i < TRAIL_LENGTH; i++) {
-        positions[i].x += (positions[i - 1].x - positions[i].x) * 0.35;
-        positions[i].y += (positions[i - 1].y - positions[i].y) * 0.35;
+      // Each trail dot follows the element ahead with a slightly looser spring
+      for (let i = 1; i < all.length; i++) {
+        const lag = 0.18 - i * 0.008; // progressively looser
+        positions[i].x += (positions[i - 1].x - positions[i].x) * Math.max(lag, 0.04);
+        positions[i].y += (positions[i - 1].y - positions[i].y) * Math.max(lag, 0.04);
       }
 
-      dots.forEach((dot, i) => {
-        const opacity = (1 - i / TRAIL_LENGTH) * 0.85;
+      // Apply positions
+      lead.style.opacity = "0.95";
+      lead.style.left = `${positions[0].x}px`;
+      lead.style.top = `${positions[0].y}px`;
+
+      trail.forEach((dot, i) => {
+        const opacity = 0.85 * (1 - (i + 1) / (TRAIL_COUNT + 1));
         dot.style.opacity = String(opacity);
-        dot.style.left = `${positions[i].x}px`;
-        dot.style.top = `${positions[i].y}px`;
+        dot.style.left = `${positions[i + 1].x}px`;
+        dot.style.top = `${positions[i + 1].y}px`;
       });
     }
 
@@ -95,10 +121,9 @@ export default function HeroMouseTrail() {
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("scroll", onScroll);
-      dots.forEach((dot) => dot.remove());
+      all.forEach((el) => el.remove());
     };
   }, []);
 
-  // This component only mounts the effect — no visible DOM of its own
   return <div ref={containerRef} aria-hidden="true" />;
 }
