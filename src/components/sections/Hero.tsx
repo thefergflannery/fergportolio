@@ -1,6 +1,5 @@
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
-import HeroCursor from "@/components/ui/HeroCursor";
-import HeroGradient from "@/components/ui/HeroGradient";
+import HeroMouseTrail from "@/components/ui/HeroMouseTrail";
 
 export default function Hero() {
   return (
@@ -11,10 +10,9 @@ export default function Hero() {
         minHeight: "90vh",
         paddingTop: 0,
         overflow: "hidden",
+        backgroundColor: "var(--wp--preset--color--accent-1)",
       }}
     >
-      <HeroGradient />
-
       {/* Inner content — z-index 2, overflows below hero into LogoMarquee */}
       <div
         className="hero-inner"
@@ -43,7 +41,7 @@ export default function Hero() {
               id="ferg"
               className="hero-title hero-stagger-out"
               style={{
-                color: "var(--wp--preset--color--accent-1)",
+                color: "var(--wp--preset--color--contrast)",
                 fontStyle: "normal",
                 fontWeight: 1000,
                 margin: 0,
@@ -83,7 +81,7 @@ export default function Hero() {
         </div>
       </div>
       <HeroScrollOut />
-      <HeroCursor />
+      <HeroMouseTrail />
     </div>
   );
 }
