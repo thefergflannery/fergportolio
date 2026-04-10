@@ -2,128 +2,121 @@
 
 import { useEffect, useRef } from "react";
 
-// Lead blob + trail chain
-const LEAD_SIZE = 90;   // px diameter of the front circle
-const TRAIL_COUNT = 12; // number of trailing circles
-const TRAIL_MIN = 14;   // smallest tail circle diameter
+const MAX_LIFE = 50;     // frames a point lives
+const RADIUS = 72;       // px radius at birth
+const STEP = 6;          // px between trail points along path
 
 export default function HeroMouseTrail() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // ── Build DOM elements ───────────────────────────────────────────────────
-    const all: HTMLDivElement[] = [];
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
 
-    // Lead blob
-    const lead = document.createElement("div");
-    lead.style.cssText = `
-      position: fixed;
-      width: ${LEAD_SIZE}px;
-      height: ${LEAD_SIZE}px;
-      border-radius: 50%;
-      background: #fff;
-      mix-blend-mode: difference;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      will-change: left, top;
-      transition: width 0.3s ease, height 0.3s ease;
-    `;
-    document.body.appendChild(lead);
-    all.push(lead);
-
-    // Trail circles — shrink from LEAD_SIZE toward TRAIL_MIN
-    const trail: HTMLDivElement[] = [];
-    for (let i = 0; i < TRAIL_COUNT; i++) {
-      const t = i / (TRAIL_COUNT - 1); // 0 → 1
-      const size = LEAD_SIZE - (LEAD_SIZE - TRAIL_MIN) * t;
-      const dot = document.createElement("div");
-      dot.style.cssText = `
-        position: fixed;
-        width: ${size}px;
-        height: ${size}px;
-        border-radius: 50%;
-        background: #fff;
-        mix-blend-mode: difference;
-        pointer-events: none;
-        z-index: 9998;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        will-change: left, top;
-      `;
-      document.body.appendChild(dot);
-      all.push(dot);
-      trail.push(dot);
+    // Size canvas to its CSS box
+    function resize() {
+      if (!canvas) return;
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
     }
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
 
-    // ── State ────────────────────────────────────────────────────────────────
-    // positions[0] = lead, positions[1..N] = trail
-    const positions = all.map(() => ({ x: -300, y: -300 }));
-    let mouse = { x: -300, y: -300 };
-    let isInHero = false;
-    let rafId: number;
-
-    function checkHero(x: number, y: number): boolean {
-      const hero = document.querySelector(".hero-cover");
-      if (!hero) return false;
-      const r = hero.getBoundingClientRect();
-      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-    }
+    type Point = { x: number; y: number; life: number };
+    const points: Point[] = [];
+    let prevX = -999;
+    let prevY = -999;
 
     function onMouseMove(e: MouseEvent) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      isInHero = checkHero(mouse.x, mouse.y);
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Only draw while inside the canvas (= inside hero due to overflow:hidden)
+      if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
+
+      const dx = x - prevX;
+      const dy = y - prevY;
+      const dist = Math.hypot(dx, dy);
+
+      if (prevX < -100 || dist > STEP * 30) {
+        // First entry or big teleport — single point
+        points.push({ x, y, life: MAX_LIFE });
+      } else {
+        // Interpolate along path for dense, smooth trail
+        const steps = Math.ceil(dist / STEP);
+        for (let s = 0; s <= steps; s++) {
+          const t = s / steps;
+          points.push({
+            x: prevX + dx * t,
+            y: prevY + dy * t,
+            life: MAX_LIFE,
+          });
+        }
+      }
+
+      prevX = x;
+      prevY = y;
     }
 
-    function onScroll() {
-      isInHero = checkHero(mouse.x, mouse.y);
-    }
+    let rafId: number;
 
     function animate() {
       rafId = requestAnimationFrame(animate);
+      if (!canvas || !ctx) return;
 
-      if (!isInHero) {
-        all.forEach((el) => { el.style.opacity = "0"; });
-        return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = points.length - 1; i >= 0; i--) {
+        points[i].life--;
+        if (points[i].life <= 0) {
+          points.splice(i, 1);
+          continue;
+        }
+
+        const t = points[i].life / MAX_LIFE; // 1 = fresh → 0 = dead
+        const r = RADIUS * t;               // shrinks with age
+        const alpha = t;
+
+        const grad = ctx.createRadialGradient(
+          points[i].x, points[i].y, 0,
+          points[i].x, points[i].y, r
+        );
+        grad.addColorStop(0, `rgba(255,255,255,${alpha})`);
+        grad.addColorStop(1, `rgba(255,255,255,0)`);
+
+        ctx.beginPath();
+        ctx.arc(points[i].x, points[i].y, r, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
       }
-
-      // Lead: fast spring toward mouse
-      positions[0].x += (mouse.x - positions[0].x) * 0.18;
-      positions[0].y += (mouse.y - positions[0].y) * 0.18;
-
-      // Each trail dot follows the element ahead with a slightly looser spring
-      for (let i = 1; i < all.length; i++) {
-        const lag = 0.18 - i * 0.008; // progressively looser
-        positions[i].x += (positions[i - 1].x - positions[i].x) * Math.max(lag, 0.04);
-        positions[i].y += (positions[i - 1].y - positions[i].y) * Math.max(lag, 0.04);
-      }
-
-      // Apply positions
-      lead.style.opacity = "0.95";
-      lead.style.left = `${positions[0].x}px`;
-      lead.style.top = `${positions[0].y}px`;
-
-      trail.forEach((dot, i) => {
-        const opacity = 0.85 * (1 - (i + 1) / (TRAIL_COUNT + 1));
-        dot.style.opacity = String(opacity);
-        dot.style.left = `${positions[i + 1].x}px`;
-        dot.style.top = `${positions[i + 1].y}px`;
-      });
     }
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("scroll", onScroll, { passive: true });
     rafId = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("scroll", onScroll);
-      all.forEach((el) => el.remove());
+      ro.disconnect();
     };
   }, []);
 
-  return <div ref={containerRef} aria-hidden="true" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        mixBlendMode: "difference",
+        pointerEvents: "none",
+        zIndex: 10,
+      }}
+    />
+  );
 }
