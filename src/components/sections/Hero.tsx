@@ -33,7 +33,6 @@ export default function Hero() {
             paddingLeft: 0,
             minHeight: "90vh",
             marginBottom: "-450px",
-            paddingBottom: "8vh",
           }}
         >
           {/* Left: hero text */}
@@ -84,8 +83,7 @@ export default function Hero() {
             style={{
               flexBasis: "33.33%",
               flexShrink: 0,
-              alignSelf: "stretch",
-              minHeight: "90vh",
+              height: "90vh",
               position: "relative",
             }}
           >

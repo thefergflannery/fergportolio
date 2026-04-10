@@ -23,17 +23,36 @@ function RendererSetup() {
   return null;
 }
 
+// Camera constants — must match Canvas camera prop
+const CAM_Z = 3;
+const CAM_FOV = 45;
+
 function Model() {
   const { scene } = useGLTF("/models/ferg.glb");
   const groupRef = useRef<THREE.Group>(null);
+  const { size } = useThree();
 
-  // Centre on bounding box so model sits at world origin
+  // Centre model then shift down so its bottom aligns with canvas bottom
   useEffect(() => {
     const box = new THREE.Box3().setFromObject(scene);
     const centre = new THREE.Vector3();
     box.getCenter(centre);
-    scene.position.sub(centre);
-  }, [scene]);
+    scene.position.sub(centre); // centre at origin
+
+    // Visible frustum half-height at z=0 (world units)
+    const aspect = size.width / size.height;
+    const halfH = Math.tan((CAM_FOV * Math.PI) / 360) * CAM_Z;
+    const halfW = halfH * aspect;
+    void halfW; // used for reference only
+
+    // Model world-space half-height after centering
+    const newBox = new THREE.Box3().setFromObject(scene);
+    const modelHalfH = (newBox.max.y - newBox.min.y) / 2;
+
+    // Shift down so model bottom = frustum bottom
+    scene.position.y -= halfH - modelHalfH;
+  }, [scene, size]);
+
 
   useFrame(() => {
     if (!groupRef.current) return;
