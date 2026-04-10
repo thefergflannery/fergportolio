@@ -625,11 +625,6 @@ h1, h2, h3, h4, h5, h6 {
   /* ── Hero: hide desktop model column ── */
   .hero-model-desktop { display: none !important; }
 
-  /* ── Hero: mobile background image ── */
-  /* background shorthand overrides the inline backgroundColor style */
-  .hero-cover {
-    background: url('/images/mobilefallback.png') center center / cover no-repeat !important;
-  }
 
   /* ── Hero: vertically centre text ── */
   /* Override the old .hero-inner > div rule that pinned align-items: flex-end */

@@ -10,8 +10,20 @@ export default function Hero() {
         minHeight: "90vh",
         paddingTop: 0,
         overflow: "hidden",
+        backgroundColor: "var(--wp--preset--color--accent-1)",
       }}
     >
+      {/* Mobile background image — inline style tag beats any CSS cascade issue on Android */}
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-cover {
+            background-image: url('/images/mobilefallback.png') !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+          }
+        }
+      `}</style>
       <div
         className="hero-inner"
         style={{

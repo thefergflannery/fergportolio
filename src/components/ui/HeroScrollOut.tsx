@@ -67,8 +67,12 @@ export default function HeroScrollOut() {
       }),
     });
 
+    // Refresh after fonts/images settle so trigger bounds are accurate on mobile
+    const tid = setTimeout(() => ScrollTrigger.refresh(), 300);
+
     return () => {
       st.kill();
+      clearTimeout(tid);
     };
   }, []);
 
