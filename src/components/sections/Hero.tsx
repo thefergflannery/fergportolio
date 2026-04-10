@@ -1,5 +1,6 @@
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
 import HeroMouseTrail from "@/components/ui/HeroMouseTrail";
+import HeroModel from "@/components/HeroModel";
 
 export default function Hero() {
   return (
@@ -36,6 +37,7 @@ export default function Hero() {
             paddingBottom: "8vh",
           }}
         >
+          {/* Left: hero text */}
           <div style={{ flexBasis: "66.66%", flexShrink: 0 }}>
             <h1
               id="ferg"
@@ -76,10 +78,20 @@ export default function Hero() {
               <br />
               DESIGNER.
             </p>
-
           </div>
 
-          <div style={{ flexBasis: "33.33%" }} />
+          {/* Right: 3D model — fills the right third of the hero */}
+          <div
+            style={{
+              flexBasis: "33.33%",
+              flexShrink: 0,
+              alignSelf: "stretch",
+              minHeight: "90vh",
+              position: "relative",
+            }}
+          >
+            <HeroModel />
+          </div>
         </div>
       </div>
       <HeroScrollOut />

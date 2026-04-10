@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, ComponentPropsWithRef, ElementType } from "react";
+import React, { useRef, useEffect, ComponentPropsWithRef, ElementType } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 type AnimatedTextProps<T extends ElementType = "p"> = {
@@ -69,9 +69,5 @@ export default function AnimatedText<T extends ElementType = "p">({
     };
   }, []);
 
-  return (
-    <Tag ref={elRef} className="animated-text" {...props}>
-      {children}
-    </Tag>
-  );
+  return React.createElement(Tag, { ref: elRef, className: "animated-text", ...props }, children);
 }
