@@ -114,7 +114,7 @@ export default function HeroMouseTrail() {
         width: "100%",
         height: "100%",
         pointerEvents: "none",
-        zIndex: 10,
+        zIndex: 1,
       }}
     />
   );

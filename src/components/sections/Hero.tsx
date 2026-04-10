@@ -41,7 +41,8 @@ export default function Hero() {
               id="ferg"
               className="hero-title hero-stagger-out"
               style={{
-                color: "var(--wp--preset--color--contrast)",
+                color: "#fff",
+                mixBlendMode: "difference",
                 fontStyle: "normal",
                 fontWeight: 1000,
                 margin: 0,
@@ -56,7 +57,8 @@ export default function Hero() {
               id="creativeconsultant-art-director-visualdesigner"
               className="hero-stagger-out hero-title"
               style={{
-                color: "var(--wp--preset--color--base)",
+                color: "#fff",
+                mixBlendMode: "difference",
                 fontStyle: "normal",
                 fontWeight: 1000,
                 margin: 0,
