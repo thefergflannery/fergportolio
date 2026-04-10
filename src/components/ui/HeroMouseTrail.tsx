@@ -113,7 +113,6 @@ export default function HeroMouseTrail() {
         inset: 0,
         width: "100%",
         height: "100%",
-        mixBlendMode: "difference",
         pointerEvents: "none",
         zIndex: 10,
       }}
