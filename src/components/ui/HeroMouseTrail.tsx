@@ -85,8 +85,8 @@ export default function HeroMouseTrail() {
           points[i].x, points[i].y, 0,
           points[i].x, points[i].y, r
         );
-        grad.addColorStop(0, `rgba(255,255,255,${alpha})`);
-        grad.addColorStop(1, `rgba(255,255,255,0)`);
+        grad.addColorStop(0, `rgba(0,0,0,${alpha})`);
+        grad.addColorStop(1, `rgba(0,0,0,0)`);
 
         ctx.beginPath();
         ctx.arc(points[i].x, points[i].y, r, 0, Math.PI * 2);
