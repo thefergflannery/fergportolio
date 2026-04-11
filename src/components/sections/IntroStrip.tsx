@@ -55,7 +55,7 @@ export default function IntroStrip({
       }}
     >
       {modelSrc ? (
-        <IntroModelSlot modelSrc={modelSrc} width={220} height={220} />
+        <IntroModelSlot modelSrc={modelSrc} />
       ) : ornamentSrc ? (
         <figure
           style={{ marginBottom: "var(--wp--preset--spacing--30)" }}

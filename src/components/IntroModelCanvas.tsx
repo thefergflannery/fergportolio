@@ -5,13 +5,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
-// ── Shared scroll + element state ────────────────────────────────────────────
-// elementCenterY: absolute Y of the slot's centre in the document
-const introState = { scrollY: 0, elementCenterY: 0 };
-
-function trackIntroScroll() {
-  introState.scrollY = window.scrollY;
-}
+// ── Scroll state ─────────────────────────────────────────────────────────────
+const introScroll = { y: 0 };
+function trackIntroScroll() { introScroll.y = window.scrollY; }
 
 // ── Renderer setup ───────────────────────────────────────────────────────────
 function RendererSetup() {
@@ -32,10 +28,8 @@ function LogoModel({ modelSrc }: { modelSrc: string }) {
   const { scene } = useGLTF(modelSrc);
   const groupRef = useRef<THREE.Group>(null);
   const scrollRotY = useRef(0);
-  const scrollRotX = useRef(0);
 
   useEffect(() => {
-    // Centre and scale the model
     const box = new THREE.Box3().setFromObject(scene);
     const centre = new THREE.Vector3();
     box.getCenter(centre);
@@ -49,25 +43,11 @@ function LogoModel({ modelSrc }: { modelSrc: string }) {
 
   useFrame(() => {
     if (!groupRef.current) return;
-
-    // Y rotation: scroll-driven (same as hero model)
-    const yTarget = introState.scrollY * 0.003;
+    const yTarget = introScroll.y * 0.003;
     scrollRotY.current = THREE.MathUtils.lerp(scrollRotY.current, yTarget, 0.06);
     groupRef.current.rotation.y = THREE.MathUtils.lerp(
       groupRef.current.rotation.y,
       scrollRotY.current,
-      0.05
-    );
-
-    // X rotation: 0 when element centre is at viewport centre
-    // small tilt as user scrolls past — clamped tight so flat logo stays visible
-    const viewportH = window.innerHeight;
-    const distFromCenter = introState.scrollY + viewportH / 2 - introState.elementCenterY;
-    const xTarget = THREE.MathUtils.clamp(distFromCenter * 0.0002, -0.15, 0.15);
-    scrollRotX.current = THREE.MathUtils.lerp(scrollRotX.current, xTarget, 0.06);
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(
-      groupRef.current.rotation.x,
-      scrollRotX.current,
       0.05
     );
   });
@@ -75,40 +55,18 @@ function LogoModel({ modelSrc }: { modelSrc: string }) {
   return <primitive object={scene} ref={groupRef} />;
 }
 
-// ── Exported canvas component ────────────────────────────────────────────────
-// containerRef: the slot wrapper div — used to calculate element centre
-export function IntroModelDesktop({
-  modelSrc,
-  containerRef,
-}: {
-  modelSrc: string;
-  containerRef: React.RefObject<HTMLDivElement | null>;
-}) {
+// ── Exported canvas component ─────────────────────────────────────────────────
+// Camera at X=+1.3 shifts the view right → model appears on the LEFT of the
+// full-width canvas, aligning visually with the text left edge below.
+export function IntroModelDesktop({ modelSrc }: { modelSrc: string }) {
   useEffect(() => {
     window.addEventListener("scroll", trackIntroScroll, { passive: true });
-
-    function updateCenter() {
-      const el = containerRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      introState.elementCenterY = window.scrollY + rect.top + rect.height / 2;
-    }
-
-    // Delay first measure so fonts/images have settled
-    const tid = setTimeout(updateCenter, 300);
-    window.addEventListener("resize", updateCenter, { passive: true });
-
-    return () => {
-      clearTimeout(tid);
-      window.removeEventListener("scroll", trackIntroScroll);
-      window.removeEventListener("resize", updateCenter);
-    };
-  }, [containerRef]);
+    return () => window.removeEventListener("scroll", trackIntroScroll);
+  }, []);
 
   return (
-    // Shift canvas left by ~10% so the model's visual centre aligns with text edge
     <Canvas
-      camera={{ position: [0.4, 0, CAM_Z], fov: CAM_FOV }}
+      camera={{ position: [1.3, 0, CAM_Z], fov: CAM_FOV }}
       style={{ width: "100%", height: "100%" }}
       gl={{ antialias: true, alpha: true }}
     >
