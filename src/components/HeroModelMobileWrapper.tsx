@@ -1,12 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-const HeroModelMobile = dynamic(
-  () => import("./HeroModelCanvas").then((m) => ({ default: m.HeroModelMobile })),
-  { ssr: false, loading: () => null }
-);
-
+// Mobile uses CSS background image — no 3D canvas needed
 export default function HeroModelMobileWrapper() {
-  return <HeroModelMobile />;
+  return null;
 }
