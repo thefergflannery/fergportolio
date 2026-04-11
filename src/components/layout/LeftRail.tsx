@@ -26,10 +26,10 @@ export default function LeftRail() {
       <div ref={logoRef} className="scroll-rotate">
         <Link href="/" aria-label="Ferg Flannery – Home">
           <Image
-            src="/images/logo.png"
+            src="/images/FF-black.svg"
             alt="Ferg Flannery – Creative Consultant"
-            width={77}
-            height={77}
+            width={54}
+            height={54}
             priority
           />
         </Link>
