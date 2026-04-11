@@ -1,12 +1,5 @@
-"use client";
-
-import dynamic from "next/dynamic";
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
-
-const HeroModelDesktop = dynamic(
-  () => import("@/components/HeroModelCanvas").then((m) => ({ default: m.HeroModelDesktop })),
-  { ssr: false, loading: () => null }
-);
+import HeroModelSlot from "@/components/HeroModelSlot";
 
 export default function Hero() {
   return (
@@ -107,7 +100,7 @@ export default function Hero() {
               position: "relative",
             }}
           >
-            <HeroModelDesktop />
+            <HeroModelSlot />
           </div>
         </div>
       </div>

@@ -21,6 +21,7 @@ export default function LogoMarquee() {
             alt=""
             width={152}
             height={152}
+            loading="eager"
             style={{ width: "100%", height: "auto", display: "block" }}
           />
         </div>
