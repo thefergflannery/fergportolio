@@ -36,7 +36,7 @@ export default function IntroStrip({
   const inner = (
     <div
       style={{
-        backgroundColor: "var(--wp--preset--color--accent-1)",
+        backgroundColor: "#111111",
         display: "flex",
         flexDirection: "column",
         alignItems: isLeft ? "flex-start" : "flex-end",
@@ -62,7 +62,10 @@ export default function IntroStrip({
             alt=""
             width={ornamentWidth}
             height={ornamentHeight}
-            style={{ objectFit: "contain" }}
+            style={{
+              objectFit: "contain",
+              filter: "invert(1) sepia(1) saturate(10) hue-rotate(50deg)",
+            }}
           />
         </figure>
       )}
@@ -70,6 +73,7 @@ export default function IntroStrip({
       <AnimatedText
         as="p"
         style={{
+          color: "#ffffff",
           fontStyle: "normal",
           fontWeight: 700,
           lineHeight: 1.2,
@@ -89,7 +93,13 @@ export default function IntroStrip({
         data-aos-mirror="true"
       >
         <Link href={arrowHref} aria-label="Scroll down">
-          <Image src="/images/Arrow-4-1.svg" alt="" width={32} height={36} />
+          <Image
+            src="/images/Arrow-4-1.svg"
+            alt=""
+            width={32}
+            height={36}
+            style={{ filter: "invert(1) sepia(1) saturate(10) hue-rotate(50deg)" }}
+          />
         </Link>
       </figure>
     </div>
@@ -99,8 +109,8 @@ export default function IntroStrip({
     <div
       id="work"
       style={{
-        backgroundColor: "var(--wp--preset--color--accent-1)",
-        borderBottom: "1px solid #111111",
+        backgroundColor: "#111111",
+        borderBottom: "1px solid #51ff00",
         minHeight: "100px",
         marginTop: 0,
         marginBottom: 0,

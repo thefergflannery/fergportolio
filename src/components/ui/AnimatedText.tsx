@@ -62,7 +62,8 @@ export default function AnimatedText<T extends ElementType = "p">({
     });
 
     return () => {
-      anim.kill();
+      anim.revert(); // reverts inline styles so chars return to natural opacity
+      el.dataset.split = ""; // allow re-init if effect re-runs (StrictMode)
       ScrollTrigger.getAll().forEach((t) => {
         if (t.vars.trigger === el) t.kill();
       });

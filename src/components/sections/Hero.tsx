@@ -44,7 +44,7 @@ export default function Hero() {
             alignItems: "flex-end",
             paddingLeft: 0,
             minHeight: "90vh",
-            marginBottom: "-450px",
+            paddingBottom: "8vh",
           }}
         >
           {/* Hero text */}

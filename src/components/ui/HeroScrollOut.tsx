@@ -18,8 +18,12 @@ export default function HeroScrollOut() {
     const allWords: HTMLElement[] = [];
 
     containers.forEach((el) => {
-      if (el.dataset.heroOut === "true") return;
-      el.dataset.heroOut = "true";
+      // Reuse existing spans if already split (handles StrictMode double-invoke)
+      const existing = el.querySelectorAll<HTMLElement>(".hero-out-word");
+      if (existing.length > 0) {
+        existing.forEach((w) => allWords.push(w));
+        return;
+      }
 
       // Walk text nodes (preserves <br> elements)
       const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
