@@ -10,14 +10,16 @@ interface Props {
   height?: number;
 }
 
-export default function IntroModelSlot({ modelSrc, width = 200, height = 200 }: Props) {
-  const [Comp, setComp] = useState<ComponentType<{ modelSrc: string }> | null>(null);
+type CanvasComp = ComponentType<{ modelSrc: string; containerRef: React.RefObject<HTMLDivElement | null> }>;
+
+export default function IntroModelSlot({ modelSrc, width = 220, height = 220 }: Props) {
+  const [Comp, setComp] = useState<CanvasComp | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   // Lazy-load the canvas — browser only
   useEffect(() => {
     import("./IntroModelCanvas").then((m) => {
-      setComp(() => m.IntroModelDesktop);
+      setComp(() => m.IntroModelDesktop as CanvasComp);
     });
   }, []);
 
@@ -47,9 +49,15 @@ export default function IntroModelSlot({ modelSrc, width = 200, height = 200 }: 
   return (
     <div
       ref={wrapperRef}
-      style={{ width, height, marginBottom: "var(--wp--preset--spacing--30)", marginRight: "auto", display: "block" }}
+      style={{
+        width,
+        height,
+        marginBottom: "var(--wp--preset--spacing--30)",
+        marginRight: "auto",
+        display: "block",
+      }}
     >
-      {Comp && <Comp modelSrc={modelSrc} />}
+      {Comp && <Comp modelSrc={modelSrc} containerRef={wrapperRef} />}
     </div>
   );
 }

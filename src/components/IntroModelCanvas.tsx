@@ -5,11 +5,12 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
-// ── Scroll state (module-level, passive listener) ────────────────────────────
-const introScroll = { y: 0 };
+// ── Shared scroll + element state ────────────────────────────────────────────
+// elementCenterY: absolute Y of the slot's centre in the document
+const introState = { scrollY: 0, elementCenterY: 0 };
 
 function trackIntroScroll() {
-  introScroll.y = window.scrollY;
+  introState.scrollY = window.scrollY;
 }
 
 // ── Renderer setup ───────────────────────────────────────────────────────────
@@ -31,29 +32,42 @@ function LogoModel({ modelSrc }: { modelSrc: string }) {
   const { scene } = useGLTF(modelSrc);
   const groupRef = useRef<THREE.Group>(null);
   const scrollRotY = useRef(0);
+  const scrollRotX = useRef(0);
 
   useEffect(() => {
-    // Centre the model
+    // Centre and scale the model
     const box = new THREE.Box3().setFromObject(scene);
     const centre = new THREE.Vector3();
     box.getCenter(centre);
     scene.position.sub(centre);
 
-    // Scale to fill view nicely
     const size = new THREE.Vector3();
     box.getSize(size);
     const maxDim = Math.max(size.x, size.y, size.z);
-    const scale = 2.2 / maxDim;
-    scene.scale.setScalar(scale);
+    scene.scale.setScalar(2.2 / maxDim);
   }, [scene]);
 
   useFrame(() => {
     if (!groupRef.current) return;
-    const target = introScroll.y * 0.003;
-    scrollRotY.current = THREE.MathUtils.lerp(scrollRotY.current, target, 0.06);
+
+    // Y rotation: scroll-driven (same as hero model)
+    const yTarget = introState.scrollY * 0.003;
+    scrollRotY.current = THREE.MathUtils.lerp(scrollRotY.current, yTarget, 0.06);
     groupRef.current.rotation.y = THREE.MathUtils.lerp(
       groupRef.current.rotation.y,
       scrollRotY.current,
+      0.05
+    );
+
+    // X rotation: 0 when element centre is at viewport centre
+    // positive when element is below viewport centre (tilts back), negative above
+    const viewportH = window.innerHeight;
+    const distFromCenter = introState.scrollY + viewportH / 2 - introState.elementCenterY;
+    const xTarget = THREE.MathUtils.clamp(distFromCenter * 0.0008, -0.4, 0.4);
+    scrollRotX.current = THREE.MathUtils.lerp(scrollRotX.current, xTarget, 0.06);
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      scrollRotX.current,
       0.05
     );
   });
@@ -62,15 +76,37 @@ function LogoModel({ modelSrc }: { modelSrc: string }) {
 }
 
 // ── Exported canvas component ────────────────────────────────────────────────
-export function IntroModelDesktop({ modelSrc }: { modelSrc: string }) {
+// containerRef: the slot wrapper div — used to calculate element centre
+export function IntroModelDesktop({
+  modelSrc,
+  containerRef,
+}: {
+  modelSrc: string;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+}) {
   useEffect(() => {
     window.addEventListener("scroll", trackIntroScroll, { passive: true });
-    return () => window.removeEventListener("scroll", trackIntroScroll);
-  }, []);
+
+    function updateCenter() {
+      const el = containerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      introState.elementCenterY = window.scrollY + rect.top + rect.height / 2;
+    }
+
+    updateCenter();
+    window.addEventListener("resize", updateCenter, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", trackIntroScroll);
+      window.removeEventListener("resize", updateCenter);
+    };
+  }, [containerRef]);
 
   return (
+    // Shift canvas left by ~10% so the model's visual centre aligns with text edge
     <Canvas
-      camera={{ position: [0, 0, CAM_Z], fov: CAM_FOV }}
+      camera={{ position: [0.4, 0, CAM_Z], fov: CAM_FOV }}
       style={{ width: "100%", height: "100%" }}
       gl={{ antialias: true, alpha: true }}
     >
