@@ -1,5 +1,12 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import HeroScrollOut from "@/components/ui/HeroScrollOut";
-import HeroModelDesktopWrapper from "@/components/HeroModelDesktopWrapper";
+
+const HeroModelDesktop = dynamic(
+  () => import("@/components/HeroModelCanvas").then((m) => ({ default: m.HeroModelDesktop })),
+  { ssr: false, loading: () => null }
+);
 
 export default function Hero() {
   return (
@@ -13,7 +20,7 @@ export default function Hero() {
         backgroundColor: "var(--wp--preset--color--accent-1)",
       }}
     >
-      {/* Mobile background image — inline style tag beats any CSS cascade issue on Android */}
+      {/* Mobile background image */}
       <style>{`
         @media (max-width: 768px) {
           .hero-cover {
@@ -24,6 +31,7 @@ export default function Hero() {
           }
         }
       `}</style>
+
       <div
         className="hero-inner"
         style={{
@@ -99,7 +107,7 @@ export default function Hero() {
               position: "relative",
             }}
           >
-            <HeroModelDesktopWrapper />
+            <HeroModelDesktop />
           </div>
         </div>
       </div>
