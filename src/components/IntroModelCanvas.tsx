@@ -60,10 +60,10 @@ function LogoModel({ modelSrc }: { modelSrc: string }) {
     );
 
     // X rotation: 0 when element centre is at viewport centre
-    // positive when element is below viewport centre (tilts back), negative above
+    // small tilt as user scrolls past — clamped tight so flat logo stays visible
     const viewportH = window.innerHeight;
     const distFromCenter = introState.scrollY + viewportH / 2 - introState.elementCenterY;
-    const xTarget = THREE.MathUtils.clamp(distFromCenter * 0.0008, -0.4, 0.4);
+    const xTarget = THREE.MathUtils.clamp(distFromCenter * 0.0002, -0.15, 0.15);
     scrollRotX.current = THREE.MathUtils.lerp(scrollRotX.current, xTarget, 0.06);
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
       groupRef.current.rotation.x,
@@ -94,10 +94,12 @@ export function IntroModelDesktop({
       introState.elementCenterY = window.scrollY + rect.top + rect.height / 2;
     }
 
-    updateCenter();
+    // Delay first measure so fonts/images have settled
+    const tid = setTimeout(updateCenter, 300);
     window.addEventListener("resize", updateCenter, { passive: true });
 
     return () => {
+      clearTimeout(tid);
       window.removeEventListener("scroll", trackIntroScroll);
       window.removeEventListener("resize", updateCenter);
     };
