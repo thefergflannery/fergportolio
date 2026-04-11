@@ -47,7 +47,7 @@ export default function IntroModelSlot({ modelSrc, width = 200, height = 200 }: 
   return (
     <div
       ref={wrapperRef}
-      style={{ width, height, marginBottom: "var(--wp--preset--spacing--30)" }}
+      style={{ width, height, marginBottom: "var(--wp--preset--spacing--30)", marginRight: "auto", display: "block" }}
     >
       {Comp && <Comp modelSrc={modelSrc} />}
     </div>
