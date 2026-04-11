@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedText from "../ui/AnimatedText";
+import IntroModelSlot from "../IntroModelSlot";
 
 interface IntroStripProps {
   /** Text shown in the animated heading */
@@ -12,6 +13,8 @@ interface IntroStripProps {
   /** AOS animation type for the ornament */
   ornamentAos?: string;
   ornamentAosDuration?: string;
+  /** Optional 3D GLB model — replaces ornament image when provided */
+  modelSrc?: string;
   /** Text alignment — "left" (homepage) or "right" (all other pages) */
   align?: "left" | "right";
   /** Arrow scroll target */
@@ -27,6 +30,7 @@ export default function IntroStrip({
   ornamentHeight = 145,
   ornamentAos = "fade",
   ornamentAosDuration = "950",
+  modelSrc,
   align = "right",
   arrowHref = "#ferg",
   split = false,
@@ -50,7 +54,9 @@ export default function IntroStrip({
         paddingLeft: "var(--wp--preset--spacing--50)",
       }}
     >
-      {ornamentSrc && (
+      {modelSrc ? (
+        <IntroModelSlot modelSrc={modelSrc} width={200} height={200} />
+      ) : ornamentSrc ? (
         <figure
           style={{ marginBottom: "var(--wp--preset--spacing--30)" }}
           data-aos={ornamentAos}
@@ -68,7 +74,7 @@ export default function IntroStrip({
             }}
           />
         </figure>
-      )}
+      ) : null}
 
       <AnimatedText
         as="p"
