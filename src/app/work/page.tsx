@@ -16,11 +16,7 @@ export default function WorkPage() {
       <LogoMarquee />
       <IntroStrip
         text="CREATIVE CONSULTANT. ART DIRECTOR. VISUAL DESIGNER. Photographer."
-        ornamentSrc="/images/ring.png"
-        ornamentWidth={281}
-        ornamentHeight={281}
-        ornamentAos="fade"
-        ornamentAosDuration="950"
+        modelSrc="/models/logo-green.glb"
         align="right"
         arrowHref="#selected-work"
         split={false}
