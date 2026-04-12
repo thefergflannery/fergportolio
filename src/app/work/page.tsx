@@ -4,6 +4,7 @@ import LogoMarquee from "@/components/sections/LogoMarquee";
 import IntroStrip from "@/components/sections/IntroStrip";
 import ProjectList from "@/components/sections/ProjectList";
 import ClientLogos from "@/components/sections/ClientLogos";
+import PortfolioMasonry from "@/components/sections/PortfolioMasonry";
 
 export const metadata: Metadata = {
   title: "Selected Work – Ferg Flannery",
@@ -22,6 +23,7 @@ export default function WorkPage() {
         split={false}
       />
       <ProjectList />
+      <PortfolioMasonry />
       <ClientLogos />
     </SiteLayout>
   );
