@@ -26,8 +26,8 @@ export default function WorkPage() {
         scrollOut
       />
       <ProjectList />
-      <PortfolioMasonry />
       <ClientLogos />
+      <PortfolioMasonry />
     </SiteLayout>
   );
 }
