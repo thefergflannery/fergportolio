@@ -1,88 +1,24 @@
 "use client";
 
-import { Suspense, useRef, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useGLTF, Environment } from "@react-three/drei";
-import * as THREE from "three";
+import { SVG3D } from "3dsvg";
 
-// ── Scroll state ─────────────────────────────────────────────────────────────
-const introScroll = { y: 0 };
-function trackIntroScroll() { introScroll.y = window.scrollY; }
+const FF_SVG = `<svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.76756 26.6543C10.9831 5.24635 34.9973 -5.44796 56.4053 2.76756C77.8132 10.9832 88.5076 34.9973 80.292 56.4053C72.0764 77.8132 48.0622 88.5076 26.6543 80.292C5.24635 72.0764 -5.44801 48.0622 2.76756 26.6543ZM54.3486 8.12791C35.9014 1.04856 15.2074 10.2639 8.12791 28.7109C1.04851 47.1582 10.2646 67.8522 28.7119 74.9316C47.159 82.0107 67.8521 72.7955 74.9316 54.3486C82.011 35.9014 72.7957 15.2074 54.3486 8.12791ZM35.4297 22.9072C36.6169 19.8135 40.0879 18.2678 43.1816 19.4551L53.3486 23.3564C54.2049 23.685 54.6323 24.6457 54.3037 25.5019C53.9751 26.3582 53.0144 26.7856 52.1582 26.457L44.7636 23.6201C42.0704 22.5867 39.0492 23.9317 38.0156 26.625C36.9821 29.3183 38.3282 32.3394 41.0215 33.373L47.1181 35.7129C47.2166 35.7507 47.3092 35.7971 47.3957 35.8508C47.5145 35.9245 47.6384 35.9913 47.772 36.0323C47.9036 36.0727 48.0346 36.1179 48.165 36.168L58.2236 40.0283C59.1365 40.3787 59.5788 41.4144 59.2011 42.3164C58.8353 43.19 57.8361 43.6084 56.957 43.2558L49.8886 40.4209C47.1021 39.3034 43.9407 40.6903 42.875 43.4971C41.8258 46.2605 43.2091 49.352 45.9687 50.4111L51.9511 52.707C52.8072 53.0358 53.2348 53.9964 52.9062 54.8525C52.5775 55.7086 51.6169 56.1362 50.7607 55.8076L45.3886 53.7461C42.2949 52.5589 38.8249 54.1045 37.6377 57.1982L35.5029 62.7597C35.1324 63.7247 34.0499 64.2063 33.0849 63.8359C32.1188 63.4651 31.6364 62.3806 32.0088 61.415L40.417 39.6113C40.5729 39.207 40.7679 38.8294 40.996 38.481C41.3844 37.8877 41.2177 37.006 40.5556 36.7519C37.4621 35.565 33.9919 37.1106 32.8047 40.2041L30.6709 45.7646C30.3001 46.7303 29.2167 47.2124 28.251 46.8418C27.2851 46.4711 26.8022 45.3877 27.1728 44.4219L35.4297 22.9072Z" fill="#51FF00"/>
+</svg>`;
 
-// ── Renderer setup ───────────────────────────────────────────────────────────
-function RendererSetup() {
-  const { gl } = useThree();
-  useEffect(() => {
-    gl.outputColorSpace = THREE.SRGBColorSpace;
-    gl.toneMapping = THREE.ACESFilmicToneMapping;
-    gl.toneMappingExposure = 1.2;
-  }, [gl]);
-  return null;
-}
-
-// ── Logo model ───────────────────────────────────────────────────────────────
-const CAM_Z = 3.5;
-const CAM_FOV = 45;
-
-function LogoModel({ modelSrc }: { modelSrc: string }) {
-  const { scene } = useGLTF(modelSrc);
-  const groupRef = useRef<THREE.Group>(null);
-  const scrollRotY = useRef(0);
-
-  useEffect(() => {
-    const box = new THREE.Box3().setFromObject(scene);
-    const centre = new THREE.Vector3();
-    box.getCenter(centre);
-    scene.position.sub(centre);
-
-    const size = new THREE.Vector3();
-    box.getSize(size);
-    const maxDim = Math.max(size.x, size.y, size.z);
-    scene.scale.setScalar(2.2 / maxDim);
-
-    // Correct upside-down orientation
-    scene.rotation.z = Math.PI;
-  }, [scene]);
-
-  useFrame(() => {
-    if (!groupRef.current) return;
-    const yTarget = introScroll.y * 0.003;
-    scrollRotY.current = THREE.MathUtils.lerp(scrollRotY.current, yTarget, 0.06);
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(
-      groupRef.current.rotation.y,
-      scrollRotY.current,
-      0.05
-    );
-  });
-
-  return <primitive object={scene} ref={groupRef} />;
-}
-
-// ── Exported canvas component ─────────────────────────────────────────────────
-// Camera at X=+1.3 shifts the view right → model appears on the LEFT of the
-// full-width canvas, aligning visually with the text left edge below.
-export function IntroModelDesktop({ modelSrc }: { modelSrc: string }) {
-  useEffect(() => {
-    window.addEventListener("scroll", trackIntroScroll, { passive: true });
-    return () => window.removeEventListener("scroll", trackIntroScroll);
-  }, []);
-
+export function IntroModelDesktop({ modelSrc: _modelSrc }: { modelSrc: string }) {
   return (
-    <Canvas
-      camera={{ position: [0, 0, CAM_Z], fov: CAM_FOV }}
-      style={{ width: "100%", height: "100%" }}
-      gl={{ antialias: true, alpha: true }}
-    >
-      <RendererSetup />
-      <Environment preset="studio" />
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[3, 4, 5]} intensity={1.4} />
-      <directionalLight position={[-3, -2, -3]} intensity={0.3} />
-      <Suspense fallback={null}>
-        <LogoModel modelSrc={modelSrc} />
-      </Suspense>
-    </Canvas>
+    <SVG3D
+      svg={FF_SVG}
+      depth={0.8}
+      smoothness={0.5}
+      color="#51ff00"
+      material="metal"
+      metalness={1}
+      roughness={0.18}
+      animate="float"
+      cursorOrbit
+      ambientIntensity={1.05}
+    />
   );
 }
-
-useGLTF.preload("/models/logo-green.glb");
