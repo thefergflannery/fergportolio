@@ -39,6 +39,9 @@ function LogoModel({ modelSrc }: { modelSrc: string }) {
     box.getSize(size);
     const maxDim = Math.max(size.x, size.y, size.z);
     scene.scale.setScalar(2.2 / maxDim);
+
+    // Correct upside-down orientation
+    scene.rotation.z = Math.PI;
   }, [scene]);
 
   useFrame(() => {
