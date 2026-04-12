@@ -13,16 +13,35 @@ function shuffle<T>(arr: T[]): T[] {
 const SUPPORTED = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif"]);
 const COLS = 5;
 
+/**
+ * Returns a col-span for every image so the grid fills completely with no gaps.
+ * Full rows get span=1. The last partial row has its images widened to fill COLS.
+ *
+ * e.g. 31 images, 5 cols → remainder=1 → last image spans 5
+ *      32 images, 5 cols → remainder=2 → last two images span 3 + 2
+ *      33 images, 5 cols → remainder=3 → last three images span 2 + 2 + 1
+ */
+function computeSpans(count: number, cols: number): number[] {
+  const spans = new Array(count).fill(1);
+  const remainder = count % cols;
+  if (remainder === 0) return spans;
+
+  const base = Math.floor(cols / remainder);
+  const extra = cols % remainder; // first `extra` items get one more column
+
+  for (let i = 0; i < remainder; i++) {
+    spans[count - remainder + i] = base + (i < extra ? 1 : 0);
+  }
+  return spans;
+}
+
 export default function PortfolioMasonry() {
   const dir = path.join(process.cwd(), "public", "images", "portfolio");
   const files = fs.readdirSync(dir).filter((f) =>
     SUPPORTED.has(path.extname(f).toLowerCase())
   );
-
-  const shuffled = shuffle(files);
-  // Truncate to nearest multiple of COLS so last row is always full
-  const count = Math.floor(shuffled.length / COLS) * COLS;
-  const images = shuffled.slice(0, count);
+  const images = shuffle(files);
+  const spans = computeSpans(images.length, COLS);
 
   return (
     <>
@@ -31,7 +50,6 @@ export default function PortfolioMasonry() {
           display: grid;
           grid-template-columns: repeat(${COLS}, 1fr);
           gap: 0;
-          margin-top: 0;
         }
         .portfolio-grid img {
           width: 100%;
@@ -49,13 +67,16 @@ export default function PortfolioMasonry() {
         }
       `}</style>
       <div className="portfolio-grid">
-        {images.map((file) => (
+        {images.map((file, i) => (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             key={file}
             src={`/images/portfolio/${encodeURIComponent(file)}`}
             alt=""
             loading="lazy"
+            style={{
+              gridColumn: spans[i] > 1 ? `span ${spans[i]}` : undefined,
+            }}
           />
         ))}
       </div>
