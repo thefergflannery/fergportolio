@@ -21,6 +21,8 @@ interface IntroStripProps {
   arrowHref?: string;
   /** Whether to use 50/50 column split (homepage) or full-width (other pages) */
   split?: boolean;
+  /** Render text as scroll-out (visible on load, exits upward) instead of scroll-in */
+  scrollOut?: boolean;
 }
 
 export default function IntroStrip({
@@ -34,6 +36,7 @@ export default function IntroStrip({
   align = "right",
   arrowHref = "#ferg",
   split = false,
+  scrollOut = false,
 }: IntroStripProps) {
   const isLeft = align === "left";
 
@@ -76,21 +79,39 @@ export default function IntroStrip({
         </figure>
       ) : null}
 
-      <AnimatedText
-        as="p"
-        style={{
-          color: "#ffffff",
-          fontStyle: "normal",
-          fontWeight: 700,
-          lineHeight: 1.2,
-          textTransform: "uppercase",
-          fontSize: "var(--wp--preset--font-size--xx-large)",
-          textAlign: isLeft ? "left" : "right",
-          margin: 0,
-        }}
-      >
-        {text}
-      </AnimatedText>
+      {scrollOut ? (
+        <p
+          className="work-stagger-out"
+          style={{
+            color: "#ffffff",
+            fontStyle: "normal",
+            fontWeight: 700,
+            lineHeight: 1.2,
+            textTransform: "uppercase",
+            fontSize: "var(--wp--preset--font-size--xx-large)",
+            textAlign: isLeft ? "left" : "right",
+            margin: 0,
+          }}
+        >
+          {text}
+        </p>
+      ) : (
+        <AnimatedText
+          as="p"
+          style={{
+            color: "#ffffff",
+            fontStyle: "normal",
+            fontWeight: 700,
+            lineHeight: 1.2,
+            textTransform: "uppercase",
+            fontSize: "var(--wp--preset--font-size--xx-large)",
+            textAlign: isLeft ? "left" : "right",
+            margin: 0,
+          }}
+        >
+          {text}
+        </AnimatedText>
+      )}
 
       <figure
         style={{ marginTop: "var(--wp--preset--spacing--30)" }}

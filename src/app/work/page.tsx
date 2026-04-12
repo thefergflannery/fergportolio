@@ -5,6 +5,7 @@ import IntroStrip from "@/components/sections/IntroStrip";
 import ProjectList from "@/components/sections/ProjectList";
 import ClientLogos from "@/components/sections/ClientLogos";
 import PortfolioMasonry from "@/components/sections/PortfolioMasonry";
+import WorkIntroScrollOut from "@/components/ui/WorkIntroScrollOut";
 
 export const metadata: Metadata = {
   title: "Selected Work – Ferg Flannery",
@@ -15,12 +16,14 @@ export default function WorkPage() {
   return (
     <SiteLayout>
       <LogoMarquee />
+      <WorkIntroScrollOut />
       <IntroStrip
         text="CREATIVE CONSULTANT. ART DIRECTOR. VISUAL DESIGNER. Photographer."
         modelSrc="/models/logo-green.glb"
         align="right"
         arrowHref="#selected-work"
         split={false}
+        scrollOut
       />
       <ProjectList />
       <PortfolioMasonry />

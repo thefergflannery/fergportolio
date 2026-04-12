@@ -30,8 +30,8 @@ export default function PortfolioMasonry() {
         .portfolio-grid {
           display: grid;
           grid-template-columns: repeat(${COLS}, 1fr);
-          gap: 2px;
-          margin-top: 2px;
+          gap: 0;
+          margin-top: 0;
         }
         .portfolio-grid img {
           width: 100%;
