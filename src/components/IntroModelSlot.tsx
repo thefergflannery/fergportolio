@@ -44,8 +44,8 @@ export default function IntroModelSlot({ modelSrc }: Props) {
     <div
       ref={wrapperRef}
       style={{
-        width: "100%",
-        height: "220px",
+        width: "180px",
+        height: "180px",
         marginBottom: "var(--wp--preset--spacing--30)",
       }}
     >

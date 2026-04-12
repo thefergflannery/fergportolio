@@ -66,7 +66,7 @@ export function IntroModelDesktop({ modelSrc }: { modelSrc: string }) {
 
   return (
     <Canvas
-      camera={{ position: [1.3, 0, CAM_Z], fov: CAM_FOV }}
+      camera={{ position: [0, 0, CAM_Z], fov: CAM_FOV }}
       style={{ width: "100%", height: "100%" }}
       gl={{ antialias: true, alpha: true }}
     >
