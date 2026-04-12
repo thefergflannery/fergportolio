@@ -7,6 +7,9 @@ import ClientLogos from "@/components/sections/ClientLogos";
 import PortfolioMasonry from "@/components/sections/PortfolioMasonry";
 import WorkIntroScrollOut from "@/components/ui/WorkIntroScrollOut";
 
+// Force SSR on every request so the gallery shuffles on each load
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Selected Work – Ferg Flannery",
   description: "Selected design and digital work by Ferg Flannery – Creative Consultant, Art Director, Visual Designer.",
