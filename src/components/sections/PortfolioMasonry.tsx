@@ -126,7 +126,7 @@ export default async function PortfolioMasonry() {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             key={file}
-            src={`/images/portfolio/${encodeURIComponent(file)}`}
+            src={`/images/portfolio/${file.replace(/ /g, "%20")}`}
             alt=""
             loading="lazy"
             style={{
