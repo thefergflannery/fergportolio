@@ -4,13 +4,13 @@ import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const logos = [
-  { src: "/images/tweak.png",                              alt: "Tweak.com",                        width: 82,  height: 52  },
-  { src: "/images/dingle-logo-horizontal-bw-1024x347-1.webp", alt: "Sacred Heart University | Dingle", width: 142, height: 48  },
-  { src: "/images/Murphys_Logo_260x.avif",                alt: "Murphy's Ice Cream",               width: 121, height: 79  },
-  { src: "/images/fi.png",                                alt: "Fáilte Ireland",                   width: 133, height: 45  },
-  { src: "/images/oceanworld.png",                        alt: "Oceanworld Dingle",                width: 120, height: 82  },
-  { src: "/images/siar.png",                              alt: "Siar Music Festival",              width: 125, height: 38  },
-  { src: "/images/razorspire-white.svg",                  alt: "RazorSpire",                       width: 130, height: 40  },
+  { src: "/images/tweak.png",                                   alt: "Tweak.com",                        width: 82,  height: 52  },
+  { src: "/images/dingle-logo-horizontal-bw-1024x347-1.webp",   alt: "Sacred Heart University | Dingle", width: 142, height: 48  },
+  { src: "/images/Murphys_Logo_260x.avif",                      alt: "Murphy's Ice Cream",               width: 121, height: 79  },
+  { src: "/images/fi.png",                                      alt: "Fáilte Ireland",                   width: 133, height: 45  },
+  { src: "/images/oceanworld.png",                              alt: "Oceanworld Dingle",                width: 120, height: 82  },
+  { src: "/images/siar.png",                                    alt: "Siar Music Festival",              width: 125, height: 38  },
+  { src: "/images/razorspire-white.svg",                        alt: "RazorSpire",                       width: 130, height: 40  },
 ];
 
 export default function ClientLogos() {
@@ -23,7 +23,6 @@ export default function ClientLogos() {
     const items = wrapper.querySelectorAll<HTMLElement>(".client-logo-item");
     if (!items.length) return;
 
-    // Start all logos hidden
     gsap.set(items, { opacity: 0, x: -32 });
 
     const st = ScrollTrigger.create({
@@ -44,45 +43,77 @@ export default function ClientLogos() {
   }, []);
 
   return (
-    <div
-      ref={wrapperRef}
-      style={{
-        backgroundColor: "var(--wp--preset--color--contrast)",
-        paddingTop: "var(--wp--preset--spacing--40)",
-        paddingBottom: "var(--wp--preset--spacing--40)",
-      }}
-    >
+    <>
+      <style>{`
+        .client-logos-grid {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          align-items: center;
+          gap: 0;
+        }
+        .client-logo-item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px 16px;
+        }
+        .client-logo-item img {
+          width: 100%;
+          max-width: 130px;
+          height: auto;
+          display: block;
+          object-fit: contain;
+        }
+        /* Tablet: 2 rows of 4+3 */
+        @media (max-width: 1024px) {
+          .client-logos-grid {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+        /* Mobile: 3 rows of ~3+2+2 */
+        @media (max-width: 600px) {
+          .client-logos-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          .client-logo-item {
+            padding: 16px 12px;
+          }
+          .client-logo-item img {
+            max-width: 80px;
+          }
+        }
+      `}</style>
       <div
+        ref={wrapperRef}
         style={{
-          maxWidth: "var(--wp--style--global--wide-size)",
-          marginLeft: "auto",
-          marginRight: "auto",
-          paddingLeft: "var(--wp--preset--spacing--50)",
-          paddingRight: "var(--wp--preset--spacing--50)",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "var(--wp--preset--spacing--40)",
+          backgroundColor: "var(--wp--preset--color--contrast)",
+          paddingTop: "var(--wp--preset--spacing--40)",
+          paddingBottom: "var(--wp--preset--spacing--40)",
         }}
       >
-        {logos.map((logo) => (
-          <div
-            key={logo.alt}
-            className="client-logo-item"
-            style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              width={logo.width}
-              height={logo.height}
-              style={{ width: `${logo.width}px`, height: "auto", display: "block" }}
-            />
-          </div>
-        ))}
+        <div
+          className="client-logos-grid"
+          style={{
+            maxWidth: "var(--wp--style--global--wide-size)",
+            marginLeft: "auto",
+            marginRight: "auto",
+            paddingLeft: "var(--wp--preset--spacing--50)",
+            paddingRight: "var(--wp--preset--spacing--50)",
+          }}
+        >
+          {logos.map((logo) => (
+            <div key={logo.alt} className="client-logo-item">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
