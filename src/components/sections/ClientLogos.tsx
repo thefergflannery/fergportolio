@@ -10,6 +10,7 @@ const logos = [
   { src: "/images/fi.png",                                alt: "Fáilte Ireland",                   width: 133, height: 45  },
   { src: "/images/oceanworld.png",                        alt: "Oceanworld Dingle",                width: 120, height: 82  },
   { src: "/images/siar.png",                              alt: "Siar Music Festival",              width: 125, height: 38  },
+  { src: "/images/razorspire-white.svg",                  alt: "RazorSpire",                       width: 130, height: 40  },
 ];
 
 export default function ClientLogos() {
