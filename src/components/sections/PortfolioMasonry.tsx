@@ -13,50 +13,63 @@ function shuffle<T>(arr: T[]): T[] {
 
 const SUPPORTED = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif"]);
 
-// Grid constants
-const COLS = 5;       // desktop columns
-const ROW_PX = 80;    // one row unit in px — smaller = more resolution for tall images
-const COL_PX = 320;   // approx px per column at ~1600px viewport
+// Approximate column widths at each breakpoint
+const DESKTOP_COLS = 5;
+const TABLET_COLS  = 4;
+const MOBILE_COLS  = 2;
+
+const ROW_PX      = 80;   // grid-auto-rows base unit
+const VIEWPORT_W  = 1600; // desktop reference
+const TABLET_W    = 1024;
+const MOBILE_W    = 390;
 
 interface ImageCell {
   file: string;
-  colSpan: number;
-  rowSpan: number;
+  ratio: number;
+  colSpan: number;       // desktop col span
+  colSpanMd: number;     // tablet col span
+  colSpanSm: number;     // mobile col span
+  rowSpan: number;       // desktop row span
+  rowSpanMd: number;     // tablet row span
+  rowSpanSm: number;     // mobile row span
+}
+
+function calcRowSpan(ratio: number, colSpan: number, totalCols: number, viewportW: number): number {
+  const colW = viewportW / totalCols;
+  const naturalH = (colSpan * colW) / ratio;
+  return Math.max(1, Math.round(naturalH / ROW_PX));
 }
 
 async function buildCells(files: string[], dir: string): Promise<ImageCell[]> {
   const results: ImageCell[] = [];
 
   for (const file of files) {
-    let width = 1;
-    let height = 1;
-
+    let w = 1, h = 1;
     try {
       const meta = await sharp(path.join(dir, file)).metadata();
-      width = meta.width ?? 1;
-      height = meta.height ?? 1;
-    } catch {
-      // fallback to square if sharp can't read
-    }
+      w = meta.width ?? 1;
+      h = meta.height ?? 1;
+    } catch { /* fallback square */ }
 
-    const ratio = width / height;
+    const ratio = w / h;
 
-    // Assign col span based on orientation / aspect ratio
-    let colSpan: number;
-    if (ratio >= 1.6) {
-      colSpan = 2; // landscape — take 2 cols
-    } else if (ratio <= 0.75) {
-      colSpan = 1; // portrait — single col, let rows carry the height
-    } else {
-      colSpan = 1; // near-square
-    }
+    // Desktop: landscape gets 2 cols, everything else 1
+    const colSpan   = ratio >= 1.6 ? 2 : 1;
+    // Tablet: same logic but capped at 4
+    const colSpanMd = ratio >= 1.6 ? 2 : 1;
+    // Mobile: landscape fills both columns, portrait stays 1
+    const colSpanSm = ratio >= 1.3 ? 2 : 1;
 
-    // Row span: how many ROW_PX units does this image need at colSpan columns?
-    // naturalHeight = (colSpan * COL_PX) / ratio
-    const naturalH = (colSpan * COL_PX) / ratio;
-    const rowSpan = Math.max(1, Math.round(naturalH / ROW_PX));
-
-    results.push({ file, colSpan, rowSpan });
+    results.push({
+      file,
+      ratio,
+      colSpan,
+      colSpanMd,
+      colSpanSm,
+      rowSpan:   calcRowSpan(ratio, colSpan,   DESKTOP_COLS, VIEWPORT_W),
+      rowSpanMd: calcRowSpan(ratio, colSpanMd, TABLET_COLS,  TABLET_W),
+      rowSpanSm: calcRowSpan(ratio, colSpanSm, MOBILE_COLS,  MOBILE_W),
+    });
   }
 
   return results;
@@ -68,15 +81,14 @@ export default async function PortfolioMasonry() {
     SUPPORTED.has(path.extname(f).toLowerCase())
   );
 
-  const shuffled = shuffle(files);
-  const cells = await buildCells(shuffled, dir);
+  const cells = await buildCells(shuffle(files), dir);
 
   return (
     <>
       <style>{`
         .portfolio-grid {
           display: grid;
-          grid-template-columns: repeat(${COLS}, 1fr);
+          grid-template-columns: repeat(${DESKTOP_COLS}, 1fr);
           grid-auto-rows: ${ROW_PX}px;
           grid-auto-flow: dense;
           gap: 0;
@@ -87,34 +99,44 @@ export default async function PortfolioMasonry() {
           object-fit: cover;
           object-position: center;
           display: block;
+          grid-column: var(--col-span);
+          grid-row:    var(--row-span);
         }
         @media (max-width: 1024px) {
           .portfolio-grid {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(${TABLET_COLS}, 1fr);
+          }
+          .portfolio-grid img {
+            grid-column: var(--col-span-md);
+            grid-row:    var(--row-span-md);
           }
         }
         @media (max-width: 768px) {
           .portfolio-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(${MOBILE_COLS}, 1fr);
           }
-          .portfolio-grid .span-col-2 {
-            grid-column: span 2 !important;
+          .portfolio-grid img {
+            grid-column: var(--col-span-sm);
+            grid-row:    var(--row-span-sm);
           }
         }
       `}</style>
       <div className="portfolio-grid">
-        {cells.map(({ file, colSpan, rowSpan }) => (
+        {cells.map(({ file, colSpan, colSpanMd, colSpanSm, rowSpan, rowSpanMd, rowSpanSm }) => (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             key={file}
             src={`/images/portfolio/${encodeURIComponent(file)}`}
             alt=""
             loading="lazy"
-            className={colSpan > 1 ? `span-col-${colSpan}` : undefined}
             style={{
-              gridColumn: colSpan > 1 ? `span ${colSpan}` : undefined,
-              gridRow: `span ${rowSpan}`,
-            }}
+              "--col-span":    colSpan   > 1 ? `span ${colSpan}`   : "auto",
+              "--row-span":    `span ${rowSpan}`,
+              "--col-span-md": colSpanMd > 1 ? `span ${colSpanMd}` : "auto",
+              "--row-span-md": `span ${rowSpanMd}`,
+              "--col-span-sm": colSpanSm > 1 ? `span ${colSpanSm}` : "auto",
+              "--row-span-sm": `span ${rowSpanSm}`,
+            } as React.CSSProperties}
           />
         ))}
       </div>
