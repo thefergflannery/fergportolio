@@ -62,7 +62,7 @@ export default function Testimonials() {
         className="testimonial-layout"
         style={{
           maxWidth: "var(--wp--style--global--wide-size)",
-          marginLeft: 0,
+          marginLeft: "auto",
           marginRight: "auto",
           display: "flex",
           flexWrap: "nowrap",

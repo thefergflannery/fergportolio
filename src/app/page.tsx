@@ -5,6 +5,7 @@ import DesignIntent from "@/components/sections/DesignIntent";
 import ProjectList from "@/components/sections/ProjectList";
 import ClientLogos from "@/components/sections/ClientLogos";
 import Testimonials from "@/components/sections/Testimonials";
+import PortfolioMasonry from "@/components/sections/PortfolioMasonry";
 
 export const metadata: Metadata = {
   title: "Ferg Flannery – Creative Consultant",
@@ -20,6 +21,7 @@ export default function HomePage() {
       <ProjectList />
       <ClientLogos />
       <Testimonials />
+      <PortfolioMasonry />
     </SiteLayout>
   );
 }
