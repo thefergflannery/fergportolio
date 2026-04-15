@@ -65,11 +65,11 @@ function Model() {
     box.getCenter(centre);
     scene.position.sub(centre);
 
-    // Shift down so model bottom aligns with canvas bottom
+    // Shift down — 0.75 factor leaves breathing room above overflow:hidden boundary
     const halfH = Math.tan((CAM_FOV * Math.PI) / 360) * CAM_Z;
     const newBox = new THREE.Box3().setFromObject(scene);
     const modelHalfH = (newBox.max.y - newBox.min.y) / 2;
-    scene.position.y -= halfH - modelHalfH;
+    scene.position.y -= (halfH - modelHalfH) * 0.75;
   }, [scene, size]);
 
   useFrame((_, delta) => {
