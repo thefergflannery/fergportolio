@@ -36,8 +36,8 @@ export default function ContactSection() {
           </p>
         </div>
 
-        {/* Right: details */}
-        <div style={{ flex: 1 }}>
+        {/* Right: details — right-aligned to match nav items */}
+        <div style={{ flex: 1, textAlign: "right" }}>
           <p style={{ margin: "0 0 4px" }}>
             <a
               href="mailto:hello@fergflannery.com"
@@ -82,7 +82,7 @@ export default function ContactSection() {
           </p>
 
           {/* Social links */}
-          <div style={{ display: "flex", gap: "var(--wp--preset--spacing--20)", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "var(--wp--preset--spacing--20)", flexWrap: "wrap", justifyContent: "flex-end" }}>
             <a
               href="https://www.instagram.com/thefergflannery/"
               target="_blank"
