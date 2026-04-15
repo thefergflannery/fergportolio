@@ -102,7 +102,8 @@ export default function ProjectList() {
           >
             {projects.map((project) => (
               <li key={project.slug}>
-                <div
+                <Link
+                  href={`/projects/${project.slug}`}
                   style={{
                     display: "flex",
                     flexWrap: "nowrap",
@@ -113,7 +114,8 @@ export default function ProjectList() {
                     paddingLeft: "var(--wp--preset--spacing--50)",
                     paddingRight: "var(--wp--preset--spacing--50)",
                     gap: "var(--wp--preset--spacing--40)",
-                    cursor: "pointer",
+                    textDecoration: "none",
+                    color: "inherit",
                   }}
                   onMouseEnter={handleEnter(project.thumbnailImage)}
                   onMouseLeave={handleLeave}
@@ -121,14 +123,7 @@ export default function ProjectList() {
                 >
                   {/* Col 1: Project title */}
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <h3 style={{ margin: 0 }}>
-                      <Link
-                        href={`/projects/${project.slug}`}
-                        style={{ color: "#111111", textDecoration: "none" }}
-                      >
-                        {project.title}
-                      </Link>
-                    </h3>
+                    <h3 style={{ margin: 0 }}>{project.title}</h3>
                   </div>
 
                   {/* Col 2: Project subtitle/tagline */}
@@ -153,17 +148,15 @@ export default function ProjectList() {
                       marginBottom: "var(--wp--preset--spacing--30)",
                     }}
                   >
-                    <Link href={`/projects/${project.slug}`} tabIndex={-1} aria-hidden="true">
-                      <Image
-                        src="/images/arrow-circle-detour-row.svg"
-                        alt=""
-                        width={40}
-                        height={40}
-                        style={{ display: "block" }}
-                      />
-                    </Link>
+                    <Image
+                      src="/images/arrow-circle-detour-row.svg"
+                      alt=""
+                      width={40}
+                      height={40}
+                      style={{ display: "block" }}
+                    />
                   </div>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

@@ -7,6 +7,9 @@ import ClientLogos from "@/components/sections/ClientLogos";
 import Testimonials from "@/components/sections/Testimonials";
 import PortfolioMasonry from "@/components/sections/PortfolioMasonry";
 
+// Force SSR so the gallery shuffles on each load
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Ferg Flannery – Creative Consultant",
   description:
