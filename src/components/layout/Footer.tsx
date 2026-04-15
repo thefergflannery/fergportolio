@@ -11,9 +11,6 @@ export default function Footer() {
     >
       <div
         style={{
-          maxWidth: "var(--wp--style--global--wide-size)",
-          marginLeft: "auto",
-          marginRight: "auto",
           paddingLeft: "var(--wp--preset--spacing--50)",
           paddingRight: "var(--wp--preset--spacing--50)",
         }}

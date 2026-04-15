@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { IntroModelDesktop } from "@/components/IntroModelCanvas";
 
 export default function BottomNav() {
   const logoRef = useRef<HTMLDivElement>(null);
@@ -28,9 +28,6 @@ export default function BottomNav() {
     >
       <div
         style={{
-          maxWidth: "var(--wp--style--global--wide-size)",
-          marginLeft: "auto",
-          marginRight: "auto",
           paddingLeft: "var(--wp--preset--spacing--50)",
           paddingRight: "var(--wp--preset--spacing--50)",
           paddingTop: "var(--wp--preset--spacing--50)",
@@ -44,14 +41,9 @@ export default function BottomNav() {
         <div
           ref={logoRef}
           className="scroll-rotate"
-          style={{ margin: 0, flexShrink: 0 }}
+          style={{ margin: 0, flexShrink: 0, width: 152, height: 152 }}
         >
-          <Image
-            src="/images/Group-1597883091-1.svg"
-            alt=""
-            width={152}
-            height={152}
-          />
+          <IntroModelDesktop modelSrc="" />
         </div>
 
         <nav aria-label="Navigation 2">
@@ -69,7 +61,7 @@ export default function BottomNav() {
             {[
               { label: "Selected Work", href: "/work", external: false },
               { label: "About Me", href: "/about", external: false },
-              { label: "Contact", href: "/contact", external: false },
+              { label: "Contact", href: "/#contact", external: false },
               { label: "photography", href: "https://www.fergflanneryphoto.com/", external: true },
             ].map((item) => (
               <li key={item.href}>

@@ -53,8 +53,7 @@ export default function Hero() {
               id="ferg"
               className="hero-title hero-stagger-out"
               style={{
-                color: "#fff",
-                mixBlendMode: "difference",
+                color: "#111111",
                 fontStyle: "normal",
                 fontWeight: 1000,
                 margin: 0,

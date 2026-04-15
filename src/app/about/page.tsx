@@ -241,60 +241,12 @@ export default function AboutPage() {
             alignItems: "stretch",
           }}
         >
-          {/* Left: blockquote */}
-          <div
-            className="about-testimonial-quote"
-            style={{
-              flexBasis: "50%",
-              flexShrink: 0,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "var(--wp--preset--spacing--60) var(--wp--preset--spacing--50)",
-              minHeight: "380px",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "var(--wp--preset--font-size--small)",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                margin: "0 0 var(--wp--preset--spacing--30)",
-              }}
-            >
-              What people are saying
-            </p>
-            <blockquote style={{ margin: 0, padding: 0, border: "none" }}>
-              <AnimatedText
-                as="p"
-                style={{
-                  fontSize: "var(--wp--preset--font-size--large)",
-                  fontWeight: 400,
-                  fontStyle: "normal",
-                  lineHeight: 1.4,
-                  margin: "0 0 var(--wp--preset--spacing--30)",
-                }}
-              >
-                &ldquo;Ferg is not only a great creative but a tremendous leader. He advocates
-                for design and is innovative within it.&rdquo;
-              </AnimatedText>
-              <cite style={{ fontStyle: "normal", display: "block" }}>
-                <br />
-                Dr. Marc O Riain
-                <sub>
-                  <br />
-                  Director RUA Architects / Former President of the Institute of Designers in Ireland (IDI)
-                </sub>
-              </cite>
-            </blockquote>
-          </div>
-
-          {/* Right: full-bleed image */}
+          {/* Left: full-bleed image */}
           <div
             className="about-testimonial-image"
             style={{
               flexBasis: "50%",
+              flexShrink: 0,
               overflow: "hidden",
               minHeight: "380px",
             }}
@@ -313,6 +265,56 @@ export default function AboutPage() {
                 display: "block",
               }}
             />
+          </div>
+
+          {/* Right: blockquote */}
+          <div
+            className="about-testimonial-quote"
+            style={{
+              flexBasis: "50%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              padding: "var(--wp--preset--spacing--60) var(--wp--preset--spacing--50)",
+              minHeight: "380px",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "var(--wp--preset--font-size--small)",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                margin: "0 0 var(--wp--preset--spacing--30)",
+                textAlign: "right",
+              }}
+            >
+              What people are saying
+            </p>
+            <blockquote style={{ margin: 0, padding: 0, border: "none", textAlign: "right" }}>
+              <AnimatedText
+                as="p"
+                style={{
+                  fontSize: "var(--wp--preset--font-size--large)",
+                  fontStyle: "italic",
+                  fontWeight: 300,
+                  lineHeight: 1.4,
+                  margin: "0 0 var(--wp--preset--spacing--30)",
+                  textAlign: "right",
+                }}
+              >
+                &ldquo;Ferg is not only a great creative but a tremendous leader. He advocates
+                for design and is innovative within it.&rdquo;
+              </AnimatedText>
+              <cite style={{ fontStyle: "normal", display: "block", fontWeight: 1000, textAlign: "right" }}>
+                Dr. Marc O Riain
+                <br />
+                <span style={{ fontWeight: 300, fontSize: "var(--wp--preset--font-size--small)", textTransform: "uppercase" }}>
+                  Director RUA Architects / Former President IDI
+                </span>
+              </cite>
+            </blockquote>
           </div>
         </div>
       </div>

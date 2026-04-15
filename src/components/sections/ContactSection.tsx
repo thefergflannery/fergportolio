@@ -24,7 +24,7 @@ export default function ContactSection() {
           <p
             style={{
               margin: 0,
-              color: "#444",
+              color: "#51ff00",
               fontSize: "var(--wp--preset--font-size--small)",
               fontWeight: 700,
               textTransform: "uppercase",
@@ -32,7 +32,7 @@ export default function ContactSection() {
               whiteSpace: "nowrap",
             }}
           >
-            Contact:
+            Contact
           </p>
         </div>
 
@@ -45,9 +45,8 @@ export default function ContactSection() {
                 color: "#ffffff",
                 textDecoration: "underline",
                 textUnderlineOffset: "4px",
-                fontSize: "var(--wp--preset--font-size--x-large)",
+                fontSize: "var(--wp--preset--font-size--small)",
                 fontWeight: 300,
-                letterSpacing: "-0.01em",
               }}
             >
               hello@fergflannery.com
@@ -61,7 +60,7 @@ export default function ContactSection() {
                 color: "#ffffff",
                 textDecoration: "underline",
                 textUnderlineOffset: "4px",
-                fontSize: "var(--wp--preset--font-size--large)",
+                fontSize: "var(--wp--preset--font-size--small)",
                 fontWeight: 300,
               }}
             >
@@ -73,7 +72,7 @@ export default function ContactSection() {
             style={{
               margin: "0 0 var(--wp--preset--spacing--40)",
               fontSize: "var(--wp--preset--font-size--small)",
-              color: "#51ff00",
+              color: "#ffffff",
               textTransform: "uppercase",
               letterSpacing: "0.06em",
             }}
