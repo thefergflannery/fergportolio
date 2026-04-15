@@ -36,7 +36,7 @@ export default function LeftRail() {
       </div>
 
       {/* CONTACT button — rotated, pinned to bottom */}
-      <Link href="/contact" className="rail-contact">
+      <Link href="/#contact" className="rail-contact">
         Contact
       </Link>
     </div>

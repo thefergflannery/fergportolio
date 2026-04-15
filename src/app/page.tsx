@@ -6,6 +6,7 @@ import ProjectList from "@/components/sections/ProjectList";
 import ClientLogos from "@/components/sections/ClientLogos";
 import Testimonials from "@/components/sections/Testimonials";
 import PortfolioMasonry from "@/components/sections/PortfolioMasonry";
+import ContactSection from "@/components/sections/ContactSection";
 
 // Force SSR so the gallery shuffles on each load
 export const dynamic = "force-dynamic";
@@ -25,6 +26,7 @@ export default function HomePage() {
       <ClientLogos />
       <Testimonials />
       <PortfolioMasonry />
+      <ContactSection />
     </SiteLayout>
   );
 }

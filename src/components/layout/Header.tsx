@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { label: "Selected Work", href: "/work" },
   { label: "About Me", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/#contact" },
   { label: "photography", href: "https://www.fergflanneryphoto.com/", external: true },
 ];
 
