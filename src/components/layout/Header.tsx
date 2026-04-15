@@ -18,22 +18,14 @@ export default function Header() {
     <div className="top-nav" style={{ borderBottom: "1px solid #111111" }}>
       <div
         style={{
-          maxWidth: "var(--wp--style--global--wide-size)",
-          marginLeft: "auto",
-          marginRight: "auto",
-          paddingLeft: "var(--wp--preset--spacing--50)",
+          display: "flex",
+          flexWrap: "nowrap",
+          alignItems: "center",
+          paddingTop: "var(--wp--preset--spacing--30)",
+          paddingBottom: "var(--wp--preset--spacing--30)",
           paddingRight: "var(--wp--preset--spacing--50)",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "nowrap",
-            alignItems: "center",
-            paddingTop: "var(--wp--preset--spacing--30)",
-            paddingBottom: "var(--wp--preset--spacing--30)",
-          }}
-        >
           {/* Mobile logo — hidden on desktop via CSS */}
           <div className="mobile-logo">
             <Link href="/" aria-label="Ferg Flannery – Home">
@@ -57,7 +49,7 @@ export default function Header() {
           {/* Navigation */}
           <nav
             aria-label="Navigation"
-            style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}
+            style={{ flexShrink: 0, display: "flex", justifyContent: "flex-end" }}
           >
             <ul
               style={{
@@ -99,6 +91,5 @@ export default function Header() {
           </nav>
         </div>
       </div>
-    </div>
   );
 }

@@ -125,6 +125,7 @@ export default function IntroStrip({
             alt=""
             width={32}
             height={36}
+            loading="lazy"
             style={{ filter: "invert(1) sepia(1) saturate(10) hue-rotate(50deg)" }}
           />
         </Link>
