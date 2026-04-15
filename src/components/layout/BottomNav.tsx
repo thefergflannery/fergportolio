@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { IntroModelDesktop } from "@/components/IntroModelCanvas";
 
 export default function BottomNav() {
   const logoRef = useRef<HTMLDivElement>(null);
@@ -41,9 +41,14 @@ export default function BottomNav() {
         <div
           ref={logoRef}
           className="scroll-rotate"
-          style={{ margin: 0, flexShrink: 0, width: 152, height: 152 }}
+          style={{ margin: 0, flexShrink: 0 }}
         >
-          <IntroModelDesktop modelSrc="" />
+          <Image
+            src="/images/Group-1597883091-1.svg"
+            alt=""
+            width={152}
+            height={152}
+          />
         </div>
 
         <nav aria-label="Navigation 2">
