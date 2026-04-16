@@ -19,8 +19,10 @@ interface IntroStripProps {
   align?: "left" | "right";
   /** Arrow scroll target */
   arrowHref?: string;
-  /** Whether to use 50/50 column split (homepage) or full-width (other pages) */
+  /** Whether to use column split (homepage) or full-width (other pages) */
   split?: boolean;
+  /** Width of the content column when split=true. Defaults to "66.66%". Use "50%" for equal split. */
+  contentWidth?: string;
   /** Render text as scroll-out (visible on load, exits upward) instead of scroll-in */
   scrollOut?: boolean;
 }
@@ -36,6 +38,7 @@ export default function IntroStrip({
   align = "right",
   arrowHref = "#ferg",
   split = false,
+  contentWidth = "66.66%",
   scrollOut = false,
 }: IntroStripProps) {
   const isLeft = align === "left";
@@ -156,11 +159,11 @@ export default function IntroStrip({
         {split ? (
           <>
             {/* Left column with content */}
-            <div style={{ flexBasis: "66.66%", flexShrink: 0 }}>
+            <div style={{ flexBasis: contentWidth, flexShrink: 0 }}>
               {inner}
             </div>
             {/* Right column empty */}
-            <div style={{ flexBasis: "33.33%" }} />
+            <div style={{ flex: 1 }} />
           </>
         ) : (
           /* Full-width column */

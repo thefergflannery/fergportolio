@@ -15,6 +15,7 @@ export default function AboutPage() {
     <SiteLayout>
       {/* Parallax hero — background-attachment: fixed pins the image while the page scrolls */}
       <div
+        className="cursor-hello-zone"
         style={{
           position: "relative",
           minHeight: "517px",
@@ -33,16 +34,6 @@ export default function AboutPage() {
             backgroundRepeat: "no-repeat",
           }}
         />
-        {/* Dark overlay */}
-        <span
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "#18242f",
-            opacity: 0.4,
-          }}
-        />
       </div>
 
       <LogoMarquee />
@@ -50,14 +41,11 @@ export default function AboutPage() {
       {/* Design intent strip — zoom-in AOS, right-aligned, full width */}
       <IntroStrip
         text="Over 25 years experience across design from concept to creation"
-        ornamentSrc="/images/Ornament-17.png"
-        ornamentWidth={222}
-        ornamentHeight={145}
-        ornamentAos="zoom-in"
-        ornamentAosDuration="1350"
+        modelSrc="/models/logo-green.glb"
         align="right"
         arrowHref="#ferg"
-        split={false}
+        split={true}
+        contentWidth="50%"
       />
 
       {/* #ferg: photo + bio text */}
