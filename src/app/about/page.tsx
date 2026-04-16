@@ -13,38 +13,36 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <SiteLayout>
-      {/* GIF parallax hero */}
-      <div className="cursor-hello-zone">
+      {/* Parallax hero — background-attachment: fixed pins the image while the page scrolls */}
+      <div
+        style={{
+          position: "relative",
+          minHeight: "517px",
+          overflow: "hidden",
+        }}
+      >
+        {/* Fixed-position background layer — creates the parallax effect */}
         <div
-          className="js-cursor-target-container"
           style={{
-            position: "relative",
-            minHeight: "517px",
-            overflow: "hidden",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            position: "absolute",
+            inset: 0,
+            backgroundImage: "url(/images/about-header.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+            backgroundRepeat: "no-repeat",
           }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: "url(/images/gooseberry.gif)",
-              backgroundSize: "cover",
-              backgroundPosition: "50% 50%",
-            }}
-          />
-          <span
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundColor: "#18242f",
-              opacity: 0.5,
-            }}
-          />
-        </div>
+        />
+        {/* Dark overlay */}
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "#18242f",
+            opacity: 0.4,
+          }}
+        />
       </div>
 
       <LogoMarquee />
