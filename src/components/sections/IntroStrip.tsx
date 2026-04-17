@@ -157,14 +157,17 @@ export default function IntroStrip({
         }}
       >
         {split ? (
-          <>
-            {/* Left column with content */}
-            <div style={{ flexBasis: contentWidth, flexShrink: 0 }}>
-              {inner}
-            </div>
-            {/* Right column empty */}
-            <div style={{ flex: 1 }} />
-          </>
+          isLeft ? (
+            <>
+              <div style={{ flexBasis: contentWidth, flexShrink: 0 }}>{inner}</div>
+              <div style={{ flex: 1 }} />
+            </>
+          ) : (
+            <>
+              <div style={{ flex: 1 }} />
+              <div style={{ flexBasis: contentWidth, flexShrink: 0 }}>{inner}</div>
+            </>
+          )
         ) : (
           /* Full-width column */
           <div style={{ flexBasis: "100%" }}>

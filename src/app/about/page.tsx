@@ -54,29 +54,32 @@ export default function AboutPage() {
         style={{
           display: "flex",
           flexWrap: "nowrap",
+          alignItems: "stretch",
           borderBottom: "1px solid #111111",
-          paddingTop: "var(--wp--preset--spacing--30)",
-          paddingBottom: "var(--wp--preset--spacing--50)",
         }}
       >
-        {/* Left: photo */}
-        <div style={{ flexBasis: "40%", flexShrink: 0 }}>
+        {/* Left: photo — stretches to fill section height */}
+        <div style={{ flexBasis: "40%", flexShrink: 0, overflow: "hidden" }}>
           <Image
             src="/images/ferg2.jpg"
             alt="Ferg Flannery"
             width={1024}
             height={904}
-            style={{ width: "100%", height: "auto", display: "block" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
         </div>
 
-        {/* Right: bio text */}
+        {/* Right: bio text — vertically centred */}
         <div
           style={{
             flexBasis: "60%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
             paddingRight: "var(--wp--preset--spacing--80)",
             paddingLeft: "var(--wp--preset--spacing--40)",
-            paddingTop: "var(--wp--preset--spacing--30)",
+            paddingTop: "var(--wp--preset--spacing--50)",
+            paddingBottom: "var(--wp--preset--spacing--50)",
             fontSize: "var(--wp--preset--font-size--small)",
             lineHeight: 1.7,
           }}
@@ -118,13 +121,8 @@ export default function AboutPage() {
       {/* Award Winning Photographer section */}
       <div
         style={{
-          maxWidth: "var(--wp--style--global--wide-size)",
-          marginLeft: "auto",
-          marginRight: "auto",
           paddingLeft: "var(--wp--preset--spacing--50)",
           paddingRight: "var(--wp--preset--spacing--50)",
-          marginTop: 0,
-          marginBottom: 0,
         }}
       >
         <div
@@ -188,28 +186,28 @@ export default function AboutPage() {
             </a>
           </div>
         </div>
-
-        {/* Large landscape photography image */}
-        <figure
-          style={{ margin: 0 }}
-          data-aos="slide-up"
-          data-aos-duration="1350"
-        >
-          <Image
-            src="/images/Screenshot-2026-02-13-at-09.32.11.png"
-            alt="Ferg Flannery photography"
-            width={1360}
-            height={674}
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-              aspectRatio: "16/9",
-              objectFit: "cover",
-            }}
-          />
-        </figure>
       </div>
+
+      {/* Large landscape photography image — full bleed, no side padding */}
+      <figure
+        style={{ margin: 0 }}
+        data-aos="slide-up"
+        data-aos-duration="1350"
+      >
+        <Image
+          src="/images/Screenshot-2026-02-13-at-09.32.11.png"
+          alt="Ferg Flannery photography"
+          width={1360}
+          height={674}
+          style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+            aspectRatio: "16/9",
+            objectFit: "cover",
+          }}
+        />
+      </figure>
 
       {/* "What people are saying" testimonial */}
       <div
