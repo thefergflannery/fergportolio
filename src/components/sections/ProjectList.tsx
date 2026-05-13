@@ -5,15 +5,7 @@ import Image from "next/image";
 import { useState, useCallback } from "react";
 import AnimatedText from "../ui/AnimatedText";
 import { projects } from "@/data/projects";
-
-const sideProjects = [
-  {
-    title: "Tilt",
-    subtitle: "Irish Political Compass Tool",
-    href: "https://project-5ypr1.vercel.app/",
-    thumbnailImage: "/images/tiltgraphic.jpg",
-  },
-];
+import { sideProjects } from "@/data/side-projects";
 
 interface ThumbState {
   src: string;
@@ -197,8 +189,8 @@ export default function ProjectList() {
 
         <div data-aos="slide-up" data-aos-duration="900" data-aos-easing="ease-out" data-aos-mirror="true">
           <ul style={{ listStyle: "none", margin: 0, padding: 0, textTransform: "uppercase" }}>
-            {sideProjects.map((project) => (
-              <li key={project.href}>
+            {sideProjects.map((project, i) => (
+              <li key={project.href || i}>
                 <a
                   href={project.href}
                   target="_blank"

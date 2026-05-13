@@ -20,6 +20,13 @@ interface Project {
   galleryImages?: string[];
 }
 
+interface SideProject {
+  title: string;
+  subtitle: string;
+  href: string;
+  thumbnailImage: string;
+}
+
 const EMPTY: Project = {
   slug: "",
   title: "",
@@ -35,6 +42,13 @@ const EMPTY: Project = {
   featuredImageHeight: 720,
   thumbnailImage: "",
   galleryImages: ["", "", ""],
+};
+
+const EMPTY_SIDE: SideProject = {
+  title: "",
+  subtitle: "",
+  href: "",
+  thumbnailImage: "",
 };
 
 function slugify(s: string) {
@@ -102,7 +116,6 @@ function ImageUpload({
         {label}
       </label>
 
-      {/* Path text field */}
       <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
         <input
           type="text"
@@ -129,7 +142,6 @@ function ImageUpload({
         </button>
       </div>
 
-      {/* Hidden file input */}
       <input
         ref={inputRef}
         type="file"
@@ -138,7 +150,6 @@ function ImageUpload({
         onChange={handleInputChange}
       />
 
-      {/* Drop zone */}
       <div
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDrop}
@@ -162,7 +173,6 @@ function ImageUpload({
         <p style={{ margin: "4px 0 0", fontSize: "11px", color: "#ff3b30" }}>{uploadError}</p>
       )}
 
-      {/* Preview */}
       {value && (
         <div style={{ marginTop: "8px" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -180,17 +190,34 @@ function ImageUpload({
 // ── Main admin page ─────────────────────────────────────────────────────────
 export default function AdminPage() {
   const router = useRouter();
+
+  // Main projects state
   const [projects, setProjects] = useState<Project[]>([]);
   const [editing, setEditing] = useState<Project | null>(null);
   const [isNew, setIsNew] = useState(false);
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+
+  // Side projects state
+  const [sideProjects, setSideProjects] = useState<SideProject[]>([]);
+  const [editingSide, setEditingSide] = useState<SideProject | null>(null);
+  const [isNewSide, setIsNewSide] = useState(false);
+  const [editingSideIndex, setEditingSideIndex] = useState<number>(-1);
+  const [dragSideIndex, setDragSideIndex] = useState<number | null>(null);
+
+  // Shared save feedback
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
 
   useEffect(() => {
     fetch("/api/projects")
       .then((r) => r.json())
       .then(setProjects);
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/side-projects")
+      .then((r) => r.json())
+      .then(setSideProjects);
   }, []);
 
   const persist = useCallback(async (updated: Project[]) => {
@@ -206,10 +233,25 @@ export default function AdminPage() {
     setTimeout(() => setSaved(false), 2000);
   }, []);
 
+  const persistSide = useCallback(async (updated: SideProject[]) => {
+    setSaving(true);
+    setSaved(false);
+    await fetch("/api/side-projects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updated),
+    });
+    setSaving(false);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }, []);
+
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" });
     router.push("/admin/login");
   }
+
+  // ── Main project handlers ──────────────────────────────────────────────────
 
   function handleEdit(p: Project) {
     setEditing({
@@ -239,7 +281,6 @@ export default function AdminPage() {
     if (!proj.urlLabel) delete proj.urlLabel;
     if (!proj.intro) delete proj.intro;
     if (!proj.extended) delete proj.extended;
-    // Filter empty gallery slots
     if (proj.galleryImages) {
       proj.galleryImages = proj.galleryImages.filter(Boolean);
       if (!proj.galleryImages.length) delete proj.galleryImages;
@@ -273,7 +314,59 @@ export default function AdminPage() {
   }
   function handleDragEnd() { setDragIndex(null); }
 
-  // Helper: simple text field
+  // ── Side project handlers ──────────────────────────────────────────────────
+
+  function handleEditSide(p: SideProject, index: number) {
+    setEditingSide({ ...p });
+    setEditingSideIndex(index);
+    setIsNewSide(false);
+  }
+
+  function handleNewSide() {
+    setEditingSide({ ...EMPTY_SIDE });
+    setIsNewSide(true);
+  }
+
+  function handleDeleteSide(index: number) {
+    if (!confirm("Delete this side project? This cannot be undone.")) return;
+    const updated = sideProjects.filter((_, i) => i !== index);
+    setSideProjects(updated);
+    persistSide(updated);
+  }
+
+  function handleSideFormSave() {
+    if (!editingSide) return;
+    const proj = { ...editingSide };
+    let updated: SideProject[];
+    if (isNewSide) {
+      updated = [...sideProjects, proj];
+    } else {
+      updated = sideProjects.map((p, i) => i === editingSideIndex ? proj : p);
+    }
+    setSideProjects(updated);
+    setEditingSide(null);
+    persistSide(updated);
+  }
+
+  function moveSideProject(from: number, to: number) {
+    const updated = [...sideProjects];
+    const [item] = updated.splice(from, 1);
+    updated.splice(to, 0, item);
+    setSideProjects(updated);
+    persistSide(updated);
+  }
+
+  function handleDragSideStart(i: number) { setDragSideIndex(i); }
+  function handleDragSideOver(e: React.DragEvent, i: number) {
+    e.preventDefault();
+    if (dragSideIndex === null || dragSideIndex === i) return;
+    moveSideProject(dragSideIndex, i);
+    setDragSideIndex(i);
+  }
+  function handleDragSideEnd() { setDragSideIndex(null); }
+
+  // ── Field helpers ──────────────────────────────────────────────────────────
+
   const field = (label: string, key: keyof Project, textarea = false) => (
     <div style={{ marginBottom: "16px" }}>
       <label style={{ display: "block", fontWeight: 700, fontSize: "11px", textTransform: "uppercase", marginBottom: "4px", letterSpacing: "0.05em" }}>
@@ -302,6 +395,22 @@ export default function AdminPage() {
     </div>
   );
 
+  const sideField = (label: string, key: keyof SideProject) => (
+    <div style={{ marginBottom: "16px" }}>
+      <label style={{ display: "block", fontWeight: 700, fontSize: "11px", textTransform: "uppercase", marginBottom: "4px", letterSpacing: "0.05em" }}>
+        {label}
+      </label>
+      <input
+        type="text"
+        value={editingSide?.[key] ?? ""}
+        onChange={(e) => setEditingSide((p) => p ? { ...p, [key]: e.target.value } : p)}
+        style={inputStyle}
+      />
+    </div>
+  );
+
+  const isEditing = editing !== null || editingSide !== null;
+
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#f5f5f5", fontFamily: "'Martian Mono', monospace" }}>
       {/* Top bar */}
@@ -313,7 +422,7 @@ export default function AdminPage() {
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           {saved && <span style={{ fontSize: "11px", fontWeight: 700, color: "#111" }}>Saved ✓</span>}
           {saving && <span style={{ fontSize: "11px", color: "#111", opacity: 0.6 }}>Saving…</span>}
-          {!editing && (
+          {!isEditing && (
             <button onClick={handleNew} style={btnStyle("#111", "#111", "#39FF14")}>
               + New Project
             </button>
@@ -329,9 +438,10 @@ export default function AdminPage() {
 
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "40px 32px" }}>
 
-        {/* Project list */}
-        {!editing && (
+        {/* Lists view */}
+        {!isEditing && (
           <>
+            {/* Main projects */}
             <p style={{ fontSize: "11px", color: "#666", marginBottom: "24px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
               Drag rows to reorder · {projects.length} projects
             </p>
@@ -384,10 +494,74 @@ export default function AdminPage() {
                 </div>
               ))}
             </div>
+
+            {/* Side projects */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "48px", marginBottom: "16px" }}>
+              <p style={{ fontSize: "11px", color: "#666", margin: 0, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Side Projects · {sideProjects.length} items
+              </p>
+              <button onClick={handleNewSide} style={btnStyle("#fff", "#111", "#111")}>
+                + New Side Project
+              </button>
+            </div>
+            <div style={{ border: "2px solid #111", borderRadius: "4px", overflow: "hidden", backgroundColor: "#fff" }}>
+              {sideProjects.length === 0 && (
+                <div style={{ padding: "24px 20px", fontSize: "12px", color: "#999", textAlign: "center" }}>
+                  No side projects yet. Click &quot;+ New Side Project&quot; to add one.
+                </div>
+              )}
+              {sideProjects.map((p, i) => (
+                <div
+                  key={i}
+                  draggable
+                  onDragStart={() => handleDragSideStart(i)}
+                  onDragOver={(e) => handleDragSideOver(e, i)}
+                  onDragEnd={handleDragSideEnd}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    padding: "16px 20px",
+                    borderBottom: i < sideProjects.length - 1 ? "1px solid #e5e5e5" : "none",
+                    backgroundColor: dragSideIndex === i ? "#f0ffe8" : "#fff",
+                    cursor: "grab",
+                    transition: "background-color 0.1s",
+                  }}
+                >
+                  <span style={{ color: "#bbb", fontSize: "16px", userSelect: "none" }}>⠿</span>
+
+                  <div style={{ width: "60px", height: "40px", flexShrink: 0, overflow: "hidden", backgroundColor: "#f0f0f0", borderRadius: "2px" }}>
+                    {p.thumbnailImage && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.thumbnailImage} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    )}
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: "14px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.title}</div>
+                    <div style={{ fontSize: "11px", color: "#666", marginTop: "2px" }}>
+                      {p.subtitle} · <span style={{ color: "#999" }}>{p.href}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
+                    <a href={p.href} target="_blank" rel="noopener noreferrer" style={{ ...smallBtn, backgroundColor: "#f0f0f0", color: "#111" }}>
+                      View
+                    </a>
+                    <button onClick={() => handleEditSide(p, i)} style={{ ...smallBtn, backgroundColor: "#111", color: "#fff" }}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDeleteSide(i)} style={{ ...smallBtn, backgroundColor: "#ff3b30", color: "#fff" }}>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </>
         )}
 
-        {/* Edit / New form */}
+        {/* Edit / New main project form */}
         {editing && (
           <div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "32px" }}>
@@ -401,7 +575,6 @@ export default function AdminPage() {
 
             <div style={{ backgroundColor: "#fff", border: "2px solid #111", borderRadius: "4px", padding: "32px" }}>
 
-              {/* Core fields */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px" }}>
                 {field("Title", "title")}
                 {field("Slug (URL)", "slug")}
@@ -412,14 +585,12 @@ export default function AdminPage() {
                 {field("URL Label (e.g. Visit Instagram)", "urlLabel")}
               </div>
 
-              {/* Description */}
               <div style={{ borderTop: "1px solid #e5e5e5", paddingTop: "24px", marginTop: "8px" }}>
                 <p style={sectionLabel}>Project Description</p>
                 {field("Intro paragraph", "intro", true)}
                 {field("Extended text (use ## for subheadlines, blank line between paragraphs)", "extended", true)}
               </div>
 
-              {/* Images */}
               <div style={{ borderTop: "1px solid #e5e5e5", paddingTop: "24px", marginTop: "8px" }}>
                 <p style={sectionLabel}>Images</p>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px" }}>
@@ -440,7 +611,6 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              {/* Gallery images */}
               <div style={{ borderTop: "1px solid #e5e5e5", paddingTop: "24px", marginTop: "8px" }}>
                 <p style={sectionLabel}>Gallery Images (up to 3)</p>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "0 24px" }}>
@@ -467,6 +637,46 @@ export default function AdminPage() {
                   {saving ? "Saving…" : "Save Project"}
                 </button>
                 <button onClick={() => setEditing(null)} style={btnStyle("#111", "#f0f0f0", "#111")}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Edit / New side project form */}
+        {editingSide && (
+          <div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "32px" }}>
+              <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 800, textTransform: "uppercase" }}>
+                {isNewSide ? "New Side Project" : `Editing: ${editingSide.title}`}
+              </h2>
+              <button onClick={() => setEditingSide(null)} style={{ ...smallBtn, backgroundColor: "#f0f0f0", color: "#111" }}>
+                ← Back
+              </button>
+            </div>
+
+            <div style={{ backgroundColor: "#fff", border: "2px solid #111", borderRadius: "4px", padding: "32px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px" }}>
+                {sideField("Title", "title")}
+                {sideField("Subtitle (tagline)", "subtitle")}
+              </div>
+              {sideField("External URL", "href")}
+
+              <div style={{ borderTop: "1px solid #e5e5e5", paddingTop: "24px", marginTop: "8px" }}>
+                <p style={sectionLabel}>Thumbnail Image</p>
+                <ImageUpload
+                  label="Thumbnail"
+                  value={editingSide.thumbnailImage}
+                  onChange={(path) => setEditingSide((p) => p ? { ...p, thumbnailImage: path } : p)}
+                />
+              </div>
+
+              <div style={{ display: "flex", gap: "12px", marginTop: "32px", paddingTop: "24px", borderTop: "1px solid #e5e5e5" }}>
+                <button onClick={handleSideFormSave} style={btnStyle("#fff", "#111", "#111")}>
+                  {saving ? "Saving…" : "Save Side Project"}
+                </button>
+                <button onClick={() => setEditingSide(null)} style={btnStyle("#111", "#f0f0f0", "#111")}>
                   Cancel
                 </button>
               </div>
