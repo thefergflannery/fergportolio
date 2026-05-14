@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 const DATA_FILE = join(process.cwd(), "src/data/side-projects.json");
@@ -12,6 +12,14 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const sideProjects = await req.json();
   const content = JSON.stringify(sideProjects, null, 2);
+
+  // Write to local file so dev reloads reflect the change immediately.
+  // On Vercel the bundle is read-only, so this will throw — that's fine.
+  try {
+    writeFileSync(DATA_FILE, content, "utf-8");
+  } catch {
+    // production / read-only fs — GitHub commit below handles persistence
+  }
 
   const token = process.env.GITHUB_TOKEN;
   const repo = process.env.GITHUB_REPO;
