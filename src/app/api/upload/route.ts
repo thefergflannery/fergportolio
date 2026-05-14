@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { writeFileSync, mkdirSync } from "fs";
+import { join } from "path";
 
 const ALLOWED_MIME: Record<string, string> = {
   "image/jpeg": ".jpg",
@@ -36,58 +38,67 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Sanitise filename
   const safeName = file.name
-    .replace(/.*[\\/]/, "")               // strip directory components
-    .replace(/[^a-zA-Z0-9._-]/g, "_");   // collapse special chars
+    .replace(/.*[\\/]/, "")
+    .replace(/[^a-zA-Z0-9._-]/g, "_");
 
   if (!safeName || safeName.startsWith(".")) {
     return NextResponse.json({ error: "Invalid filename." }, { status: 400 });
   }
 
+  const bytes  = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  // Write to local public/images/ first (works in dev; silently skipped in production)
+  let savedLocally = false;
+  try {
+    const dir = join(process.cwd(), "public", "images");
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, safeName), buffer);
+    savedLocally = true;
+  } catch {
+    // Expected to fail on Vercel (read-only fs) — GitHub upload handles it below
+  }
+
+  // Upload to GitHub (required in production; also runs in dev if configured)
   const token  = process.env.GITHUB_TOKEN;
   const repo   = process.env.GITHUB_REPO;
   const branch = process.env.GITHUB_BRANCH || "main";
 
-  if (!token || !repo) {
+  if (token && repo) {
+    const filePath = `public/images/${safeName}`;
+    const apiUrl   = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+    const headers  = {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Content-Type": "application/json",
+    };
+
+    let sha: string | undefined;
+    const shaRes = await fetch(`${apiUrl}?ref=${branch}`, { headers });
+    if (shaRes.ok) {
+      const existing = await shaRes.json();
+      sha = existing.sha;
+    }
+
+    const body = JSON.stringify({
+      message: `chore: upload image ${safeName} via admin`,
+      content: buffer.toString("base64"),
+      branch,
+      ...(sha ? { sha } : {}),
+    });
+
+    const putRes = await fetch(apiUrl, { method: "PUT", headers, body });
+    if (!putRes.ok && !savedLocally) {
+      const err = await putRes.text();
+      return NextResponse.json({ error: `GitHub upload failed: ${err}` }, { status: 500 });
+    }
+  } else if (!savedLocally) {
     return NextResponse.json(
       { error: "GITHUB_TOKEN and GITHUB_REPO env vars are required." },
       { status: 503 }
     );
-  }
-
-  const filePath = `public/images/${safeName}`;
-  const apiUrl   = `https://api.github.com/repos/${repo}/contents/${filePath}`;
-  const headers  = {
-    Authorization: `Bearer ${token}`,
-    Accept: "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28",
-    "Content-Type": "application/json",
-  };
-
-  // Get existing file SHA if it exists (needed for updates)
-  let sha: string | undefined;
-  const shaRes = await fetch(`${apiUrl}?ref=${branch}`, { headers });
-  if (shaRes.ok) {
-    const existing = await shaRes.json();
-    sha = existing.sha;
-  }
-
-  // Convert file to base64
-  const bytes      = await file.arrayBuffer();
-  const base64     = Buffer.from(bytes).toString("base64");
-
-  const body = JSON.stringify({
-    message: `chore: upload image ${safeName} via admin`,
-    content: base64,
-    branch,
-    ...(sha ? { sha } : {}),
-  });
-
-  const putRes = await fetch(apiUrl, { method: "PUT", headers, body });
-  if (!putRes.ok) {
-    const err = await putRes.text();
-    return NextResponse.json({ error: `GitHub upload failed: ${err}` }, { status: 500 });
   }
 
   return NextResponse.json({ path: `/images/${safeName}` });
