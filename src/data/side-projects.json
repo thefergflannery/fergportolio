@@ -10,5 +10,11 @@
     "subtitle": "Image/SVG Glitch Tool",
     "href": "https://project-wz2sm.vercel.app/",
     "thumbnailImage": "/images/flitch.gif"
+  },
+  {
+    "title": "Pincue",
+    "subtitle": "Visual Feedback Tool",
+    "href": "https://www.getpincue.com/",
+    "thumbnailImage": "/images/pincue.png"
   }
 ]
