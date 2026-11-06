@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import SiteLayout from "@/components/layout/SiteLayout";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import IntroStrip from "@/components/sections/IntroStrip";
@@ -107,20 +106,12 @@ export default function AboutPage() {
             briefs agencies can build from, holding delivery to an agreed standard and signing
             off work that meets it. Programme sites have gone on to win national digital awards.
           </p>
-          <p style={{ margin: "0 0 var(--wp--preset--spacing--30)" }}>
+          <p style={{ margin: 0 }}>
             Before that he was Head of Product Design at Tweak, owning the design system and
             product vision, and Senior Art Director at Web.com in New York, leading a creative
             team through two rebrands and a company-wide design system.
           </p>
-          <p style={{ margin: 0 }}>
-            He is available now for freelance and contract work: accessibility audits and QA for
-            agencies, EAA readiness for in-scope businesses, and interim creative or delivery
-            leadership.{" "}
-            <Link href="/#contact" style={{ color: "inherit" }}>
-              Get in touch
-            </Link>
-            .
-          </p>
+
         </div>
       </div>
 
