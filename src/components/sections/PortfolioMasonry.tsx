@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { portfolioAlt } from "@/data/portfolio-alt";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -69,7 +70,7 @@ export default async function PortfolioMasonry() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`/images/portfolio/${encodeURIComponent(file)}`}
-              alt=""
+              alt={portfolioAlt[file] ?? "Selected design work by Ferg Flannery"}
               loading="lazy"
             />
           </div>

@@ -65,7 +65,7 @@ export default function Hero() {
             </h1>
 
             <p
-              id="creativeconsultant-art-director-visualdesigner"
+              id="lead-creative-consultant-accessibility-expert"
               className="hero-stagger-out hero-title"
               style={{
                 color: "#fff",
@@ -77,15 +77,15 @@ export default function Hero() {
                 lineHeight: 1,
               }}
             >
-              CREATIVE
+              LEAD CREATIVE
               <br />
               CONSULTANT.
               <br />
-              ART DIRECTOR.
+              LEAD WEB
               <br />
-              VISUAL
+              ACCESSIBILITY
               <br />
-              DESIGNER.
+              EXPERT.
             </p>
           </div>
 

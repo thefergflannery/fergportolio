@@ -6,13 +6,13 @@ import AOSInit from "@/components/ui/AOSInit";
 import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
-  title: "Ferg Flannery – Creative Consultant",
+  title: "Ferg Flannery – Lead Creative Consultant & Web Accessibility Expert",
   description:
-    "Ferg Flannery – Creative Consultant, Art Director, Visual Designer. Over 25 years experience across the creative landscape from concept to creation.",
+    "Ferg Flannery, Lead Creative Consultant and Lead Web Accessibility Expert. Digital delivery, creative direction and WCAG 2.2 AA accessibility for national programmes, agencies and brands. Based in Cork, available for freelance and contract work.",
   openGraph: {
-    title: "Ferg Flannery – Creative Consultant",
+    title: "Ferg Flannery – Lead Creative Consultant & Web Accessibility Expert",
     description:
-      "Creative Consultant, Art Director, Visual Designer. 25+ years across the creative landscape.",
+      "Lead Creative Consultant and Lead Web Accessibility Expert. Digital delivery, creative direction and WCAG 2.2 AA accessibility.",
     url: "https://fergflannery.com",
     siteName: "Ferg Flannery",
     locale: "en_IE",
@@ -24,15 +24,15 @@ export const metadata: Metadata = {
         type: "image/jpeg",
         width: 1200,
         height: 630,
-        alt: "Ferg Flannery – Creative Consultant, Art Director, Visual Designer",
+        alt: "Ferg Flannery – Lead Creative Consultant and Lead Web Accessibility Expert",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ferg Flannery – Creative Consultant",
+    title: "Ferg Flannery – Lead Creative Consultant & Web Accessibility Expert",
     description:
-      "Creative Consultant, Art Director, Visual Designer. 25+ years across the creative landscape.",
+      "Lead Creative Consultant and Lead Web Accessibility Expert. Digital delivery, creative direction and WCAG 2.2 AA accessibility.",
     images: ["https://fergflannery.com/images/social2.jpg"],
   },
 };

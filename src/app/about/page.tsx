@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import SiteLayout from "@/components/layout/SiteLayout";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import IntroStrip from "@/components/sections/IntroStrip";
@@ -7,7 +8,7 @@ import AnimatedText from "@/components/ui/AnimatedText";
 
 export const metadata: Metadata = {
   title: "About Me – Ferg Flannery",
-  description: "Ferg Flannery – Creative Consultant, Art Director and Visual Designer with 25+ years experience.",
+  description: "Ferg Flannery, Lead Creative Consultant and Lead Web Accessibility Expert. National programme delivery, creative direction and WCAG 2.2 AA accessibility.",
 };
 
 export default function AboutPage() {
@@ -40,7 +41,7 @@ export default function AboutPage() {
 
       {/* Design intent strip — zoom-in AOS, right-aligned, full width */}
       <IntroStrip
-        text="Over 25 years experience across design from concept to creation"
+        text="Creative direction and accessibility expertise, delivered at national scale"
         modelSrc="/models/logo-green.glb"
         align="right"
         arrowHref="#ferg"
@@ -85,35 +86,39 @@ export default function AboutPage() {
           }}
         >
           <p style={{ margin: "0 0 var(--wp--preset--spacing--30)" }}>
-            Ferg Flannery is a multidisciplinary designer and developer with over 25 years of
-            experience delivering digital projects from concept through to completion. He
-            specialises in designing and building modern, accessible websites that combine
-            strong visual direction with technical precision.
-          </p>
-          <p style={{ margin: "0 0 var(--wp--preset--spacing--30)" }}>
-            Working across WordPress and custom builds, Ferg integrates UX strategy, scalable
-            architecture, performance optimisation, SEO foundations, and{" "}
+            Ferg Flannery is a Lead Creative Consultant and Lead Web Accessibility Expert. Most
+            recently he was one of two lead consultants on Fáilte Ireland&apos;s Digital That
+            Delivers programme, which supported 600 Irish tourism businesses, and part of the
+            core team that built the Web Accessibility Grant Scheme, bringing 100+ tourism
+            websites to{" "}
             <a
               href="https://www.w3.org/TR/WCAG22/"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "inherit" }}
             >
-              WCAG
-            </a>{" "}
-            accessibility standards to create purposeful, high-performing digital experiences.
+              WCAG 2.2 AA
+            </a>
+            .
           </p>
           <p style={{ margin: "0 0 var(--wp--preset--spacing--30)" }}>
-            In recent years, his focus has expanded into creative project management —
-            collaborating with agencies, stakeholders, and development teams to shape
-            briefs, guide execution, and ensure complex digital initiatives are delivered
-            with clarity and measurable impact. He operates at the intersection of creative
-            thinking and technical delivery, offering consultation that turns ideas into
-            structured, effective digital solutions.
+            He sits between businesses, agencies and developers: auditing what exists, writing
+            briefs agencies can build from, holding delivery to an agreed standard and signing
+            off work that meets it. Programme sites have gone on to win national digital awards.
+          </p>
+          <p style={{ margin: "0 0 var(--wp--preset--spacing--30)" }}>
+            Before that he was Head of Product Design at Tweak, owning the design system and
+            product vision, and Senior Art Director at Web.com in New York, leading a creative
+            team through two rebrands and a company-wide design system.
           </p>
           <p style={{ margin: 0 }}>
-            With a foundation in visual design and art direction, his work balances aesthetics
-            with usability, always grounded in collaboration and real-world outcomes.
+            He is available now for freelance and contract work: accessibility audits and QA for
+            agencies, EAA readiness for in-scope businesses, and interim creative or delivery
+            leadership.{" "}
+            <Link href="/#contact" style={{ color: "inherit" }}>
+              Get in touch
+            </Link>
+            .
           </p>
         </div>
       </div>
@@ -140,10 +145,10 @@ export default function AboutPage() {
           <div className="photographer-heading" style={{ flexBasis: "50%", flexShrink: 0 }}>
             <AnimatedText
               as="h2"
-              id="award-winning-photographer"
+              id="photography"
               style={{ margin: 0 }}
             >
-              Award Winning Photographer
+              Outside the Studio
             </AnimatedText>
           </div>
 
@@ -159,7 +164,7 @@ export default function AboutPage() {
               Alongside his digital work, Ferg is an active fine art photographer based in
               Ireland. His photography focuses on atmospheric landscapes and abstract
               compositions that explore light, mood and space. Self-taught, his photographic
-              practice emphasises cinematic stillness and natural presence — qualities that
+              practice emphasises cinematic stillness and natural presence, qualities that
               subtly influence his design eye and visual decision-making across projects.
             </p>
             <a
