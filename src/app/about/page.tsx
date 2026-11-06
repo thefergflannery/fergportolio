@@ -8,7 +8,7 @@ import AnimatedText from "@/components/ui/AnimatedText";
 
 export const metadata: Metadata = {
   title: "About Me – Ferg Flannery",
-  description: "Ferg Flannery, Lead Creative Consultant and Lead Web Accessibility Expert. National programme delivery, creative direction and WCAG 2.2 AA accessibility.",
+  description: "Ferg Flannery – Creative Consultant, Art Director and Visual Designer with 25+ years experience.",
 };
 
 export default function AboutPage() {
@@ -86,9 +86,10 @@ export default function AboutPage() {
           }}
         >
           <p style={{ margin: "0 0 var(--wp--preset--spacing--30)" }}>
-            Ferg Flannery is a Lead Creative Consultant and Lead Web Accessibility Expert. Most
+            Ferg Flannery is a creative consultant, art director and visual designer. Most
             recently he was one of two lead consultants on Fáilte Ireland&apos;s Digital That
-            Delivers programme, which supported 600 Irish tourism businesses, and part of the
+            Delivers programme, working as Lead Creative Consultant and Lead Web Accessibility
+            Expert, which supported 600 Irish tourism businesses, and part of the
             core team that built the Web Accessibility Grant Scheme, bringing 100+ tourism
             websites to{" "}
             <a

@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Selected Work – Ferg Flannery",
-  description: "Selected design and digital work by Ferg Flannery – Lead Creative Consultant and Lead Web Accessibility Expert.",
+  description: "Selected design and digital work by Ferg Flannery – Creative Consultant, Art Director, Visual Designer.",
 };
 
 export default function WorkPage() {

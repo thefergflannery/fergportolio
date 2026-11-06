@@ -12,9 +12,9 @@ import ContactSection from "@/components/sections/ContactSection";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Ferg Flannery – Lead Creative Consultant & Web Accessibility Expert",
+  title: "Ferg Flannery – Creative Consultant",
   description:
-    "Ferg Flannery, Lead Creative Consultant and Lead Web Accessibility Expert. Digital delivery, creative direction and WCAG 2.2 AA accessibility for national programmes, agencies and brands. Based in Cork, available for freelance and contract work.",
+    "Creative Consultant, Art Director, Visual Designer. 25+ years across the creative landscape from concept to creation.",
 };
 
 export default function HomePage() {
